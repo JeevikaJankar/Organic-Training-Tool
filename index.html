@@ -476,19 +476,92 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
 .sessBtn-secondary{background:var(--c-bg);color:var(--c-primary);border:1.5px solid var(--c-border);}
 
 /* Video section */
+/* ── CLOCK & QUOTE WIDGET ── */
+#clockQuoteWidget{
+  margin:10px 14px 6px;
+  background:linear-gradient(135deg,#0a1f0e 0%,#122b18 60%,#1a3525 100%);
+  border-radius:16px;
+  border:1px solid rgba(82,183,136,.25);
+  padding:12px 14px;
+  display:flex;align-items:center;gap:12px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 4px 18px rgba(0,0,0,.3);
+}
+#clockQuoteWidget::before{
+  content:'';position:absolute;top:-20px;left:-20px;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(249,168,37,.09) 0%,transparent 70%);
+  pointer-events:none;
+}
+#clockQuoteWidget::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,transparent,#f9a825,transparent);
+  border-radius:0 16px 16px 0;
+}
+#clockSide{
+  display:flex;flex-direction:column;align-items:center;
+  flex-shrink:0;gap:5px;
+}
+#clockRing{width:72px;height:72px;}
+#clockSvg{width:72px;height:72px;}
+#clockDateLine{
+  font-size:9.5px;font-weight:700;
+  color:rgba(255,255,255,.55);
+  text-align:center;letter-spacing:.4px;
+  max-width:76px;line-height:1.3;
+}
+#quoteSide{
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:flex-end;
+  text-align:right;
+  gap:3px;
+}
+#quoteIcon{
+  font-size:26px;line-height:1;
+  color:rgba(249,168,37,.4);
+  font-family:Georgia,serif;
+  align-self:flex-end;
+  margin-bottom:-2px;
+}
+#quoteOfMonth{
+  font-size:12.5px;line-height:1.6;
+  color:#e8f5e9;
+  font-style:italic;
+  font-family:Georgia,serif;
+  font-weight:700;
+  letter-spacing:.1px;
+  text-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+
 .videoCard{
   border-radius:12px;overflow:hidden;
   background:linear-gradient(135deg,#0d1a0d,#1b3a1b);
   border:1px solid rgba(82,183,136,.2);
 }
 .videoThumb{
-  height:80px;
+  height:180px;
   background:linear-gradient(135deg,#0d2b10,#1b4332);
+  cursor:pointer;position:relative;
+  transition:opacity .2s;overflow:hidden;
+  display:block;
+}
+.videoThumb:hover{opacity:.9;}
+.videoThumbImg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  display:block;
+}
+.videoThumbOverlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.38);
   display:flex;align-items:center;justify-content:center;
-  gap:12px;cursor:pointer;
+  gap:12px;
   transition:background .2s;
 }
-.videoThumb:hover{background:linear-gradient(135deg,#1b4332,#2d6a4f);}
+.videoThumb:hover .videoThumbOverlay{background:rgba(0,0,0,.22);}
 .videoPlay{
   width:44px;height:44px;border-radius:50%;
   background:linear-gradient(135deg,#f9a825,#ff8f00);
@@ -1224,6 +1297,29 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
     </div>
   </div>
 
+  <!-- ── CLOCK & QUOTE WIDGET ── -->
+  <div id="clockQuoteWidget">
+    <div id="clockSide">
+      <div id="clockRing">
+        <svg id="clockSvg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(249,168,37,.15)" stroke-width="3"/>
+          <circle id="clockArc" cx="40" cy="40" r="36" fill="none" stroke="#f9a825" stroke-width="3"
+            stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"
+            transform="rotate(-90 40 40)"/>
+          <text x="40" y="37" text-anchor="middle" dominant-baseline="middle"
+            fill="#f9a825" font-size="13" font-weight="800" font-family="monospace" id="svgTime">--:--</text>
+          <text x="40" y="52" text-anchor="middle" dominant-baseline="middle"
+            fill="rgba(255,255,255,.55)" font-size="7" font-weight="600" id="svgSec">--</text>
+        </svg>
+      </div>
+      <div id="clockDateLine"></div>
+    </div>
+    <div id="quoteSide">
+      <div id="quoteIcon">❝</div>
+      <div id="quoteOfMonth"></div>
+    </div>
+  </div>
+
   <!-- ── SECTION: THIS MONTH ── -->
   <div class="homeSec">
     <div class="homeSec-title" id="hSecCards">इस माह की जानकारी</div>
@@ -1408,12 +1504,20 @@ var STAGE_PHOTOS={
   picking:'data:image/jpeg;base64,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'
 };
 
-var VIDEOS={0:'17X-ddqIzRouxCK6xDHByDEYKJD7jRbKy',1:'1HZNp8Aa2V_U5t4QBb_jKQttU5Vb8UuTh',
-  2:'1QoyoIrhUPVDHtn1o-Rw_W9X5IQ5dUNtP',3:'1qgDDDjXWhq8cE3io6hCMjH_uNswCZaHf',
-  4:'1xMZ7cQb6-CdqYbEkdUAiyqAvoVEcdAwQ',5:'1rv4c1Mx4N402vSalBBRINiHOT9Gk5QNu',
-  6:'1cJa8woKAdpO8JNR4lejcnZtRXl92cKJ_',7:'1DmaWD62FrZIg52EmdVYRemXXIeuQddWw',
-  8:'1TZzO6GowLu_8HwD_AVdAnf9yww7SbOxF',9:'1C0rjhCvQlmKlKcTaCsqQTVUbRWV-r9-P',
-  10:'1hsyvssiLbsWvV97zxUVjiMNCbe50t8Uz',11:'1H16LaOG3lPplFXH2-LGTbf2PuQ4iLpxi'};
+var VIDEOS={
+  0:'https://youtu.be/7JYF7d4KdBc',
+  1:'https://youtu.be/zx0aTbMjtN0',
+  2:'https://youtu.be/ovvwBgJ7qu8',
+  3:'https://youtu.be/L3oKFCq5h9Q',
+  4:'https://youtu.be/yuxIK_2vT-I',
+  5:'https://youtu.be/4JGKX0sogZ4',
+  6:'https://youtu.be/unqBMoKpHMY',
+  7:'https://youtu.be/WU_XksfvVFE',
+  8:'https://youtu.be/4JGKX0sogZ4',
+  9:'https://youtu.be/eyrKMr7h8cQ',
+  10:'https://youtu.be/7qlOmGlX8bk',
+  11:'https://youtu.be/wvMSD9f5f6s'
+};
 
 var DL={
   '01':'https://drive.google.com/drive/folders/1kE8NDg2SgajBjOT8GiAYgI0l9jRaPXXy',
@@ -2096,7 +2200,69 @@ function renderCrop(){
   });
 }
 
-// ── DETECT MONTH ──
+// ── CLOCK & HINDI QUOTES ──
+var HINDI_QUOTES = {
+  0: 'जैविक किसान सिर्फ फसल नहीं उगाता, भविष्य उगाता है।',
+  1: 'जैविक किसान सिर्फ फसल नहीं उगाता, भविष्य उगाता है।',
+  2: 'प्रशिक्षण लो, ज्ञान बढ़ाओ — खेती को व्यवसाय बनाओ।',
+  3: 'जैविक किसान, देश की शान — प्रकृति का रखे ध्यान।',
+  4: 'ज़मीन को ज़हर से बचाना है, बिना केमिकल की खेती को अपनाना है!',
+  5: 'प्रशिक्षण लो, ज्ञान बढ़ाओ — खेती को व्यवसाय बनाओ।',
+  6: 'जैविक किसान, देश की शान — प्रकृति का रखे ध्यान।',
+  7: 'ज़मीन को ज़हर से बचाना है, बिना केमिकल की खेती को अपनाना है!',
+  8: 'जैविक किसान सिर्फ फसल नहीं उगाता, भविष्य उगाता है।',
+  9: 'जैविक किसान, देश की शान — प्रकृति का रखे ध्यान।',
+  10: 'ज़मीन को ज़हर से बचाना है, बिना केमिकल की खेती को अपनाना है!',
+  11: 'प्रशिक्षण लो, ज्ञान बढ़ाओ — खेती को व्यवसाय बनाओ।'
+};
+
+var HINDI_DAYS = ['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'];
+var HINDI_MONTHS_SHORT = ['जन','फ़र','मार्च','अप्र','मई','जून','जुलाई','अग','सित','अक्तू','नव','दिस'];
+
+function startClock(){
+  var circumference = 2 * Math.PI * 36; // 226.19
+  function tick(){
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var hStr = String(h).padStart(2,'0');
+    var mStr = String(m).padStart(2,'0');
+    var sStr = String(s).padStart(2,'0');
+
+    // SVG time text
+    var svgTime = document.getElementById('svgTime');
+    var svgSec  = document.getElementById('svgSec');
+    if(svgTime) svgTime.textContent = hStr+':'+mStr;
+    if(svgSec)  svgSec.textContent  = sStr+'s';
+
+    // Arc progress based on seconds
+    var arc = document.getElementById('clockArc');
+    if(arc){
+      var progress = s / 60;
+      var offset = circumference * (1 - progress);
+      arc.setAttribute('stroke-dashoffset', offset.toFixed(2));
+    }
+
+    // Date line
+    var dl = document.getElementById('clockDateLine');
+    if(dl){
+      var day = HINDI_DAYS[now.getDay()];
+      var date = now.getDate();
+      var mon = HINDI_MONTHS_SHORT[now.getMonth()];
+      dl.textContent = day+' '+date+' '+mon;
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+function setQuoteOfMonth(){
+  var qEl = document.getElementById('quoteOfMonth');
+  if(qEl) qEl.textContent = HINDI_QUOTES[cur] || HINDI_QUOTES[0];
+}
+
+
 function detectMonth(){
   var map={5:0,6:1,7:2,8:3,9:4,10:5,11:6,12:7,1:8,2:9,3:10,4:11};
   var m=new Date().getMonth()+1;
@@ -2211,16 +2377,29 @@ function buildMeths(cl,cfg,isHiLang){
 function buildVideo(mo,cfg,isHiLang){
   var sec=makeSec('▶',t('videoLabel'),isHiLang?'उपलब्ध':'Available');
   sec.el.id='pvideo';
-  var vId=VIDEOS[cur];
-  var url='https://drive.google.com/file/d/'+vId+'/view?usp=sharing';
+  var url=VIDEOS[cur];
+  var ytId='';
+  var m1=url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  var m2=url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if(m1) ytId=m1[1]; else if(m2) ytId=m2[1];
+  var thumbUrl=ytId?'https://img.youtube.com/vi/'+ytId+'/hqdefault.jpg':'';
   var vc=document.createElement('div');vc.className='videoCard';
   var thumb=document.createElement('div');thumb.className='videoThumb';
   thumb.onclick=function(){openDrive(url);};
+  if(thumbUrl){
+    var timg=document.createElement('img');
+    timg.src=thumbUrl;
+    timg.className='videoThumbImg';
+    timg.alt='';
+    thumb.appendChild(timg);
+  }
+  var overlay=document.createElement('div');overlay.className='videoThumbOverlay';
   var play=document.createElement('div');play.className='videoPlay';play.textContent='▶';
   var wlbl=document.createElement('div');
-  wlbl.style.cssText='color:rgba(255,255,255,.85);font-size:14px;font-weight:800;';
+  wlbl.style.cssText='color:rgba(255,255,255,.95);font-size:14px;font-weight:800;text-shadow:0 1px 4px rgba(0,0,0,.8);';
   wlbl.textContent=isHiLang?'▶ वीडियो देखें':'▶ Watch Video';
-  thumb.appendChild(play);thumb.appendChild(wlbl);
+  overlay.appendChild(play);overlay.appendChild(wlbl);
+  thumb.appendChild(overlay);
   var vinfo=document.createElement('div');vinfo.className='videoInfo';
   var vtitle=document.createElement('div');vtitle.className='videoTitle';
   vtitle.textContent=(isHiLang?'प्रशिक्षण वीडियो – ':'Training Video – ')+mo.m;
@@ -2438,6 +2617,8 @@ function detectMonth(){
 
 // \u2500\u2500 INIT \u2500\u2500
 detectMonth();
+startClock();
+setQuoteOfMonth();
 renderHome();
 showPage('home');
 
