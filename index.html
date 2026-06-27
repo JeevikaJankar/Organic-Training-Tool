@@ -63,6 +63,9 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes ddGlow{0%,100%{box-shadow:0 0 18px #1A6B3A55,0 0 40px #1A6B3A22;}50%{box-shadow:0 0 28px #1A6B3Aaa,0 0 60px #7DBF6A33;}}
+@keyframes glow3P{0%,100%{box-shadow:0 0 16px #D4B86A44,0 0 36px #D4B86A11;}50%{box-shadow:0 0 28px #D4B86Aaa,0 0 60px #D4B86A33;}}
+@keyframes blink3P{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 @keyframes shimmer{0%{background-position:-200%}100%{background-position:200%}}
 @keyframes slideRight{from{width:0}to{width:var(--w)}}
@@ -1243,6 +1246,712 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
 .reg-btn:active{transform:scale(.98);}
 .reg-note{font-size:10px;color:rgba(255,255,255,.5);text-align:center;margin-top:14px;line-height:1.5;}
 
+
+
+/* ══ SOC CALCULATOR — fully scoped to #pageSocInner ══ */
+#pageSoc{display:none;}
+#pageSoc.active{display:block;}
+#pageSocInner *, #pageSocInner *::before, #pageSocInner *::after
+{ box-sizing: border-box; margin: 0; padding: 0; }
+
+#pageSocInner
+{
+    --soil-dark:   #2C1A0E;
+    --soil-mid:    #5C3317;
+    --soil-warm:   #8B4F1F;
+    --soil-pale:   #C47D3A;
+    --humus:       #1A3A08;
+    --green:       #3A7D1E;
+    --green-light: #5FAD2E;
+    --amber:       #E8960F;
+    --amber-lt:    #FDD87A;
+    --red:         #C0392B;
+    --blue:        #1A5F8E;
+    --cream:       #FBF6EC;
+    --paper:       #F4EDD8;
+    --text-main:   #1C1207;
+    --text-sub:    #5A3E28;
+    --text-soft:   #8B6848;
+    --border:      #D4B896;
+    --white:       #FFFFFF;
+  }
+
+#pageSocInner
+{ scroll-behavior: smooth; }
+
+#pageSocInner
+{
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+#pageSocInner /* ── HEADER ── */
+  .page-header
+{
+    background: var(--soil-dark);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+#pageSocInner .page-header::before
+{
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px),
+      repeating-linear-gradient(0deg, transparent 0, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+    pointer-events: none;
+  }
+
+#pageSocInner .header-inner
+{
+    max-width: 1100px; margin: 0 auto;
+    padding: 40px 32px 36px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 24px; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+#pageSocInner .header-badge
+{
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(232,150,15,0.18);
+    border: 1px solid rgba(232,150,15,0.35);
+    color: var(--amber-lt); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+#pageSocInner .header-title
+{
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900; color: #fff;
+    line-height: 1.15; letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+#pageSocInner .header-title em
+{ color: var(--amber); font-style: normal; }
+
+#pageSocInner .header-sub
+{
+    font-size: 15px; color: rgba(255,255,255,0.65);
+    line-height: 1.7; max-width: 520px;
+  }
+
+#pageSocInner .header-stat
+{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 24px 28px;
+    text-align: center; min-width: 160px;
+    flex-shrink: 0;
+  }
+
+#pageSocInner .header-stat .hs-num
+{
+    font-size: 48px; font-weight: 900; color: var(--amber);
+    line-height: 1; margin-bottom: 4px;
+  }
+
+#pageSocInner .header-stat .hs-unit
+{ font-size: 20px; color: var(--amber-lt); }
+
+#pageSocInner .header-stat .hs-label
+{ font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.4; margin-top: 6px; }
+
+#pageSocInner /* ── NAV TABS ── */
+  .nav-tabs
+{
+    background: var(--soil-mid);
+    border-bottom: 2px solid var(--soil-pale);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+#pageSocInner .nav-inner
+{
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 32px;
+    display: flex; gap: 4px;
+    overflow-x: auto;
+  }
+
+#pageSocInner .nav-tab
+{
+    padding: 14px 20px;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    cursor: pointer; border: none; background: none;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s; white-space: nowrap;
+  }
+
+#pageSocInner .nav-tab:hover
+{ color: var(--amber-lt); }
+
+#pageSocInner .nav-tab.active
+{ color: var(--amber); border-bottom-color: var(--amber); }
+
+#pageSocInner /* ── MAIN LAYOUT ── */
+  .page-body
+{
+    max-width: 1100px; margin: 0 auto;
+    padding: 36px 32px 60px;
+  }
+
+#pageSocInner /* ── SECTION TITLES ── */
+  .sec-eyebrow
+{
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--soil-warm);
+    margin-bottom: 6px;
+  }
+
+#pageSocInner .sec-title
+{
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 900; color: var(--soil-dark);
+    line-height: 1.2; margin-bottom: 6px;
+  }
+
+#pageSocInner .sec-desc
+{
+    font-size: 15px; color: var(--text-sub);
+    line-height: 1.7; margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+#pageSocInner .section-block
+{ margin-bottom: 64px; scroll-margin-top: 56px; }
+
+#pageSocInner /* ── WHAT IS SOC ── */
+  .definition-grid
+{
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 20px;
+  }
+
+#pageSocInner .def-card
+{
+    border-radius: 16px; padding: 28px;
+    position: relative; overflow: hidden;
+  }
+
+#pageSocInner .def-card.som
+{
+    background: var(--humus);
+    color: white;
+  }
+
+#pageSocInner .def-card.soc
+{
+    background: var(--soil-warm);
+    color: white;
+  }
+
+#pageSocInner .def-card .dc-tag
+{
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.65;
+    margin-bottom: 8px;
+  }
+
+#pageSocInner .def-card .dc-abbr
+{
+    font-size: 52px; font-weight: 900; line-height: 1;
+    margin-bottom: 8px; opacity: 0.95;
+  }
+
+#pageSocInner .def-card.som .dc-abbr
+{ color: #A8D878; }
+
+#pageSocInner .def-card.soc .dc-abbr
+{ color: var(--amber-lt); }
+
+#pageSocInner .def-card .dc-name
+{ font-size: 16px; font-weight: 700; margin-bottom: 10px; opacity: 0.9; }
+
+#pageSocInner .def-card .dc-body
+{ font-size: 13px; line-height: 1.75; opacity: 0.8; }
+
+#pageSocInner .formula-strip
+{
+    background: var(--soil-dark);
+    border-radius: 14px; padding: 20px 28px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+
+#pageSocInner .formula-strip .fs-part
+{ text-align: center; }
+
+#pageSocInner .formula-strip .fs-num
+{ font-size: 28px; font-weight: 900; color: var(--amber); line-height: 1; }
+
+#pageSocInner .formula-strip .fs-label
+{ font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+
+#pageSocInner .formula-strip .fs-op
+{ font-size: 28px; font-weight: 300; color: rgba(255,255,255,0.3); }
+
+#pageSocInner /* ── RANGE GAUGE ── */
+  .range-section
+{ margin-bottom: 28px; }
+
+#pageSocInner .gauge-wrap
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    margin-bottom: 16px;
+  }
+
+#pageSocInner .gauge-label-row
+{
+    display: flex; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+#pageSocInner .gauge-lbl
+{ font-size: 12px; color: var(--text-soft); font-weight: 500; }
+
+#pageSocInner .gauge-track
+{
+    height: 32px; border-radius: 16px;
+    background: linear-gradient(90deg,
+      #C0392B 0%, #C0392B 10%,
+      #E67E22 10%, #E67E22 20%,
+      #F39C12 20%, #F39C12 40%,
+      #27AE60 40%, #27AE60 70%,
+      #1A7A45 70%, #1A7A45 100%);
+    position: relative; margin-bottom: 8px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+#pageSocInner .gauge-marker
+{
+    position: absolute; top: -6px;
+    width: 4px; height: 44px;
+    background: var(--soil-dark);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: left 0.5s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+#pageSocInner .gauge-marker::after
+{
+    content: attr(data-val);
+    position: absolute; bottom: -26px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px; font-weight: 700;
+    color: var(--soil-dark);
+    white-space: nowrap;
+    background: var(--amber-lt); border-radius: 6px; padding: 1px 7px;
+  }
+
+#pageSocInner .gauge-zones
+{
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 8px; margin-top: 20px;
+  }
+
+#pageSocInner .gz
+{
+    border-radius: 10px; padding: 12px 10px;
+    text-align: center; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 2px solid transparent;
+  }
+
+#pageSocInner .gz:hover
+{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+#pageSocInner .gz.gz-sel
+{ border-color: var(--soil-dark); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+
+#pageSocInner .gz.z1
+{ background: #FDECEA; }
+
+#pageSocInner .gz.z2
+{ background: #FEF3E2; }
+
+#pageSocInner .gz.z3
+{ background: #FEF9E7; }
+
+#pageSocInner .gz.z4
+{ background: #EAF7EE; }
+
+#pageSocInner .gz.z5
+{ background: #D5EFE0; }
+
+#pageSocInner .gz .gz-range
+{ font-size: 14px; font-weight: 800; margin-bottom: 3px; }
+
+#pageSocInner .gz.z1 .gz-range
+{ color: #C0392B; }
+
+#pageSocInner .gz.z2 .gz-range
+{ color: #E67E22; }
+
+#pageSocInner .gz.z3 .gz-range
+{ color: #D4AC0D; }
+
+#pageSocInner .gz.z4 .gz-range
+{ color: #27AE60; }
+
+#pageSocInner .gz.z5 .gz-range
+{ color: #1A7A45; }
+
+#pageSocInner .gz .gz-status
+{ font-size: 12px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+
+#pageSocInner .gz .gz-desc
+{ font-size: 11px; color: var(--text-soft); line-height: 1.4; }
+
+#pageSocInner /* range detail panel */
+  .range-detail
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    display: none;
+    animation: fadeUp 0.25s ease;
+  }
+
+#pageSocInner .range-detail.show
+{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+#pageSocInner .rd-item
+{ }
+
+#pageSocInner .rd-label
+{ font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-soft); margin-bottom: 5px; }
+
+#pageSocInner .rd-val
+{ font-size: 15px; font-weight: 600; color: var(--text-main); line-height: 1.5; }
+
+#pageSocInner /* ── FACTORS ── */
+  .factors-grid
+{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; margin-bottom: 24px;
+  }
+
+#pageSocInner .factor-card
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 22px;
+    cursor: pointer; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+
+#pageSocInner .factor-card::before
+{
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+
+#pageSocInner .factor-card.positive::before
+{ background: var(--green); }
+
+#pageSocInner .factor-card.negative::before
+{ background: var(--red); }
+
+#pageSocInner .factor-card:hover
+{ transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.10); border-color: var(--soil-pale); }
+
+#pageSocInner .fc-ico
+{ font-size: 32px; margin-bottom: 10px; display: block; }
+
+#pageSocInner .fc-name
+{ font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+
+#pageSocInner .fc-effect
+{
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+#pageSocInner .fc-effect.pos
+{ background: #D5EFE0; color: var(--humus); }
+
+#pageSocInner .fc-effect.neg
+{ background: #FDECEA; color: var(--red); }
+
+#pageSocInner .fc-body
+{ font-size: 12px; color: var(--text-soft); line-height: 1.65; }
+
+#pageSocInner /* ── CALCULATOR ── */
+  .calc-grid
+{
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; align-items: start;
+  }
+
+#pageSocInner .calc-inputs
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 32px;
+  }
+
+#pageSocInner .calc-inputs h3
+{
+    font-size: 18px; font-weight: 800; color: var(--soil-dark);
+    margin-bottom: 6px;
+  }
+
+#pageSocInner .calc-inputs .ci-sub
+{ font-size: 13px; color: var(--text-soft); margin-bottom: 28px; }
+
+#pageSocInner .slider-group
+{ margin-bottom: 28px; }
+
+#pageSocInner .sg-header
+{ display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+
+#pageSocInner .sg-label
+{ font-size: 14px; font-weight: 600; color: var(--text-main); }
+
+#pageSocInner .sg-val
+{
+    font-size: 22px; font-weight: 900; color: var(--soil-warm);
+    min-width: 70px; text-align: right;
+  }
+
+#pageSocInner .sg-unit
+{ font-size: 12px; color: var(--text-soft); }
+
+#pageSocInner input[type=range]
+{
+    width: 100%; -webkit-appearance: none; appearance: none;
+    height: 8px; border-radius: 4px;
+    background: linear-gradient(90deg, var(--soil-warm) var(--pct, 30%), #E8DDD0 var(--pct, 30%));
+    outline: none; cursor: pointer;
+  }
+
+#pageSocInner input[type=range]::-webkit-slider-thumb
+{
+    -webkit-appearance: none; appearance: none;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--soil-dark);
+    border: 3px solid var(--amber); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+  }
+
+#pageSocInner input[type=range]::-webkit-slider-thumb:hover
+{ transform: scale(1.15); }
+
+#pageSocInner .sg-ticks
+{ display: flex; justify-content: space-between; margin-top: 4px; }
+
+#pageSocInner .sg-tick
+{ font-size: 10px; color: var(--text-soft); }
+
+#pageSocInner /* results panel */
+  .calc-results
+{
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+#pageSocInner .res-card
+{
+    border-radius: 18px; padding: 26px;
+    position: relative; overflow: hidden;
+  }
+
+#pageSocInner .res-card.primary
+{
+    background: var(--soil-dark); color: white;
+  }
+
+#pageSocInner .res-card.secondary
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    color: var(--text-main);
+  }
+
+#pageSocInner .rc-label
+{ font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+
+#pageSocInner .rc-value
+{ font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+
+#pageSocInner .res-card.primary .rc-value
+{ color: var(--amber); }
+
+#pageSocInner .res-card.secondary .rc-value
+{ color: var(--soil-warm); }
+
+#pageSocInner .rc-unit
+{ font-size: 15px; opacity: 0.7; font-weight: 500; }
+
+#pageSocInner .rc-desc
+{ font-size: 13px; line-height: 1.65; margin-top: 10px; opacity: 0.75; }
+
+#pageSocInner .res-row
+{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+#pageSocInner .res-mini
+{
+    background: var(--paper); border-radius: 14px; padding: 18px;
+    border: 1.5px solid var(--border);
+  }
+
+#pageSocInner .rm-label
+{ font-size: 11px; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+
+#pageSocInner .rm-val
+{ font-size: 26px; font-weight: 900; color: var(--soil-dark); line-height: 1; }
+
+#pageSocInner .rm-unit
+{ font-size: 12px; color: var(--text-soft); }
+
+#pageSocInner /* progress bar inside calc */
+  .soc-progress-wrap
+{ margin-top: 16px; }
+
+#pageSocInner .sp-row
+{ display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); margin-bottom: 6px; }
+
+#pageSocInner .sp-track
+{ height: 14px; background: #E8DDD0; border-radius: 7px; overflow: hidden; position: relative; }
+
+#pageSocInner .sp-curr
+{ height: 100%; border-radius: 7px 0 0 7px; background: linear-gradient(90deg, #C0392B, #E67E22); transition: width 0.6s cubic-bezier(.34,1.56,.64,1); }
+
+#pageSocInner .sp-target-line
+{
+    position: absolute; top: 0; bottom: 0; width: 3px;
+    background: var(--humus);
+    transition: left 0.6s cubic-bezier(.34,1.56,.64,1);
+  }
+
+#pageSocInner .sp-cert-line
+{
+    position: absolute; top: 0; bottom: 0; width: 3px;
+    background: var(--soil-dark); border-left: 2px dashed var(--amber);
+  }
+
+#pageSocInner /* practice checklist */
+  .practice-check
+{
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 28px;
+    margin-top: 24px;
+  }
+
+#pageSocInner .practice-check h3
+{ font-size: 17px; font-weight: 800; color: var(--soil-dark); margin-bottom: 4px; }
+
+#pageSocInner .practice-check .pch-sub
+{ font-size: 13px; color: var(--text-soft); margin-bottom: 20px; }
+
+#pageSocInner .pch-grid
+{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+#pageSocInner .pch-item
+{
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--paper); border-radius: 12px;
+    padding: 14px; cursor: pointer;
+    border: 2px solid transparent; transition: all 0.15s;
+  }
+
+#pageSocInner .pch-item:hover
+{ border-color: var(--border); }
+
+#pageSocInner .pch-item.checked
+{ background: #EAF7EE; border-color: var(--green); }
+
+#pageSocInner .pch-box
+{
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    border: 2px solid var(--border); margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; transition: all 0.15s;
+    background: white;
+  }
+
+#pageSocInner .pch-item.checked .pch-box
+{ background: var(--green); border-color: var(--green); }
+
+#pageSocInner .pch-text h4
+{ font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+
+#pageSocInner .pch-text p
+{ font-size: 11px; color: var(--text-soft); line-height: 1.5; }
+
+#pageSocInner .pch-impact
+{ font-size: 10px; font-weight: 700; color: var(--green); background: #D5EFE0; padding: 2px 7px; border-radius: 8px; display: inline-block; margin-top: 4px; }
+
+#pageSocInner /* boost result */
+  .boost-bar
+{
+    background: var(--soil-dark); border-radius: 16px;
+    padding: 20px 24px; margin-top: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+
+#pageSocInner .bb-label
+{ font-size: 13px; color: rgba(255,255,255,0.65); }
+
+#pageSocInner .bb-val
+{ font-size: 20px; font-weight: 900; color: var(--amber); }
+
+#pageSocInner /* ── FOOTER ── */
+  .page-footer
+{
+    background: var(--soil-dark);
+    padding: 24px 32px;
+    text-align: center;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    line-height: 1.8;
+  }
+
+#pageSocInner /* ── RESPONSIVE ── */
+  @media (max-width: 768px)
+{
+    .header-inner { grid-template-columns: 1fr; }
+    .header-stat { display: none; }
+    .definition-grid { grid-template-columns: 1fr; }
+    .factors-grid { grid-template-columns: 1fr 1fr; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .gauge-zones { grid-template-columns: 1fr 1fr 1fr; }
+    .range-detail.show { grid-template-columns: 1fr; }
+    .pch-grid { grid-template-columns: 1fr; }
+    .page-body { padding: 24px 16px 48px; }
+    .nav-inner { padding: 0 16px; }
+  }
+
+@media (max-width: 480px) {
+#pageSocInner .factors-grid
+{ grid-template-columns: 1fr; }
+
+#pageSocInner .gauge-zones
+{ grid-template-columns: 1fr 1fr; }
+
+}
+
 </style>
 </head>
 <body>
@@ -1407,8 +2116,398 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
       <div class="qaCard-icon" style="background:linear-gradient(135deg,#1B5E20,#8BC34A);">✅</div>
       <div class="qaCard-label" id="qaLbl4">Inspection Checklist</div>
     </div>
+    <div class="qaCard" onclick="showPage('soc')">
+      <div class="qaCard-icon" style="background:linear-gradient(135deg,#2C1A0E,#8B4F1F);">🧮</div>
+      <div class="qaCard-label" id="qaLbl5">SOC केलकुलेटर</div>
+    </div>
   </div>
 
+</div>
+
+<!-- ════ PAGE: SOC CALCULATOR ════ -->
+<div class="page" id="pageSoc">
+<div id="pageSocInner">
+<div style="position:sticky;top:0;z-index:9999;background:#2C1A0E;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #8B4F1F;">
+  <button onclick="showPage('home')" style="background:rgba(232,150,15,0.2);border:1px solid rgba(232,150,15,0.4);color:#FDD87A;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;cursor:pointer;font-family:inherit;">← वापस जाएं</button>
+  <span style="color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;letter-spacing:0.5px;">🧮 SOC केलकुलेटर · मृदा कार्बनिक कार्बन</span>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-badge">🌱 PAPL · जैविक खेती · मृदा स्वास्थ्य</div>
+      <h1 class="header-title">
+        मृदा कार्बनिक <em>कार्बन</em><br>
+        <em>सुधार</em> कैलकुलेटर
+      </h1>
+      <p class="header-sub">SOC क्या है, आपके खेत की क्या स्थिति है, क्या घटाता-बढ़ाता है, और कितना कम्पोस्ट चाहिए — सब कुछ एक जगह।</p>
+    </div>
+    <div class="header-stat">
+      <div class="hs-num">58<span class="hs-unit">%</span></div>
+      <div class="hs-label">SOM में<br>कार्बन का हिस्सा<br>यही SOC है</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════ NAV -->
+<nav class="nav-tabs" role="navigation" aria-label="Page sections">
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="scrollSec('s-what')">SOC क्या है?</button>
+    <button class="nav-tab" onclick="scrollSec('s-range')">स्तर व श्रेणी</button>
+    <button class="nav-tab" onclick="scrollSec('s-factors')">क्या घटाता-बढ़ाता है?</button>
+    <button class="nav-tab" onclick="scrollSec('s-calc')">कैलकुलेटर</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ BODY -->
+<main class="page-body">
+
+  <!-- ─── SECTION 1: WHAT IS SOC ─── -->
+  <section class="section-block" id="s-what">
+    <p class="sec-eyebrow">मूल अवधारणा</p>
+    <h2 class="sec-title">SOC और SOM — मिट्टी का जीवन</h2>
+    <p class="sec-desc">मिट्टी में जो भी जैविक चीज़ होती है — मरे हुए पत्ते, जड़ें, कीड़े, सूक्ष्मजीव — वह सब <strong>SOM</strong> है। उसका कार्बन हिस्सा <strong>SOC</strong> कहलाता है। SOC मापना आसान है, इसीलिए इसे मिट्टी स्वास्थ्य का मुख्य सूचक माना जाता है।</p>
+
+    <div class="definition-grid">
+      <div class="def-card som">
+        <div class="dc-tag">Soil Organic Matter</div>
+        <div class="dc-abbr">SOM</div>
+        <div class="dc-name">मृदा कार्बनिक पदार्थ</div>
+        <div class="dc-body">मिट्टी में मौजूद सभी जैविक सामग्री — मृत पौधे, जीव-जंतु, कीड़े, सूक्ष्मजीव और उनके अवशेष। यह मिट्टी की "जीवंतता" की पहचान है। मिट्टी का रंग, गंध, नमी — सब SOM से।</div>
+      </div>
+      <div class="def-card soc">
+        <div class="dc-tag">Soil Organic Carbon</div>
+        <div class="dc-abbr">SOC</div>
+        <div class="dc-name">मृदा कार्बनिक कार्बन</div>
+        <div class="dc-body">SOM का कार्बन-रूप — SOM का लगभग 58% हिस्सा। प्रयोगशाला में मापना आसान और सटीक। मिट्टी जाँच रिपोर्ट में यही अंक देखें। जैविक प्रमाणन के लिए यही मानक।</div>
+      </div>
+    </div>
+
+    <div class="formula-strip">
+      <div class="fs-part">
+        <div class="fs-num">SOM</div>
+        <div class="fs-label">मृदा कार्बनिक पदार्थ</div>
+      </div>
+      <div class="fs-op">=</div>
+      <div class="fs-part">
+        <div class="fs-num">SOC</div>
+        <div class="fs-label">मृदा कार्बनिक कार्बन</div>
+      </div>
+      <div class="fs-op">×</div>
+      <div class="fs-part">
+        <div class="fs-num" style="color:var(--amber-lt)">1.724</div>
+        <div class="fs-label">रूपांतरण गुणांक</div>
+      </div>
+      <div style="width:1px;height:40px;background:rgba(255,255,255,0.1);margin:0 8px"></div>
+      <div class="fs-part">
+        <div class="fs-num" style="font-size:18px;color:#aaa">उदाहरण:</div>
+        <div class="fs-label">1% SOC → 1.72% SOM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: RANGE ─── -->
+  <section class="section-block" id="s-range">
+    <p class="sec-eyebrow">श्रेणी और स्थिति</p>
+    <h2 class="sec-title">आपकी मिट्टी कहाँ खड़ी है?</h2>
+    <p class="sec-desc">भारत की अधिकांश कृषि मिट्टी में SOC 0.3–0.8% है — जबकि स्वस्थ मिट्टी के लिए 1.5–2.5% चाहिए। नीचे से अपनी श्रेणी चुनें।</p>
+
+    <div class="gauge-wrap">
+      <div class="gauge-label-row">
+        <span class="gauge-lbl">0%</span>
+        <span class="gauge-lbl">0.5%</span>
+        <span class="gauge-lbl">0.75%</span>
+        <span class="gauge-lbl">1.5%</span>
+        <span class="gauge-lbl">2.5%</span>
+        <span class="gauge-lbl">3%+</span>
+      </div>
+      <div class="gauge-track" id="gauge-track">
+        <div class="gauge-marker" id="gauge-marker" style="left:25%" data-val="0.75%"></div>
+      </div>
+      <div class="gauge-zones">
+        <div class="gz z1" onclick="selectZone(0)" id="gz0">
+          <div class="gz-range">&lt; 0.5%</div>
+          <div class="gz-status">🔴 अत्यंत कम</div>
+          <div class="gz-desc">गंभीर कमी — तत्काल हस्तक्षेप</div>
+        </div>
+        <div class="gz z2" onclick="selectZone(1)" id="gz1">
+          <div class="gz-range">0.5–0.75%</div>
+          <div class="gz-status">🟠 कम</div>
+          <div class="gz-desc">भारत की औसत कृषि मिट्टी</div>
+        </div>
+        <div class="gz z3" onclick="selectZone(2)" id="gz2" style="border-color:var(--soil-dark)">
+          <div class="gz-range">0.75–1.5%</div>
+          <div class="gz-status">🟡 मध्यम</div>
+          <div class="gz-desc">ठीक — सुधार जारी रखें</div>
+        </div>
+        <div class="gz z4" onclick="selectZone(3)" id="gz3">
+          <div class="gz-range">1.5–2.5%</div>
+          <div class="gz-status">🟢 अच्छा</div>
+          <div class="gz-desc">स्वस्थ जैविक मिट्टी</div>
+        </div>
+        <div class="gz z5" onclick="selectZone(4)" id="gz4">
+          <div class="gz-range">&gt; 2.5%</div>
+          <div class="gz-status">✅ उत्कृष्ट</div>
+          <div class="gz-desc">प्रमाणन के लिए आदर्श</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="range-detail" id="range-detail">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: FACTORS ─── -->
+  <section class="section-block" id="s-factors">
+    <p class="sec-eyebrow">प्रभावी कारक</p>
+    <h2 class="sec-title">SOC घटाता क्या है, बढ़ाता क्या है?</h2>
+    <p class="sec-desc">खेत की हर गतिविधि SOC पर असर डालती है। नीचे प्रत्येक कारक पर क्लिक करें और देखें खेत में क्या हो रहा है।</p>
+
+    <div class="factors-grid">
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">♻️</span>
+        <div class="fc-name">कम्पोस्ट / वर्मीकम्पोस्ट</div>
+        <span class="fc-effect pos">↑ SOC बढ़ाता है</span>
+        <p class="fc-body">प्रति एकड़ 2–4 टन कम्पोस्ट प्रतिवर्ष सबसे तेज़ और प्रभावी SOC निर्माण विधि है। वर्मीकम्पोस्ट में सूक्ष्मजीव अधिक → SOC जल्दी।</p>
+      </div>
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">🌿</span>
+        <div class="fc-name">हरी खाद (Green Manure)</div>
+        <span class="fc-effect pos">↑ SOC बढ़ाता है</span>
+        <p class="fc-body">ढैंचा, सनई या मूँग को खेत में पलटें। 1 टन हरी खाद से 0.05–0.1% SOC वृद्धि। नाइट्रोजन भी मिलती है।</p>
+      </div>
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">🌾</span>
+        <div class="fc-name">फसल अवशेष मिट्टी में</div>
+        <span class="fc-effect pos">↑ SOC बढ़ाता है</span>
+        <p class="fc-body">पराली, ठूँठ, पत्तियाँ मिट्टी में मिलाएं या मल्च करें। यह सबसे सस्ता SOC इनपुट है — बिल्कुल मुफ्त।</p>
+      </div>
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">🌱</span>
+        <div class="fc-name">फसल चक्र (Crop Rotation)</div>
+        <span class="fc-effect pos">↑ SOC बढ़ाता है</span>
+        <p class="fc-body">दलहनी फसलें (चना, मूँग, सोयाबीन) नाइट्रोजन स्थिरीकरण + SOC दोनों बढ़ाती हैं। विविधता = मिट्टी की ताकत।</p>
+      </div>
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">🪱</span>
+        <div class="fc-name">न्यूनतम जुताई (Zero Tillage)</div>
+        <span class="fc-effect pos">↑ SOC बचाता है</span>
+        <p class="fc-body">कम जुताई से मिट्टी की संरचना बनी रहती है, सूक्ष्मजीव जीवित रहते हैं और SOC का ऑक्सीकरण कम होता है।</p>
+      </div>
+
+      <div class="factor-card positive" onclick="toggleFactor(this)">
+        <span class="fc-ico">🐄</span>
+        <div class="fc-name">जीवामृत / गोबर खाद</div>
+        <span class="fc-effect pos">↑ SOC बढ़ाता है</span>
+        <p class="fc-body">गोबर खाद, जीवामृत और बीजामृत — सूक्ष्मजीव गतिविधि बढ़ाते हैं जो SOM विघटन को बेहतर करती है।</p>
+      </div>
+
+      <div class="factor-card negative" onclick="toggleFactor(this)">
+        <span class="fc-ico">🔥</span>
+        <div class="fc-name">पराली / अवशेष जलाना</div>
+        <span class="fc-effect neg">↓ SOC घटाता है</span>
+        <p class="fc-body">सबसे हानिकारक प्रथा। जलाने से SOC, नाइट्रोजन और सूक्ष्मजीव — तीनों नष्ट। एक बार जलाने से वर्षों की मेहनत बर्बाद।</p>
+      </div>
+
+      <div class="factor-card negative" onclick="toggleFactor(this)">
+        <span class="fc-ico">🚜</span>
+        <div class="fc-name">गहरी / बार-बार जुताई</div>
+        <span class="fc-effect neg">↓ SOC घटाता है</span>
+        <p class="fc-body">गहरी जुताई मिट्टी उलट-पलट करती है → ऑक्सीजन बढ़ती है → सूक्ष्मजीव SOC तेज़ी से जला देते हैं।</p>
+      </div>
+
+      <div class="factor-card negative" onclick="toggleFactor(this)">
+        <span class="fc-ico">🧪</span>
+        <div class="fc-name">अत्यधिक रासायनिक खाद</div>
+        <span class="fc-effect neg">↓ SOC घटाता है</span>
+        <p class="fc-body">बहुत अधिक DAP / यूरिया मिट्टी की pH बिगाड़ता है, सूक्ष्मजीव कम होते हैं और दीर्घकालिक SOC नुकसान होता है।</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: CALCULATOR ─── -->
+  <section class="section-block" id="s-calc">
+    <p class="sec-eyebrow">इंटरेक्टिव कैलकुलेटर</p>
+    <h2 class="sec-title">अपने खेत का SOC लक्ष्य तय करें</h2>
+    <p class="sec-desc">खेत का आकार, वर्तमान SOC और लक्ष्य डालें — कैलकुलेटर बताएगा कितना कम्पोस्ट चाहिए और कितने साल लगेंगे।</p>
+
+    <div class="calc-grid">
+
+      <!-- INPUTS -->
+      <div class="calc-inputs">
+        <h3>📋 खेत की जानकारी भरें</h3>
+        <p class="ci-sub">स्लाइडर खिसकाएं — परिणाम तुरंत बदलेंगे</p>
+
+        <!-- Acres -->
+        <div class="slider-group">
+          <div class="sg-header">
+            <label class="sg-label" for="sl-acres">🌾 खेत का आकार</label>
+            <span class="sg-val" id="v-acres">5 <span class="sg-unit">एकड़</span></span>
+          </div>
+          <input type="range" id="sl-acres" min="1" max="50" value="5" step="1" oninput="calc()">
+          <div class="sg-ticks"><span class="sg-tick">1</span><span class="sg-tick">10</span><span class="sg-tick">20</span><span class="sg-tick">35</span><span class="sg-tick">50 एकड़</span></div>
+        </div>
+
+        <!-- Current SOC -->
+        <div class="slider-group">
+          <div class="sg-header">
+            <label class="sg-label" for="sl-curr">📊 वर्तमान SOC</label>
+            <span class="sg-val" id="v-curr">0.5 <span class="sg-unit">%</span></span>
+          </div>
+          <input type="range" id="sl-curr" min="1" max="25" value="5" step="1" oninput="calc()">
+          <div class="sg-ticks"><span class="sg-tick">0.1%</span><span class="sg-tick">0.75%</span><span class="sg-tick">1.5%</span><span class="sg-tick">2%</span><span class="sg-tick">2.5%</span></div>
+        </div>
+
+        <!-- Target SOC -->
+        <div class="slider-group">
+          <div class="sg-header">
+            <label class="sg-label" for="sl-target">🎯 लक्ष्य SOC</label>
+            <span class="sg-val" id="v-target">1.0 <span class="sg-unit">%</span></span>
+          </div>
+          <input type="range" id="sl-target" min="5" max="30" value="10" step="1" oninput="calc()">
+          <div class="sg-ticks"><span class="sg-tick">0.5%</span><span class="sg-tick">0.75%</span><span class="sg-tick">1.5%</span><span class="sg-tick">2%</span><span class="sg-tick">3%</span></div>
+        </div>
+
+        <!-- SOC Progress bar -->
+        <div class="soc-progress-wrap">
+          <div class="sp-row">
+            <span id="pb-curr-lbl">वर्तमान: 0.5%</span>
+            <span id="pb-target-lbl">लक्ष्य: 1.0%</span>
+            <span style="color:var(--green);font-weight:700">प्रमाणन: 0.75%</span>
+          </div>
+          <div class="sp-track">
+            <div class="sp-curr" id="pb-curr" style="width:17%"></div>
+            <div class="sp-target-line" id="pb-target" style="left:33%"></div>
+            <div class="sp-cert-line" style="left:25%"></div>
+          </div>
+          <div style="font-size:11px;color:var(--text-soft);margin-top:5px">हरी रेखा = जैविक प्रमाणन न्यूनतम (0.75%) | काली रेखा = आपका लक्ष्य</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="calc-results">
+
+        <div class="res-card primary">
+          <div class="rc-label">वार्षिक कम्पोस्ट आवश्यकता</div>
+          <div class="rc-value" id="r-compost">12.5 <span class="rc-unit">टन</span></div>
+          <div class="rc-desc" id="r-compost-desc">5 एकड़ में 0.5% SOC वृद्धि के लिए अनुमानित कम्पोस्ट। वर्मीकम्पोस्ट 30% कम लगता है।</div>
+        </div>
+
+        <div class="res-row">
+          <div class="res-mini">
+            <div class="rm-label">अनुमानित समय</div>
+            <div class="rm-val" id="r-years">3–5 <span class="rm-unit">वर्ष</span></div>
+          </div>
+          <div class="res-mini">
+            <div class="rm-label">SOC अंतर</div>
+            <div class="rm-val" id="r-gap">0.5 <span class="rm-unit">%</span></div>
+          </div>
+        </div>
+
+        <div class="res-card secondary">
+          <div class="rc-label">SOC वृद्धि से लाभ</div>
+          <div class="rc-value" id="r-water" style="font-size:32px">+100 <span class="rc-unit">लीटर/वर्गमीटर</span></div>
+          <div class="rc-desc" id="r-water-desc">प्रति 1% SOC वृद्धि पर अतिरिक्त जल धारण। सूखे में फसल सुरक्षित।</div>
+        </div>
+
+        <div class="res-card secondary" id="r-status-card">
+          <div class="rc-label">लक्ष्य की स्थिति</div>
+          <div class="rc-value" id="r-status" style="font-size:24px">🎯 जैविक प्रमाणन योग्य</div>
+          <div class="rc-desc" id="r-status-desc">लक्ष्य SOC 0.75% से ऊपर — जैविक प्रमाणन के लिए आवेदन योग्य होगा।</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PRACTICE CHECKLIST -->
+    <div class="practice-check">
+      <h3>✅ मैं यह कर रहा हूँ / करूँगा</h3>
+      <p class="pch-sub">जो प्रथाएं आप अपनाएंगे उन्हें चुनें — SOC बूस्ट अनुमान बदलेगा</p>
+      <div class="pch-grid">
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.15)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>♻️ कम्पोस्ट / वर्मीकम्पोस्ट</h4>
+            <p>2–4 टन/एकड़/वर्ष</p>
+            <span class="pch-impact">+0.15% SOC/वर्ष</span>
+          </div>
+        </div>
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.08)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>🌿 हरी खाद पलटना</h4>
+            <p>ढैंचा / सनई खेत में</p>
+            <span class="pch-impact">+0.08% SOC/वर्ष</span>
+          </div>
+        </div>
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.10)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>🌾 अवशेष नहीं जलाना</h4>
+            <p>मल्च या मिट्टी में मिलाना</p>
+            <span class="pch-impact">+0.10% SOC/वर्ष</span>
+          </div>
+        </div>
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.06)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>🌱 दलहनी फसल चक्र</h4>
+            <p>चना / मूँग / सोयाबीन</p>
+            <span class="pch-impact">+0.06% SOC/वर्ष</span>
+          </div>
+        </div>
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.05)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>🪱 न्यूनतम जुताई</h4>
+            <p>Zero / Minimum Tillage</p>
+            <span class="pch-impact">+0.05% SOC/वर्ष</span>
+          </div>
+        </div>
+
+        <div class="pch-item" onclick="toggleCheck(this, 0.07)">
+          <div class="pch-box">✓</div>
+          <div class="pch-text">
+            <h4>🐄 जीवामृत / गोबर खाद</h4>
+            <p>नियमित छिड़काव / प्रयोग</p>
+            <span class="pch-impact">+0.07% SOC/वर्ष</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="boost-bar" id="boost-bar">
+        <div>
+          <div class="bb-label">चुनी गई प्रथाओं से अनुमानित SOC वृद्धि</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px">प्रति वर्ष अनुमान — खेत की परिस्थितियों पर निर्भर</div>
+        </div>
+        <div class="bb-val" id="boost-val">0.00% / वर्ष</div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- ══════════════════════════════════════════════════════ FOOTER -->
+<footer class="page-footer">
+  <div>SOC सुधार कैलकुलेटर · PAPL जैविक खेती प्रशिक्षण</div>
+  <div>सभी अनुमान भारतीय कृषि अनुसंधान परिषद (ICAR) और अंतरराष्ट्रीय शोध डेटा पर आधारित हैं · व्यक्तिगत खेत के परिणाम भिन्न हो सकते हैं</div>
+</footer>
+</div>
 </div>
 
 <!-- ════ PAGE: MONTHLY FIELD PLAN ════ -->
@@ -1950,6 +3049,7 @@ function showPage(id){
   else if(id==='month') renderMonthPage();
   else if(id==='crop') renderCrop();
   else if(id==='modules') renderModules();
+  else if(id==='soc'){} // SOC is static
 }
 
 function openMonth(idx){
@@ -2065,6 +3165,7 @@ function renderHome(){
   var qa2=document.getElementById('qaLbl2');if(qa2) qa2.textContent=isHi?'VRP (जीविका जानकार) की भूमिका':'Role of VRP (Jeevika Jankar)';
   var qa3=document.getElementById('qaLbl3');if(qa3) qa3.textContent=isHi?'फार्म डायरी':'Farm Diary';
   var qa4=document.getElementById('qaLbl4');if(qa4) qa4.textContent=isHi?'निरीक्षण चेकलिस्ट':'Inspection Checklist';
+  var qa5=document.getElementById('qaLbl5');if(qa5) qa5.textContent=isHi?'SOC केलकुलेटर':'SOC Calculator';
 
   // ── Bottom nav ──
   var b1=document.getElementById('bnLblHome');if(b1) b1.textContent=t('home');
@@ -2282,6 +3383,292 @@ function buildMonthContent(mo,cfg,cl,isHi){
   if(VIDEOS[cur]) mc.appendChild(buildVideo(mo,cfg,isHi));
   if(mo.t&&mo.t.length) mc.appendChild(buildSessions(mo,isHi));
   mc.appendChild(buildChecklist(isHi));
+  // Do's & Don'ts — April(11), May(0), June(1), July(2)
+  if(cur===0||cur===1||cur===2||cur===11) mc.appendChild(buildDosDonts());
+  // 3P Care — August(3), September(4), October(5)
+  if(cur===3||cur===4||cur===5) mc.appendChild(build3PCare());
+}
+
+/* ══════════════════════════════════════════════
+   DO'S & DON'TS — Cotton + Pigeonpea (Apr–Jul)
+   ══════════════════════════════════════════════ */
+var DD_DATA=[
+  {id:0,title:'भूमि तैयारी',titleEn:'Land Preparation',icon:'🚜',color:'#7B4F1E',accent:'#E8C07A',bg:'#2A1A08',
+   tip:'💡 गहरी गर्मी जुताई से कीट-अंडे नष्ट होते हैं और मिट्टी की जलधारण क्षमता बढ़ती है।',
+   dos:[{text:'गर्मियों में गहरी जुताई करें (25-30 सेमी)',tag:'Summer Deep Ploughing'},{text:'अंतिम जुताई से पहले 8-10 टन/एकड़ FYM या कम्पोस्ट मिलाएं',tag:'FYM 8-10 T/Acre'},{text:'हरी खाद (ढेंचा/सनई) बोएं और 45 दिन में पलटें',tag:'Green Manure — 45 Days'},{text:'मिट्टी परीक्षण कराएं — pH 6.5–8.0 उपयुक्त है',tag:'Soil pH: 6.5–8.0'},{text:'बेड या रिज-फरो पद्धति से भूमि तैयार करें',tag:'Bed / Ridge-Furrow'},{text:'जल निकासी की उचित व्यवस्था करें',tag:'Proper Drainage'}],
+   donts:[{text:'एक ही दिशा में बार-बार जुताई न करें — मिट्टी कठोर होती है',tag:'Avoid Mono-tilling'},{text:'रासायनिक खाद का उपयोग न करें — जैविक प्रमाणन खतरे में पड़ेगा',tag:'No Chemical Fertilizer'},{text:'बुवाई से तुरंत पहले भारी सिंचाई न करें',tag:'No Pre-sow Flooding'},{text:'पिछली फसल के अवशेष बिना पलटे खेत में न छोड़ें',tag:'No Raw Crop Residue'}]},
+  {id:1,title:'बीज उपचार',titleEn:'Seed Treatment — Bio-inputs',icon:'🧪',color:'#1A6B3A',accent:'#7DBF6A',bg:'#081A10',
+   tip:'💡 जीवामृत + ट्राइकोडर्मा + हींग — तीनों एक साथ उपयोग करने से सर्वोत्तम अंकुरण और जड़ विकास मिलता है।',
+   dos:[{text:'जीवामृत में 2 घंटे बीज भिगोएं — बुवाई से पहले छाया में सुखाएं',tag:'Jeevamrut Soak: 2 Hr'},{text:'ट्राइकोडर्मा विरिडी — 4 ग्राम/किग्रा बीज की दर से लगाएं',tag:'Trichoderma 4g/kg'},{text:'राइजोबियम + PSB — 5 ग्राम/किग्रा बीज के साथ मिलाएं',tag:'Rhizobium + PSB 5g/kg'},{text:'हींग का घोल (2 ग्राम/लीटर पानी) — बीज 30 मिनट भिगोएं',tag:'Hing 2g/L — 30 Min'},{text:'बीज उपचार हमेशा छाया में करें — धूप में जैव-इनपुट नष्ट होते हैं',tag:'Always in Shade'},{text:'उपचारित बीज 6 घंटे के अंदर बोएं',tag:'Sow within 6 Hours'}],
+   donts:[{text:'रासायनिक फफूंदनाशक (थाइरम, कैप्टान) का उपयोग न करें',tag:'No Thiram / Captan'},{text:'उपचारित बीज सीधी धूप में न रखें',tag:'No Direct Sunlight'},{text:'जीवामृत और रासायनिक खाद एक साथ न मिलाएं',tag:'No Chemical Mixing'},{text:'पुराना या एक्सपायर्ड ट्राइकोडर्मा उपयोग न करें',tag:'Check Expiry Date'}]},
+  {id:2,title:'बुवाई',titleEn:'Sowing — Cotton + Intercrop',icon:'🌱',color:'#1A5C8A',accent:'#7AC8E8',bg:'#071520',
+   tip:'💡 अरहर अंतरफसल से नाइट्रोजन स्थिरीकरण होता है, मिट्टी की संरचना सुधरती है और किसान को अतिरिक्त आमदनी मिलती है।',
+   dos:[{text:'कपास: पंक्ति से पंक्ति 3 फुट × पौध से पौध 3 फुट (90×90 सेमी) रखें',tag:'Cotton: 3×3 Feet'},{text:'प्रति स्थान केवल 1 बीज बोएं — अंकुरण बाद विरलन करें',tag:'1 Seed Per Hole Only'},{text:'अंतरफसल अरहर — कपास की 4 पंक्तियों के बाद 1 पंक्ति अरहर',tag:'Pigeonpea: 4:1 Row Ratio'},{text:'अरहर पंक्ति में पौध दूरी — 2 फुट (60 सेमी) रखें',tag:'Pigeonpea: 2 Feet'},{text:'मूंग/उड़द — कपास की 2 पंक्तियों के बाद 1 पंक्ति (छोटी अवधि)',tag:'Moong/Urad: 2:1 Row'},{text:'बुवाई गहराई — 3–4 सेमी (1.5 इंच) रखें',tag:'Sowing Depth: 1.5 Inch'},{text:'बुवाई जून के दूसरे सप्ताह में करें — मानसून स्थापित होने पर',tag:'Timing: June 2nd Week'},{text:'खेत की सीमा पर ज्वार/मक्का की बॉर्डर फसल लगाएं',tag:'Border: Jowar / Maize'}],
+   donts:[{text:'एक जगह 2–3 बीज एक साथ न बोएं',tag:'No Cluster Sowing'},{text:'जलभराव वाले खेत में बुवाई न करें',tag:'No Waterlogged Field'},{text:'अरहर की जगह कोई लम्बी या घनी प्रतिस्पर्धी फसल न बोएं',tag:'No Dense Competing Crop'},{text:'5 सेमी से अधिक गहरी बुवाई न करें',tag:'Max Depth: <5 cm'},{text:'हाइब्रिड BT कपास बीज जैविक खेती में उपयोग न करें',tag:'No BT / Hybrid Seeds'}]}
+];
+var _ddSec=0,_ddTab='do';
+
+function buildDosDonts(){
+  _ddSec=0;_ddTab='do';
+  var wrap=document.createElement('div');
+  wrap.id='ddWrap';
+  wrap.style.cssText='margin:0 0 12px;font-family:"Noto Sans Devanagari","Segoe UI",sans-serif;';
+  var keyBtn=document.createElement('div');
+  keyBtn.id='ddKeyBtn';
+  keyBtn.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:10px;'
+    +'background:linear-gradient(135deg,#081A10,#0f2a0f);border:1.5px solid #1A6B3A;border-radius:16px;'
+    +'padding:14px 18px;cursor:pointer;box-shadow:0 0 18px #1A6B3A55,0 0 40px #1A6B3A22;'
+    +'animation:ddGlow 2.5s ease-in-out infinite;';
+  keyBtn.innerHTML='<div style="display:flex;align-items:center;gap:12px;">'
+    +'<div style="font-size:28px;filter:drop-shadow(0 0 8px #7DBF6A88);">🌿</div>'
+    +'<div><div style="font-size:15px;font-weight:900;color:#F0F7EC;line-height:1.2;">क्या करें, क्या नहीं?</div>'
+    +'<div style="font-size:10px;color:#7DBF6A;font-weight:700;letter-spacing:1px;margin-top:3px;">Do\'s &amp; Don\'ts · Cotton + Pigeonpea</div></div></div>'
+    +'<div id="ddArrow" style="font-size:20px;color:#7DBF6A;transition:transform .3s;">›</div>';
+  var panel=document.createElement('div');
+  panel.id='ddPanel';
+  panel.style.cssText='display:none;background:linear-gradient(160deg,#080f08,#0f1c0f);'
+    +'border:1.5px solid #1A6B3A;border-top:none;border-radius:0 0 16px 16px;overflow:hidden;';
+  panel.innerHTML='<div id="ddInner" style="padding:14px;"></div>';
+  wrap.appendChild(keyBtn);wrap.appendChild(panel);
+  keyBtn.addEventListener('click',function(){
+    var open=panel.style.display!=='none';
+    panel.style.display=open?'none':'block';
+    var arr=document.getElementById('ddArrow');
+    if(arr) arr.style.transform=open?'rotate(0deg)':'rotate(90deg)';
+    if(!open) ddRender();
+  });
+  return wrap;
+}
+
+function ddRender(){
+  var inner=document.getElementById('ddInner');if(!inner)return;
+  var s=DD_DATA[_ddSec];
+  var tabs='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">';
+  DD_DATA.forEach(function(sec){
+    var isA=sec.id===_ddSec;
+    tabs+='<button onclick="_ddSec='+sec.id+';_ddTab=\'do\';ddRender();" style="padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;'
+      +'background:'+(isA?'linear-gradient(135deg,'+sec.color+'DD,'+sec.color+'88)':'transparent')+';'
+      +'border:1.5px solid '+(isA?sec.accent:'#2E5C20')+';color:'+(isA?sec.accent:'#5A8A50')+';'
+      +'box-shadow:'+(isA?'0 0 12px '+sec.color+'55':'none')+';display:flex;align-items:center;gap:5px;">'
+      +'<span style="font-size:14px;">'+sec.icon+'</span><span>'+sec.title+'</span></button>';
+  });
+  tabs+='</div>';
+  var items=_ddTab==='do'?s.dos:s.donts;
+  var isDo=_ddTab==='do';
+  var list='<div style="padding:14px 16px 6px;max-height:320px;overflow-y:auto;-webkit-overflow-scrolling:touch;">';
+  items.forEach(function(item,i){
+    list+='<div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;animation:fadeUp .3s ease '+(i*0.06)+'s both;">'
+      +'<div style="min-width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:900;'
+      +'background:'+(isDo?'linear-gradient(135deg,#16a34a,#22c55e)':'linear-gradient(135deg,#dc2626,#ef4444)')+';'
+      +'box-shadow:0 0 8px '+(isDo?'#16a34a66':'#dc262666')+';">'+(isDo?'✓':'✗')+'</div>'
+      +'<div><div style="font-size:12px;color:'+(isDo?'#d1fae5':'#fecaca')+';line-height:1.65;">'+item.text+'</div>'
+      +'<span style="font-size:9px;background:'+(isDo?'#14532d88':'#7f1d1d88')+';color:'+(isDo?'#86efac':'#fca5a5')+';'
+      +'border:1px solid '+(isDo?'#16a34a55':'#dc262655')+';padding:1px 8px;border-radius:10px;font-weight:700;display:inline-block;margin-top:3px;">'+item.tag+'</span></div></div>';
+  });
+  list+='</div>';
+  var intercrop=['🌿','🌿','🌿','🌿','🫘','🌿','🌿','🌿','🌿','🫘','🌿','🌿','🌿','🌿','🫘'].map(function(c){
+    var isC=c==='🌿';
+    return '<div style="flex-shrink:0;width:30px;height:44px;background:'+(isC?'#1a3a1a':'#2A1A08')+';border:1px solid '+(isC?'#2E5C20':'#7B4F1E')+';border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;gap:2px;"><span>'+c+'</span><span style="font-size:6px;color:'+(isC?'#7DBF6A':'#E8C07A')+';font-weight:700;">'+(isC?'कपास':'अरहर')+'</span></div>';
+  }).join('');
+  var card='<div style="background:linear-gradient(150deg,'+s.bg+'EE,#0f1c0fEE);border:1.5px solid '+s.color+';border-radius:16px;overflow:hidden;box-shadow:0 0 30px '+s.color+'44;">'
+    +'<div style="background:linear-gradient(135deg,'+s.color+'CC,'+s.color+'55);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid '+s.color+'55;">'
+    +'<span style="font-size:28px;filter:drop-shadow(0 0 6px '+s.accent+'88);">'+s.icon+'</span>'
+    +'<div><div style="font-size:16px;font-weight:900;color:#fff;">'+s.title+'</div>'
+    +'<div style="font-size:10px;color:'+s.accent+';letter-spacing:1px;margin-top:2px;">'+s.titleEn+'</div></div>'
+    +'<div style="margin-left:auto;background:'+s.accent+'22;border:1px solid '+s.accent+'66;border-radius:10px;padding:3px 10px;font-size:10px;color:'+s.accent+';font-weight:700;">'+(isDo?'✓ '+s.dos.length+' करें':'✗ '+s.donts.length+' न करें')+'</div></div>'
+    +'<div style="display:flex;">'
+    +'<button onclick="_ddTab=\'do\';ddRender();" style="flex:1;padding:11px 0;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;background:'+(_ddTab==='do'?'#14532d':'transparent')+';color:'+(_ddTab==='do'?'#86efac':'#3a6a38')+';border-bottom:2.5px solid '+(_ddTab==='do'?'#86efac':'transparent')+';border-right:1px solid '+s.color+'44;">✓ करें ('+s.dos.length+')</button>'
+    +'<button onclick="_ddTab=\'dont\';ddRender();" style="flex:1;padding:11px 0;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;background:'+(_ddTab==='dont'?'#7f1d1d':'transparent')+';color:'+(_ddTab==='dont'?'#fca5a5':'#6a3838')+';border-bottom:2.5px solid '+(_ddTab==='dont'?'#fca5a5':'transparent')+';">✗ न करें ('+s.donts.length+')</button>'
+    +'</div>'+list
+    +'<div style="margin:4px 14px 14px;padding:9px 12px;border-radius:10px;border:1px solid '+s.color+'44;border-left:3px solid '+s.accent+';font-size:11px;color:#8AAE80;line-height:1.7;">'+s.tip+'</div>'
+    +'</div>';
+  inner.innerHTML=tabs+card
+    +'<div style="background:linear-gradient(135deg,#0d1f0d,#122012);border:1px solid #2E5C20;border-radius:12px;padding:10px 14px;margin-top:10px;">'
+    +'<div style="font-size:9px;color:#7DBF6A;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;">🌿 अंतरफसल पंक्ति अनुपात — Row Ratio</div>'
+    +'<div style="display:flex;gap:3px;overflow-x:auto;padding-bottom:4px;">'+intercrop+'</div>'
+    +'<div style="font-size:9px;color:#5A8A50;margin-top:6px;">🌿 कपास (4 पंक्ति) · 🫘 अरहर (1 पंक्ति) · कपास: <strong style="color:#7DBF6A">3×3 फुट (90×90 सेमी)</strong> · अरहर: 2 फुट (60 सेमी)</div></div>'
+    +'<div style="text-align:center;margin-top:10px;font-size:9px;color:#2E5C20;letter-spacing:2px;text-transform:uppercase;">जैविक प्रमाणीकरण अनुपालन · Organic Certification Compliant</div>';
+}
+
+/* ══════════════════════════════════════════════
+   3P CARE — Cotton Critical Care (Aug–Oct)
+   ══════════════════════════════════════════════ */
+var _3PT={bg:'#1A2A1C',surface:'#223028',border:'#344E38',text:'#EEE8D8',muted:'#8A9E8C',faint:'#3A5040',
+  sage:'#5BAF72',amber:'#D4943A',slate:'#5B9EBF',water:'#5B9EBF',waterBg:'#0E1E2A',
+  nutrition:'#5BAF72',nutritionBg:'#162210',pest:'#D4943A',pestBg:'#221608',
+  warn:'#D45A3A',warnBg:'#221008',gold:'#D4B86A',goldBg:'#1E1808',goldBorder:'#6A5420'};
+var _3PS=[
+  {id:0,das:'45-60 DAS',month:'August',stage:'कली',stageFull:'कली बनना',stageEn:'Square Formation',icon:'🌿',color:'#5BAF72',light:'#1A3020',critical:false,
+   water:{level:2,points:['खेत में पर्याप्त नमी बनाए रखें','मिट्टी की नमी की नियमित जांच करें','जलभराव से बचें']},
+   nutrition:{level:1,points:['जीवामृत / स्वीकृत तरल जैविक पोषण दें','प्रति 15 दिन पर तरल पोषण का छिड़काव करें']},
+   pest:{level:2,points:['कीटों की नियमित निगरानी शुरू करें','5 फेरोमोन ट्रैप/हेक्टेयर लगाएं','8-10 पीले स्टिकी ट्रैप/हेक्टेयर लगाएं','सप्ताह में 2 बार खेत का निरीक्षण करें'],insects:['सफेद मक्खी','जेसिड','थ्रिप्स']}},
+  {id:1,das:'60-90 DAS',month:'September',stage:'फूल',stageFull:'फूल आना',stageEn:'Flowering - Most Critical',icon:'🌸',color:'#D4943A',light:'#2A1A08',critical:true,
+   water:{level:4,points:['पानी की कमी बिल्कुल न होने दें','फूल झड़ने पर तुरंत सिंचाई करें','हर 5-7 दिन में सिंचाई करें']},
+   nutrition:{level:4,points:['तरल जैविक पोषण की मात्रा बढ़ाएं','जीवामृत / घनजीवामृत का नियमित प्रयोग करें','पोषण रुकने से फूल झड़ने का खतरा']},
+   pest:{level:4,points:['हर 3-4 दिन में खेत का निरीक्षण करें','नीम तेल 3 मि.ली./लीटर का छिड़काव करें','NSKE 5% का उपयोग करें','मित्र कीटों का संरक्षण करें'],insects:['सफेद मक्खी','जेसिड','बॉलवर्म','अमेरिकन सुंडी']}},
+  {id:2,das:'90-120 DAS',month:'October',stage:'डिंडा',stageFull:'डिंडा (बॉल) बनना',stageEn:'Boll Formation',icon:'🫛',color:'#5B9EBF',light:'#102030',critical:false,
+   water:{level:3,points:['मिट्टी में पर्याप्त नमी बनाए रखें','जलभराव से बचें - जड़ें सड़ सकती हैं','बॉल झड़ने पर तुरंत सिंचाई करें']},
+   nutrition:{level:3,points:['आवश्यकतानुसार जैविक तरल पोषण जारी रखें','पोटाश युक्त जैविक पोषण से बॉल की गुणवत्ता सुधरती है']},
+   pest:{level:4,points:['गुलाबी सुंडी से बॉल की सुरक्षा करें','फेरोमोन ट्रैप की नियमित जांच करें','क्षतिग्रस्त बॉल तुरंत हटाएं और नष्ट करें','नीम आधारित जैविक उपाय अपनाएं'],insects:['गुलाबी सुंडी','बॉलवर्म','मिलीबग']}}
+];
+var _3PPillars=[
+  {key:'water',emoji:'💧',label:'सिंचाई',color:'#5B9EBF',bg:'#0E1E2A'},
+  {key:'nutrition',emoji:'🌱',label:'पोषण',color:'#5BAF72',bg:'#162210'},
+  {key:'pest',emoji:'🐛',label:'कीट',color:'#D4943A',bg:'#221608'}
+];
+var _3pSec=0,_3pPil='water';
+
+function build3PCare(){
+  _3pSec=cur===3?0:cur===4?1:2;_3pPil='water';
+  var wrap=document.createElement('div');
+  wrap.id='wrap3P';
+  wrap.style.cssText='margin:0 0 12px;font-family:"Noto Sans Devanagari","Segoe UI",sans-serif;';
+  var keyBtn=document.createElement('div');
+  keyBtn.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:10px;'
+    +'background:linear-gradient(135deg,#1E1808,#221608);border:1.5px solid #6A5420;border-radius:16px;'
+    +'padding:14px 18px;cursor:pointer;animation:glow3P 2.5s ease-in-out infinite;';
+  keyBtn.innerHTML='<div style="display:flex;align-items:center;gap:12px;">'
+    +'<div style="font-size:26px;filter:drop-shadow(0 0 8px #D4B86A88);">🌿</div>'
+    +'<div><div style="font-size:15px;font-weight:900;color:#EEE8D8;line-height:1.2;">3P CARE &nbsp;·&nbsp; 3P देखभाल</div>'
+    +'<div style="font-size:10px;color:#D4B86A;font-weight:700;letter-spacing:1px;margin-top:3px;">💧 पानी · 🌱 पोषण · 🐛 कीट संरक्षण</div></div></div>'
+    +'<div id="arr3P" style="font-size:20px;color:#D4B86A;transition:transform .3s;">›</div>';
+  var panel=document.createElement('div');
+  panel.id='panel3P';
+  panel.style.cssText='display:none;background:radial-gradient(ellipse at 50% 30%,#223828,#141E16 70%,#0E160F);'
+    +'border:1.5px solid #344E38;border-top:none;border-radius:0 0 16px 16px;overflow:hidden;';
+  panel.innerHTML='<div id="inner3P" style="padding:14px;"></div>';
+  wrap.appendChild(keyBtn);wrap.appendChild(panel);
+  keyBtn.addEventListener('click',function(){
+    var open=panel.style.display!=='none';
+    panel.style.display=open?'none':'block';
+    var arr=document.getElementById('arr3P');
+    if(arr) arr.style.transform=open?'':'rotate(90deg)';
+    if(!open) render3P();
+  });
+  return wrap;
+}
+
+function render3P(){
+  var inner=document.getElementById('inner3P');if(!inner)return;
+  var s=_3PS[_3pSec];
+  var p=_3PPillars.filter(function(x){return x.key===_3pPil;})[0];
+  var pData=s[_3pPil];
+  var T=_3PT;
+  var html='';
+
+  // Golden sutra
+  html+='<div style="padding:10px 14px;background:'+T.goldBg+';border:1.5px solid '+T.goldBorder+';border-left:4px solid '+T.gold
+    +';border-radius:11px;font-size:11.5px;color:'+T.gold+';font-weight:700;line-height:1.7;margin-bottom:12px;">'
+    +'"कली से डिंडा बनने तक (45-120 DAS) 💧 पानी + 🌱 पोषण + 🐛 कीट प्रबंधन पर विशेष ध्यान दें।"</div>';
+
+  // SVG Wheel
+  var CX=160,CY=160,RO=110,RI=50,total=3;
+  var svgParts='';
+  // Dashed outer ring
+  svgParts+='<circle cx="'+CX+'" cy="'+CY+'" r="'+(RO+18)+'" fill="none" stroke="#344E38" stroke-width="1" stroke-dasharray="4 8" opacity="0.4"/>';
+  // Progress arc
+  var arcC=2*Math.PI*(RI+5);
+  var arcF=(_3pSec+1)/total;
+  svgParts+='<circle cx="'+CX+'" cy="'+CY+'" r="'+(RI+5)+'" fill="none" stroke="'+s.color+'" stroke-width="3" stroke-dasharray="'+(arcF*arcC)+' '+arcC+'" stroke-linecap="round" transform="rotate(-90 '+CX+' '+CY+')" opacity="0.7" style="transition:stroke-dasharray 0.6s ease"/>';
+  // Spokes
+  _3PS.forEach(function(st,i){
+    var a=(i/total)*2*Math.PI-Math.PI/2;
+    var px=CX+RO*Math.cos(a),py=CY+RO*Math.sin(a);
+    var isA=i===_3pSec;
+    svgParts+='<line x1="'+CX+'" y1="'+CY+'" x2="'+px+'" y2="'+py+'" stroke="'+(isA?st.color:'#3A5040')+'" stroke-width="'+(isA?1.5:0.7)+'" stroke-dasharray="'+(isA?'none':'3 5')+'" opacity="'+(isA?0.6:0.25)+'"/>';
+  });
+  // Pillar nodes inside ring
+  _3PPillars.forEach(function(pl,i){
+    var a=(i/3)*2*Math.PI-Math.PI/2;
+    var px=CX+90*Math.cos(a),py=CY+90*Math.sin(a);
+    var isA=pl.key===_3pPil;
+    svgParts+='<g onclick="_3pPil=\''+pl.key+'\';render3P();" style="cursor:pointer;">'
+      +'<circle cx="'+px+'" cy="'+py+'" r="16" fill="'+(isA?pl.color+'33':'#223028')+'" stroke="'+(isA?pl.color:'#344E38')+'" stroke-width="'+(isA?2:1)+'"/>'
+      +'<text x="'+px+'" y="'+(py+6)+'" text-anchor="middle" font-size="14">'+pl.emoji+'</text>'
+      +'<text x="'+px+'" y="'+(py+28)+'" text-anchor="middle" font-size="8" fill="'+(isA?pl.color:'#3A5040')+'" font-weight="'+(isA?700:400)+'">'+pl.label+'</text>'
+      +'</g>';
+  });
+  // Center circle
+  svgParts+='<circle cx="'+CX+'" cy="'+CY+'" r="'+(RI-4)+'" fill="'+s.light+'" stroke="'+s.color+'" stroke-width="1.5"/>';
+  svgParts+='<text x="'+CX+'" y="'+(CY+5)+'" text-anchor="middle" font-size="22">'+s.icon+'</text>';
+  svgParts+='<text x="'+CX+'" y="'+(CY+22)+'" text-anchor="middle" fill="'+s.color+'" font-size="10" font-weight="800">'+s.stage+'</text>';
+  svgParts+='<text x="'+CX+'" y="'+(CY+34)+'" text-anchor="middle" fill="'+s.color+'" font-size="8" opacity="0.75">'+s.das+'</text>';
+  // Stage nodes
+  _3PS.forEach(function(st,i){
+    var a=(i/total)*2*Math.PI-Math.PI/2;
+    var px=CX+RO*Math.cos(a),py=CY+RO*Math.sin(a);
+    var lx=CX+(RO+38)*Math.cos(a),ly=CY+(RO+38)*Math.sin(a);
+    var isA=i===_3pSec;
+    svgParts+='<g onclick="_3pSec='+i+';_3pPil=\'water\';render3P();" style="cursor:pointer;">'
+      +(isA?'<circle cx="'+px+'" cy="'+py+'" r="34" fill="none" stroke="'+st.color+'" stroke-width="2" opacity="0.2" style="animation:blink3P 2.5s ease-in-out infinite"/>':'')
+      +'<circle cx="'+px+'" cy="'+py+'" r="30" fill="'+(isA?st.color+'33':'#223028')+'" stroke="'+st.color+'" stroke-width="'+(isA?2.5:1.5)+'"/>'
+      +'<text x="'+px+'" y="'+(py+6)+'" text-anchor="middle" font-size="20">'+st.icon+'</text>'
+      +'<text x="'+px+'" y="'+(py+22)+'" text-anchor="middle" fill="'+(isA?'#fff':st.color)+'" font-size="9" font-weight="800">'+st.stage+'</text>'
+      +'<text x="'+lx+'" y="'+(ly-3)+'" text-anchor="middle" fill="'+(isA?st.color:'#8A9E8C')+'" font-size="9" font-weight="'+(isA?700:400)+'">'+st.stageFull+'</text>'
+      +'<text x="'+lx+'" y="'+(ly+10)+'" text-anchor="middle" fill="'+(isA?st.color+'BB':'#3A5040')+'" font-size="8">'+st.das+'</text>'
+      +'</g>';
+  });
+  html+='<div style="position:relative;margin-bottom:8px;display:flex;justify-content:center;">'
+    +'<svg width="320" height="320" viewBox="0 0 320 320" style="display:block;max-width:100%;">'+svgParts+'</svg>'
+    +'<div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:'+s.light
+    +';border:1px solid '+s.color+';border-radius:20px;padding:3px 14px;font-size:10px;color:'+s.color
+    +';font-weight:700;white-space:nowrap;">'+s.month+'</div></div>';
+
+  // Stage title
+  html+='<div style="text-align:center;margin-bottom:12px;">'
+    +'<div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">'
+    +'<span style="font-size:17px;font-weight:900;color:'+s.color+';">'+s.stageFull+'</span>'
+    +(s.critical?'<span style="font-size:9px;background:'+T.warnBg+';color:'+T.warn+';border:1px solid '+T.warn+'55;padding:2px 8px;border-radius:8px;font-weight:700;animation:blink3P 2.5s infinite;">! अति महत्वपूर्ण</span>':'')
+    +'</div><div style="font-size:10px;color:'+T.muted+';margin-top:2px;">'+s.stageEn+'</div></div>';
+
+  // Pillar tabs
+  html+='<div style="display:flex;gap:6px;margin-bottom:10px;">';
+  _3PPillars.forEach(function(pl){
+    var isA=pl.key===_3pPil;
+    var dots='';for(var d=0;d<4;d++) dots+='<span style="display:inline-block;width:6px;height:6px;border-radius:50%;margin:0 1px;background:'+(d<s[pl.key].level?pl.color:T.faint)+';box-shadow:'+(d<s[pl.key].level?'0 0 4px '+pl.color+'88':'none')+'"></span>';
+    html+='<button onclick="_3pPil=\''+pl.key+'\';render3P();" style="flex:1;padding:8px 4px;border-radius:11px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;transition:all .3s;background:'+(isA?pl.color+'22':T.surface)+';border:'+(isA?'2px':'1px')+' solid '+(isA?pl.color:T.border)+';color:'+(isA?pl.color:T.muted)+';box-shadow:'+(isA?'0 0 12px '+pl.color+'33':'none')+';display:flex;flex-direction:column;align-items:center;gap:4px;">'
+      +'<span style="font-size:18px;">'+pl.emoji+'</span><span>'+pl.label+'</span><div>'+dots+'</div></button>';
+  });
+  html+='</div>';
+
+  // Detail card
+  html+='<div style="background:'+p.bg+';border:1.5px solid '+p.color+'55;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px '+p.color+'22;margin-bottom:10px;">';
+  html+='<div style="padding:9px 14px;background:'+p.color+'20;border-bottom:1px solid '+p.color+'33;font-size:10px;color:'+p.color+';font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:6px;">'+p.emoji+' '+p.label+' <span style="opacity:.5">|</span> '+s.stageFull+'</div>';
+  html+='<div style="padding:12px 14px 8px;">';
+  pData.points.forEach(function(pt){
+    html+='<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;"><div style="min-width:20px;height:20px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:900;flex-shrink:0;margin-top:2px;">✓</div><div style="font-size:12.5px;color:'+T.text+';line-height:1.7;">'+pt+'</div></div>';
+  });
+  if(_3pPil==='pest'&&pData.insects){
+    html+='<div style="margin-top:8px;padding-top:8px;border-top:1px solid '+T.border+';">'
+      +'<div style="font-size:9px;color:'+T.pest+';font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">मुख्य कीट - निगरानी करें</div>';
+    pData.insects.forEach(function(ins){html+='<span style="font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;background:'+T.pest+'18;color:'+T.pest+';border:1px solid '+T.pest+'44;display:inline-block;margin:2px 3px 2px 0;">'+ins+'</span>';});
+    html+='</div>';
+  }
+  html+='</div>';
+  if(s.critical) html+='<div style="margin:0 12px 10px;padding:8px 12px;background:'+T.warnBg+';border:1px solid '+T.warn+'55;border-left:3px solid '+T.warn+';border-radius:9px;font-size:11.5px;color:'+T.warn+';font-weight:700;line-height:1.6;animation:blink3P 2.5s infinite;">! सबसे संवेदनशील अवस्था - नमी कमी = फूल झड़ना = उत्पादन हानि</div>';
+  html+='</div>';
+
+  // 3P Rule
+  html+='<div style="background:'+T.goldBg+';border:1.5px solid '+T.goldBorder+';border-radius:14px;padding:12px 14px;margin-bottom:10px;animation:glow3P 4s ease-in-out infinite;">'
+    +'<div style="font-size:9px;color:'+T.gold+';font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px;">अगस्त - अक्टूबर = 3P नियम</div>'
+    +'<div style="display:flex;gap:6px;">'
+    +[{p:'P1',e:'💧',l:'पानी',s:'Proper Moisture',c:T.water,bg:T.waterBg},{p:'P2',e:'🌱',l:'पोषण',s:'Organic Nutrition',c:T.nutrition,bg:T.nutritionBg},{p:'P3',e:'🐛',l:'संरक्षण',s:'Pest Monitoring',c:T.pest,bg:T.pestBg}].map(function(it){
+      return '<div style="flex:1;background:'+it.bg+';border:1px solid '+it.c+'33;border-radius:10px;padding:8px 4px;text-align:center;"><div style="font-size:18px;margin-bottom:2px;">'+it.e+'</div><div style="font-size:12px;font-weight:900;color:'+it.c+';">'+it.p+'</div><div style="font-size:10px;font-weight:700;color:'+T.text+';margin-top:2px;">'+it.l+'</div><div style="font-size:8px;color:'+T.muted+';margin-top:1px;line-height:1.4;">'+it.s+'</div></div>';
+    }).join('')+'</div>'
+    +'<div style="margin-top:8px;padding:7px 10px;background:'+T.gold+'15;border-radius:9px;border:1px solid '+T.goldBorder+';font-size:11px;color:'+T.gold+';font-weight:700;text-align:center;line-height:1.7;">तीनों का समय पर प्रबंधन = अधिक डिंडा, बेहतर गुणवत्ता, अधिक उत्पादन</div></div>';
+
+  // Key messages
+  html+='<div style="background:'+T.surface+';border:1px solid '+T.border+';border-radius:14px;padding:12px 14px;">'
+    +'<div style="font-size:9px;color:'+T.sage+';font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px;">किसानों के लिए मुख्य संदेश</div>';
+  [{e:'💧',c:T.water,t:'नमी की कमी न होने दें - जलभराव से भी बचें'},{e:'🌱',c:T.nutrition,t:'कली से डिंडा बनने तक जैविक तरल पोषण नियमित दें'},{e:'🐛',c:T.pest,t:'हर 3-4 दिन में खेत का निरीक्षण करें - प्रारंभिक अवस्था में जैविक प्रबंधन करें'},{e:'🌿',c:T.sage,t:'मित्र कीटों का संरक्षण करें - नीम आधारित जैविक उपाय अपनाएं'}].forEach(function(m,i){
+    html+='<div style="display:flex;gap:10px;align-items:flex-start;'+(i<3?'margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid '+T.border+';':'')+'">'
+      +'<div style="width:24px;height:24px;border-radius:7px;flex-shrink:0;background:'+m.c+'18;border:1px solid '+m.c+'44;display:flex;align-items:center;justify-content:center;font-size:13px;">'+m.e+'</div>'
+      +'<div style="font-size:12px;color:'+T.text+';line-height:1.65;">'+m.t+'</div></div>';
+  });
+  html+='</div>';
+  html+='<div style="text-align:center;margin-top:10px;font-size:9px;color:'+T.faint+';letter-spacing:2px;text-transform:uppercase;">जैविक कपास प्रशिक्षण | Organic Cotton Critical Care</div>';
+
+  inner.innerHTML=html;
 }
 
 function buildLC(cfg){
@@ -2882,5 +4269,223 @@ showPage('home');
   🔐 Admin
 </button>
 
+
+<script id="socScript">
+
+// ── ZONE DATA ──────────────────────────────────────────
+const zones = [
+  {
+    range: '< 0.5%', status: '🔴 अत्यंत कम', gaugeLeft: '8%', markerVal: '0.25%',
+    health: 'बहुत खराब',
+    action: 'तत्काल जैविक खाद, हरी खाद और कम्पोस्ट आवश्यक। रासायनिक खाद बंद करें।',
+    cert: 'जैविक प्रमाणन के लिए अभी तैयार नहीं — कम से कम 0.75% तक लाएं।',
+    color: '#C0392B'
+  },
+  {
+    range: '0.5–0.75%', status: '🟠 कम', gaugeLeft: '16%', markerVal: '0.6%',
+    health: 'खराब — भारत की औसत कृषि मिट्टी यहाँ है',
+    action: 'कम्पोस्ट + फसल अवशेष प्रबंधन + हरी खाद शुरू करें।',
+    cert: 'प्रमाणन की तैयारी शुरू करें। 2–3 साल में 0.75% संभव।',
+    color: '#E67E22'
+  },
+  {
+    range: '0.75–1.5%', status: '🟡 मध्यम', gaugeLeft: '37%', markerVal: '1.1%',
+    health: 'ठीक — जैविक प्रमाणन न्यूनतम सीमा पार',
+    action: 'जैविक खेती प्रथाएं जारी रखें। लक्ष्य 1.5% करें।',
+    cert: 'जैविक प्रमाणन के लिए आवेदन योग्य। रिपोर्ट तैयार रखें।',
+    color: '#D4AC0D'
+  },
+  {
+    range: '1.5–2.5%', status: '🟢 अच्छा', gaugeLeft: '67%', markerVal: '2.0%',
+    health: 'स्वस्थ — उत्कृष्ट जैविक मिट्टी',
+    action: 'बनाए रखें। कृषि वानिकी जोड़ें — दीर्घकालिक SOC बढ़ेगा।',
+    cert: '✅ जैविक प्रमाणन के लिए उपयुक्त। Premium मूल्य पाएं।',
+    color: '#27AE60'
+  },
+  {
+    range: '> 2.5%', status: '✅ उत्कृष्ट', gaugeLeft: '88%', markerVal: '2.8%',
+    health: 'बहुत स्वस्थ — रिजेनरेटिव कृषि का मॉडल',
+    action: 'Carbon Credit के लिए तैयार। दूसरे किसानों को प्रेरित करें।',
+    cert: '🌟 Carbon Credit + Organic Premium — दोहरा लाभ।',
+    color: '#1A7A45'
+  }
+];
+
+let activeZone = 2;
+
+function selectZone(i) {
+  activeZone = i;
+  // highlight selected zone
+  for (let j = 0; j < 5; j++) {
+    document.getElementById('gz' + j).classList.toggle('gz-sel', j === i);
+  }
+  // move gauge marker
+  const z = zones[i];
+  const marker = document.getElementById('gauge-marker');
+  marker.style.left = z.gaugeLeft;
+  marker.setAttribute('data-val', z.markerVal);
+  // show detail
+  const det = document.getElementById('range-detail');
+  det.className = 'range-detail show';
+  det.innerHTML =
+    '<div class="rd-item"><div class="rd-label">मिट्टी स्वास्थ्य</div><div class="rd-val" style="color:' + z.color + ';font-size:18px;font-weight:800">' + z.status + '</div><div class="rd-val" style="font-size:13px;margin-top:4px">' + z.health + '</div></div>' +
+    '<div class="rd-item"><div class="rd-label">करने योग्य कदम</div><div class="rd-val">' + z.action + '</div></div>' +
+    '<div class="rd-item"><div class="rd-label">प्रमाणन स्थिति</div><div class="rd-val">' + z.cert + '</div></div>';
+}
+
+// init zone 2 on load
+selectZone(2);
+
+// ── FACTOR CARDS ──────────────────────────────────────
+function toggleFactor(card) {
+  card.style.opacity = card.style.opacity === '0.45' ? '1' : '0.45';
+}
+
+// ── CALCULATOR ────────────────────────────────────────
+function calc() {
+  const acres  = parseInt(document.getElementById('sl-acres').value);
+  const currRaw = parseInt(document.getElementById('sl-curr').value);
+  const targetRaw = parseInt(document.getElementById('sl-target').value);
+
+  const curr   = currRaw / 10;
+  const target = targetRaw / 10;
+
+  document.getElementById('v-acres').innerHTML  = acres + ' <span class="sg-unit">एकड़</span>';
+  document.getElementById('v-curr').innerHTML   = curr.toFixed(1) + ' <span class="sg-unit">%</span>';
+  document.getElementById('v-target').innerHTML = target.toFixed(1) + ' <span class="sg-unit">%</span>';
+
+  // update range slider gradient
+  const acresSlider = document.getElementById('sl-acres');
+  const currSlider  = document.getElementById('sl-curr');
+  const targetSlider = document.getElementById('sl-target');
+
+  [
+    [acresSlider, 1, 50],
+    [currSlider, 1, 25],
+    [targetSlider, 5, 30]
+  ].forEach(([sl, mn, mx]) => {
+    const pct = ((sl.value - mn) / (mx - mn)) * 100;
+    sl.style.setProperty('--pct', pct + '%');
+  });
+
+  const diff = Math.max(0, target - curr);
+  const compost = Math.round(acres * diff * 25 * 10) / 10;
+
+  let years, yearsLabel;
+  if (diff <= 0) {
+    years = '0'; yearsLabel = 'लक्ष्य पहले से प्राप्त';
+  } else if (diff <= 0.3) {
+    years = '1–2'; yearsLabel = '1–2 वर्ष';
+  } else if (diff <= 0.8) {
+    years = '3–5'; yearsLabel = '3–5 वर्ष';
+  } else if (diff <= 1.5) {
+    years = '5–8'; yearsLabel = '5–8 वर्ष';
+  } else {
+    years = '8+'; yearsLabel = '8+ वर्ष — धैर्य रखें';
+  }
+
+  document.getElementById('r-compost').innerHTML = compost + ' <span class="rc-unit">टन/वर्ष</span>';
+  document.getElementById('r-compost-desc').textContent =
+    acres + ' एकड़ में ' + diff.toFixed(1) + '% SOC वृद्धि के लिए। वर्मीकम्पोस्ट 30% कम लगता है।';
+  document.getElementById('r-years').innerHTML = years + ' <span class="rm-unit">वर्ष</span>';
+  document.getElementById('r-gap').innerHTML = diff.toFixed(1) + ' <span class="rm-unit">%</span>';
+
+  const waterGain = Math.round(diff * 20 * 10) / 10;
+  document.getElementById('r-water').innerHTML = '+' + waterGain + ' <span class="rc-unit">लीटर/वर्गमीटर</span>';
+  document.getElementById('r-water-desc').textContent =
+    diff.toFixed(1) + '% SOC वृद्धि पर अतिरिक्त जल धारण क्षमता। सूखे में फसल सुरक्षित।';
+
+  // status
+  let statusText, statusDesc;
+  if (target >= 2.5) {
+    statusText = '🌟 Carbon Credit योग्य';
+    statusDesc = 'लक्ष्य 2.5%+ — Carbon Credit और Organic Premium दोनों संभव।';
+  } else if (target >= 1.5) {
+    statusText = '✅ उत्कृष्ट जैविक मिट्टी';
+    statusDesc = 'लक्ष्य 1.5%+ — प्रमाणन + premium price दोनों के लिए तैयार।';
+  } else if (target >= 0.75) {
+    statusText = '🎯 जैविक प्रमाणन योग्य';
+    statusDesc = 'लक्ष्य 0.75%+ — जैविक प्रमाणन के लिए आवेदन योग्य होगा।';
+  } else {
+    statusText = '⚠️ अभी और सुधार चाहिए';
+    statusDesc = 'जैविक प्रमाणन के लिए कम से कम 0.75% लक्ष्य रखें।';
+  }
+  document.getElementById('r-status').textContent = statusText;
+  document.getElementById('r-status-desc').textContent = statusDesc;
+
+  // progress bar (max = 3%)
+  const maxSOC = 3;
+  const currPct  = Math.min((curr / maxSOC) * 100, 100);
+  const targetPct = Math.min((target / maxSOC) * 100, 100);
+  document.getElementById('pb-curr').style.width = currPct + '%';
+  document.getElementById('pb-target').style.left = targetPct + '%';
+  document.getElementById('pb-curr-lbl').textContent = 'वर्तमान: ' + curr.toFixed(1) + '%';
+  document.getElementById('pb-target-lbl').textContent = 'लक्ष्य: ' + target.toFixed(1) + '%';
+
+  updateBoost();
+}
+
+// ── PRACTICE CHECKLIST ─────────────────────────────────
+let checkedBoost = 0;
+
+function toggleCheck(el, val) {
+  el.classList.toggle('checked');
+  recalcBoost();
+}
+
+function recalcBoost() {
+  let total = 0;
+  document.querySelectorAll('.pch-item').forEach(function(el) {
+    if (el.classList.contains('checked')) {
+      const span = el.querySelector('.pch-impact');
+      const match = span.textContent.match(/\+([\d.]+)/);
+      if (match) total += parseFloat(match[1]);
+    }
+  });
+  checkedBoost = total;
+  updateBoost();
+}
+
+function updateBoost() {
+  document.getElementById('boost-val').textContent = checkedBoost.toFixed(2) + '% / वर्ष';
+}
+
+// ── NAV TABS ───────────────────────────────────────────
+function scrollSec(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // update active tab
+  document.querySelectorAll('.nav-tab').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  const map = { 's-what': 0, 's-range': 1, 's-factors': 2, 's-calc': 3 };
+  document.querySelectorAll('.nav-tab')[map[id]].classList.add('active');
+}
+
+// scroll spy
+const secIds = ['s-what','s-range','s-factors','s-calc'];
+window.addEventListener('scroll', function() {
+  let current = 0;
+  secIds.forEach(function(id, i) {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = i;
+  });
+  document.querySelectorAll('.nav-tab').forEach(function(t, i) {
+    t.classList.toggle('active', i === current);
+  });
+});
+
+// ── INIT ───────────────────────────────────────────────
+window.addEventListener('load', function() {
+  calc();
+  // set initial slider gradients
+  document.querySelectorAll('input[type=range]').forEach(function(sl) {
+    const mn = parseFloat(sl.min);
+    const mx = parseFloat(sl.max);
+    const pct = ((sl.value - mn) / (mx - mn)) * 100;
+    sl.style.setProperty('--pct', pct + '%');
+  });
+});
+
+</script>
 </body>
 </html>
