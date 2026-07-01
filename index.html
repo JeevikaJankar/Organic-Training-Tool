@@ -1998,11 +1998,12 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
   <!-- ── HERO BANNER ── -->
   <div id="seasonBanner">
         <img id="heroFarmerImg" class="hero-farmer-img" src="" alt="">
-    <div class="hero-inner">
+    <div class="hero-inner" onclick="openMonth(cur)" style="cursor:pointer;">
       <div class="hero-eyebrow-badge">PAPL ORGANIC FARMING PROGRAM</div>
       <div class="hero-month" id="heroMonth">—</div>
       <div class="hero-meta" id="heroMeta">🌱 — • 📋 —</div>
       <div class="hero-season">Kharif Season – Cotton (Main Crop) + Rabi Crops</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:1px;">TAP TO VIEW THIS MONTH ›</div>
     </div>
   </div>
 
@@ -2121,6 +2122,9 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
       <div class="qaCard-label" id="qaLbl5">SOC केलकुलेटर</div>
     </div>
   </div>
+
+  <!-- Do's&Don'ts / 3P Care injected here by renderHome() -->
+  <div id="homeFeatureCard" style="padding:0 16px 20px;"></div>
 
 </div>
 
@@ -3172,6 +3176,14 @@ function renderHome(){
   var b2=document.getElementById('bnLblMonths');if(b2) b2.textContent=t('fieldplan');
   var b3=document.getElementById('bnLblCrop');if(b3) b3.textContent=isHi?'फसल':'Crop';
   var b4=document.getElementById('bnLblModules');if(b4) b4.textContent=t('modules');
+
+  // ── Inject Do's&Don'ts or 3P Care into home page bottom ──
+  var hfc=document.getElementById('homeFeatureCard');
+  if(hfc){
+    hfc.innerHTML='';
+    if(cur===0||cur===1||cur===2||cur===11) hfc.appendChild(buildDosDonts());
+    else if(cur===3||cur===4||cur===5) hfc.appendChild(build3PCare());
+  }
 }
 
 // ── RENDER MONTHS ──
