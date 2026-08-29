@@ -7961,7 +7961,7 @@ function initPestGuide(){
   radial-gradient(circle at 14% 18%,rgba(82,183,136,.18),transparent 30%),
   radial-gradient(circle at 88% 82%,rgba(249,168,37,.10),transparent 28%),
   linear-gradient(145deg,#08240b 0%,#0f4216 48%,#1c6531 100%);
-  display:flex;align-items:center;justify-content:center;padding:16px;font-family:var(--font);overflow-y:auto;">
+  display:flex;align-items:flex-start;justify-content:center;padding:16px;font-family:var(--font);overflow-y:auto;">
 
   <style>
     @keyframes mlCardIn{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -7987,7 +7987,7 @@ function initPestGuide(){
     }
   </style>
 
-  <div id="mlPremiumCard" style="width:min(100%,560px);background:#fff;color:var(--c-text);border-radius:28px;padding:20px 18px 15px;box-shadow:0 22px 70px rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.45);position:relative;overflow:hidden;">
+  <div id="mlPremiumCard" style="width:min(100%,560px);background:#fff;color:var(--c-text);border-radius:28px;padding:20px 18px 15px;box-shadow:0 22px 70px rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.45);position:relative;overflow:hidden;margin:12px 0 18px;">
 
     <div style="position:absolute;left:-85px;top:-95px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(46,125,50,.07),transparent 70%);pointer-events:none;"></div>
     <div style="position:absolute;right:-70px;bottom:-80px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(249,168,37,.06),transparent 70%);pointer-events:none;"></div>
@@ -8012,24 +8012,30 @@ function initPestGuide(){
       यह इंटरैक्टिव लर्निंग टूल हमारे ट्रेनर्स और जीविका जानकार को जैविक खेती सीखने, किसान प्रशिक्षण की बेहतर योजना बनाने और उसे प्रभावी रूप से संचालित करने में सहायता करने के लिए तैयार किया गया है। इसमें पूरे सीजन के लिए माहवार योजना, इंटरैक्टिव वीडियो, लीफलेट, पीपीटी और फील्ड गाइडेंस उपलब्ध हैं, ताकि प्रशिक्षण की तैयारी और संचालन आसान और प्रभावी हो सके।
     </div>
 
-    <div style="position:relative;z-index:1;padding:12px 13px;border:1px solid #dce8dc;border-radius:15px;background:#fff;box-shadow:0 5px 16px rgba(27,94,32,.06);margin-bottom:11px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;flex-wrap:wrap;">
-        <div style="font-size:10.5px;font-weight:900;color:#1b5e20;letter-spacing:.3px;">REVIEW ACCESS</div>
-        <div style="font-size:9px;color:#1b5e20;font-weight:900;background:#eef7ef;border:1px solid #cfe4d1;padding:4px 8px;border-radius:999px;letter-spacing:.2px;">Trainers of PAPL and ASA</div>
+    <div id="mlSecureLoginBox" style="position:relative;z-index:1;padding:18px 17px 16px;border:1px solid #cfe2d1;border-radius:18px;background:#fff;box-shadow:0 9px 26px rgba(27,94,32,.11);margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+        <div id="mlAccessTitle" style="font-size:13px;font-weight:900;color:#1b5e20;letter-spacing:.35px;">USER LOGIN</div>
+        <div style="font-size:9px;color:#1b5e20;font-weight:900;background:#eef7ef;border:1px solid #cfe4d1;padding:5px 9px;border-radius:999px;letter-spacing:.2px;">Trainers of PAPL and ASA</div>
       </div>
 
-      <div style="padding:10px 11px;border-radius:12px;background:linear-gradient(135deg,#f5faf5,#eef7ef);border:1px solid #d7e8d9;margin-bottom:9px;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:11px;color:#37553d;">
-          <span><b>User:</b> papl</span>
-          <span style="width:1px;height:16px;background:#cbdccc;"></span>
-          <span><b>Password:</b> Open for Review</span>
-        </div>
-        <div id="mlReviewHint" style="margin-top:6px;text-align:center;font-size:9.3px;line-height:1.45;color:#718076;font-weight:700;">
-          No username or password is required during the review period.
-        </div>
+      <label id="mlUserLabel" for="mlLoginUser" style="display:block;margin:0 0 6px;font-size:11px;font-weight:900;color:#35533b;letter-spacing:.25px;">USER ID</label>
+      <input id="mlLoginUser" type="text" autocomplete="username" placeholder="Enter User ID"
+        style="width:100%;height:52px;box-sizing:border-box;border:2px solid #c9ddcc;border-radius:13px;background:#f8fbf8;color:#203524;padding:0 14px;font:800 15px var(--font);outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.03);margin-bottom:12px;">
+
+      <label id="mlPassLabel" for="mlLoginPass" style="display:block;margin:0 0 6px;font-size:11px;font-weight:900;color:#35533b;letter-spacing:.25px;">PASSWORD</label>
+      <div style="position:relative;">
+        <input id="mlLoginPass" type="password" autocomplete="current-password" placeholder="Enter Password"
+          style="width:100%;height:52px;box-sizing:border-box;border:2px solid #c9ddcc;border-radius:13px;background:#f8fbf8;color:#203524;padding:0 48px 0 14px;font:800 15px var(--font);outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.03);">
+        <button type="button" onclick="toggleMlPassword()" aria-label="Show or hide password"
+          style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:10px;background:#eaf4eb;color:#1b5e20;font-size:15px;font-weight:900;cursor:pointer;">◉</button>
       </div>
 
-      <button type="button" id="mlLoginBtn" onclick="enterReviewMode()" style="width:100%;min-height:44px;border:none;border-radius:11px;background:linear-gradient(135deg,#14551a,#2f7d38);color:#fff;font:900 12.5px var(--font);cursor:pointer;letter-spacing:.3px;">समीक्षा के लिए प्रवेश करें →</button>
+      <div id="mlLoginError" style="display:none;margin-top:9px;padding:8px 10px;border-radius:9px;background:#fff2f2;border:1px solid #ffd2d2;color:#c62828;font-size:10.5px;font-weight:800;">Invalid User ID or Password</div>
+
+      <button type="button" id="mlLoginBtn" onclick="doMultilingualLogin()"
+        style="width:100%;min-height:50px;margin-top:13px;border:none;border-radius:13px;background:linear-gradient(135deg,#14551a,#2f7d38);color:#fff;font:900 14px var(--font);cursor:pointer;letter-spacing:.35px;box-shadow:0 7px 18px rgba(27,94,32,.22);">लॉगिन करें →</button>
+
+      <div id="mlLoginHint" style="margin-top:9px;text-align:center;font-size:9.5px;line-height:1.45;color:#718076;font-weight:700;">Enter your authorised User ID and Password to continue.</div>
     </div>
 
     <div id="mlLoginNotice" style="position:relative;z-index:1;padding:9px 10px;border-radius:11px;background:#fff8e8;border:1px solid #eed28c;color:#73561e;font-size:9.1px;line-height:1.5;font-weight:700;margin-bottom:10px;">
@@ -8535,23 +8541,67 @@ var _mlLang='hi';
 function setLoginLang(l){
   _mlLang=['hi','en','od','mr','gu'].indexOf(l)>=0?l:'hi';
   var t={
-    hi:{intro:'यह इंटरैक्टिव लर्निंग टूल हमारे ट्रेनर्स और जीविका जानकार को जैविक खेती सीखने, किसान प्रशिक्षण की बेहतर योजना बनाने और उसे प्रभावी रूप से संचालित करने में सहायता करने के लिए तैयार किया गया है। इसमें पूरे सीजन के लिए माहवार योजना, इंटरैक्टिव वीडियो, लीफलेट, पीपीटी और फील्ड गाइडेंस उपलब्ध हैं, ताकि प्रशिक्षण की तैयारी और संचालन आसान और प्रभावी हो सके।',notice:'© 2026 Ploughman Agro Private Limited. यह PAPL की आंतरिक संपत्ति है। इस टूल, लॉगिन जानकारी या लिंक को अधिकृत टीम के बाहर साझा न करें।',login:'समीक्षा के लिए प्रवेश करें →',review:'समीक्षा अवधि में यूज़रनेम या पासवर्ड की आवश्यकता नहीं है।'},
-    en:{intro:'This interactive learning tool is designed to help our Trainers and Jeevika Jankar learn organic farming, plan farmer trainings better, and deliver them effectively. It provides month-wise planning, interactive videos, leaflets, PPTs and field guidance throughout the season to make training preparation and delivery easier and more effective.',notice:'© 2026 Ploughman Agro Private Limited. This is an internal PAPL tool. Do not share this tool, login credentials or link outside the authorised team.',login:'ENTER FOR REVIEW →',review:'No username or password is required during the review period.'},
-    od:{intro:'ଏହି ଇଣ୍ଟରାକ୍ଟିଭ୍ ଲର୍ଣ୍ଣିଂ ଟୁଲ୍ ଆମର Trainers ଓ Jeevika Jankar ମାନଙ୍କୁ ଜୈବିକ ଚାଷ ଶିଖିବା, କୃଷକ ପ୍ରଶିକ୍ଷଣର ଭଲ ଯୋଜନା କରିବା ଓ ପ୍ରଭାବଶାଳୀ ଭାବେ ପ୍ରଶିକ୍ଷଣ ଦେବାରେ ସାହାଯ୍ୟ କରିବା ପାଇଁ ପ୍ରସ୍ତୁତ କରାଯାଇଛି। ଏଥିରେ ସମଗ୍ର ଋତୁ ପାଇଁ ମାସିକ ଯୋଜନା, ଇଣ୍ଟରାକ୍ଟିଭ୍ ଭିଡିଓ, ଲିଫ୍ଲେଟ୍, PPT ଓ ଫିଲ୍ଡ ଗାଇଡେନ୍ସ ରହିଛି, ଯାହା ପ୍ରଶିକ୍ଷଣର ପ୍ରସ୍ତୁତି ଓ ପରିଚାଳନାକୁ ସହଜ ଓ ପ୍ରଭାବଶାଳୀ କରେ।',notice:'© 2026 Ploughman Agro Private Limited. ଏହା PAPL ର ଆଭ୍ୟନ୍ତରୀଣ tool। ଏହି tool, login details କିମ୍ବା link କୁ authorised team ବାହାରେ share କରନ୍ତୁ ନାହିଁ।',login:'Review ପାଇଁ ପ୍ରବେଶ କରନ୍ତୁ →',review:'Review ସମୟରେ username କିମ୍ବା password ଆବଶ୍ୟକ ନାହିଁ।'},
-    mr:{intro:'हे इंटरॅक्टिव्ह लर्निंग टूल आमच्या ट्रेनर्स आणि जीविका जानकार यांना सेंद्रिय शेती शिकण्यासाठी, शेतकरी प्रशिक्षणाचे चांगले नियोजन करण्यासाठी आणि प्रशिक्षण प्रभावीपणे राबवण्यासाठी तयार करण्यात आले आहे. यामध्ये संपूर्ण हंगामासाठी महिन्यानुसार नियोजन, इंटरॅक्टिव्ह व्हिडिओ, लीफलेट्स, पीपीटी आणि फील्ड गाईडन्स उपलब्ध आहे, ज्यामुळे प्रशिक्षणाची तयारी आणि अंमलबजावणी अधिक सोपी व प्रभावी होते.',notice:'© 2026 Ploughman Agro Private Limited. हे PAPL चे अंतर्गत tool आहे. हे tool, login credentials किंवा link अधिकृत टीमबाहेर share करू नका.',login:'पुनरावलोकनासाठी प्रवेश करा →',review:'पुनरावलोकन कालावधीत username किंवा password आवश्यक नाही.'},
-    gu:{intro:'આ ઇન્ટરેક્ટિવ લર્નિંગ ટૂલ અમારા Trainers અને Jeevika Jankar ને જૈવિક ખેતી શીખવા, ખેડૂત તાલીમનું વધુ સારું આયોજન કરવા અને તાલીમને અસરકારક રીતે ચલાવવામાં મદદ કરવા માટે તૈયાર કરવામાં આવ્યું છે. તેમાં સમગ્ર સિઝન માટે માસવાર આયોજન, ઇન્ટરેક્ટિવ વિડિયો, લીફલેટ, PPT અને ફિલ્ડ ગાઇડન્સ ઉપલબ્ધ છે, જેથી તાલીમની તૈયારી અને અમલ વધુ સરળ અને અસરકારક બને.',notice:'© 2026 Ploughman Agro Private Limited. આ PAPL નું આંતરિક tool છે. આ tool, login credentials અથવા link ને authorised team બહાર share ન કરો.',login:'રીવ્યૂ માટે પ્રવેશ કરો →',review:'રીવ્યૂ દરમિયાન username અથવા password જરૂરી નથી.'}
+    hi:{intro:'यह इंटरैक्टिव लर्निंग टूल हमारे ट्रेनर्स और जीविका जानकार को जैविक खेती सीखने, किसान प्रशिक्षण की बेहतर योजना बनाने और उसे प्रभावी रूप से संचालित करने में सहायता करने के लिए तैयार किया गया है। इसमें पूरे सीजन के लिए माहवार योजना, इंटरैक्टिव वीडियो, लीफलेट, पीपीटी और फील्ड गाइडेंस उपलब्ध हैं, ताकि प्रशिक्षण की तैयारी और संचालन आसान और प्रभावी हो सके।',notice:'© 2026 Ploughman Agro Private Limited. यह PAPL की आंतरिक संपत्ति है। इस टूल, लॉगिन जानकारी या लिंक को अधिकृत टीम के बाहर साझा न करें।',access:'यूज़र लॉगिन',userLabel:'यूज़र आईडी',passLabel:'पासवर्ड',userPH:'यूज़र आईडी दर्ज करें',passPH:'पासवर्ड दर्ज करें',login:'लॉगिन करें →',hint:'आगे बढ़ने के लिए अधिकृत यूज़र आईडी और पासवर्ड दर्ज करें।',error:'यूज़र आईडी या पासवर्ड सही नहीं है।'},
+    en:{intro:'This interactive learning tool is designed to help our Trainers and Jeevika Jankar learn organic farming, plan farmer trainings better, and deliver them effectively. It provides month-wise planning, interactive videos, leaflets, PPTs and field guidance throughout the season to make training preparation and delivery easier and more effective.',notice:'© 2026 Ploughman Agro Private Limited. This is an internal PAPL tool. Do not share this tool, login credentials or link outside the authorised team.',access:'USER LOGIN',userLabel:'USER ID',passLabel:'PASSWORD',userPH:'Enter User ID',passPH:'Enter Password',login:'LOGIN →',hint:'Enter your authorised User ID and Password to continue.',error:'Invalid User ID or Password.'},
+    od:{intro:'ଏହି ଇଣ୍ଟରାକ୍ଟିଭ୍ ଲର୍ଣ୍ଣିଂ ଟୁଲ୍ ଆମର Trainers ଓ Jeevika Jankar ମାନଙ୍କୁ ଜୈବିକ ଚାଷ ଶିଖିବା, କୃଷକ ପ୍ରଶିକ୍ଷଣର ଭଲ ଯୋଜନା କରିବା ଓ ପ୍ରଭାବଶାଳୀ ଭାବେ ପ୍ରଶିକ୍ଷଣ ଦେବାରେ ସାହାଯ୍ୟ କରିବା ପାଇଁ ପ୍ରସ୍ତୁତ କରାଯାଇଛି। ଏଥିରେ ସମଗ୍ର ଋତୁ ପାଇଁ ମାସିକ ଯୋଜନା, ଇଣ୍ଟରାକ୍ଟିଭ୍ ଭିଡିଓ, ଲିଫ୍ଲେଟ୍, PPT ଓ ଫିଲ୍ଡ ଗାଇଡେନ୍ସ ରହିଛି, ଯାହା ପ୍ରଶିକ୍ଷଣର ପ୍ରସ୍ତୁତି ଓ ପରିଚାଳନାକୁ ସହଜ ଓ ପ୍ରଭାବଶାଳୀ କରେ।',notice:'© 2026 Ploughman Agro Private Limited. ଏହା PAPL ର ଆଭ୍ୟନ୍ତରୀଣ tool। ଏହି tool, login details କିମ୍ବା link କୁ authorised team ବାହାରେ share କରନ୍ତୁ ନାହିଁ।',access:'ୟୁଜର୍ ଲଗଇନ୍',userLabel:'ୟୁଜର୍ ଆଇଡି',passLabel:'ପାସୱାର୍ଡ',userPH:'ୟୁଜର୍ ଆଇଡି ଦିଅନ୍ତୁ',passPH:'ପାସୱାର୍ଡ ଦିଅନ୍ତୁ',login:'ଲଗଇନ୍ କରନ୍ତୁ →',hint:'ଆଗକୁ ବଢ଼ିବା ପାଇଁ ଅନୁମୋଦିତ ୟୁଜର୍ ଆଇଡି ଓ ପାସୱାର୍ଡ ଦିଅନ୍ତୁ।',error:'ୟୁଜର୍ ଆଇଡି କିମ୍ବା ପାସୱାର୍ଡ ଭୁଲ୍ ଅଛି।'},
+    mr:{intro:'हे इंटरॅक्टिव्ह लर्निंग टूल आमच्या ट्रेनर्स आणि जीविका जानकार यांना सेंद्रिय शेती शिकण्यासाठी, शेतकरी प्रशिक्षणाचे चांगले नियोजन करण्यासाठी आणि प्रशिक्षण प्रभावीपणे राबवण्यासाठी तयार करण्यात आले आहे. यामध्ये संपूर्ण हंगामासाठी महिन्यानुसार नियोजन, इंटरॅक्टिव्ह व्हिडिओ, लीफलेट्स, पीपीटी आणि फील्ड गाईडन्स उपलब्ध आहे, ज्यामुळे प्रशिक्षणाची तयारी आणि अंमलबजावणी अधिक सोपी व प्रभावी होते.',notice:'© 2026 Ploughman Agro Private Limited. हे PAPL चे अंतर्गत tool आहे. हे tool, login credentials किंवा link अधिकृत टीमबाहेर share करू नका.',access:'यूजर लॉगिन',userLabel:'यूजर आयडी',passLabel:'पासवर्ड',userPH:'यूजर आयडी टाका',passPH:'पासवर्ड टाका',login:'लॉगिन करा →',hint:'पुढे जाण्यासाठी अधिकृत यूजर आयडी आणि पासवर्ड टाका.',error:'यूजर आयडी किंवा पासवर्ड चुकीचा आहे.'},
+    gu:{intro:'આ ઇન્ટરેક્ટિવ લર્નિંગ ટૂલ અમારા Trainers અને Jeevika Jankar ને જૈવિક ખેતી શીખવા, ખેડૂત તાલીમનું વધુ સારું આયોજન કરવા અને તાલીમને અસરકારક રીતે ચલાવવામાં મદદ કરવા માટે તૈયાર કરવામાં આવ્યું છે. તેમાં સમગ્ર સિઝન માટે માસવાર આયોજન, ઇન્ટરેક્ટિવ વિડિયો, લીફલેટ, PPT અને ફિલ્ડ ગાઇડન્સ ઉપલબ્ધ છે, જેથી તાલીમની તૈયારી અને અમલ વધુ સરળ અને અસરકારક બને.',notice:'© 2026 Ploughman Agro Private Limited. આ PAPL નું આંતરિક tool છે. આ tool, login credentials અથવા link ને authorised team બહાર share ન કરો.',access:'યુઝર લૉગિન',userLabel:'યુઝર આઈડી',passLabel:'પાસવર્ડ',userPH:'યુઝર આઈડી દાખલ કરો',passPH:'પાસવર્ડ દાખલ કરો',login:'લૉગિન કરો →',hint:'આગળ વધવા માટે અધિકૃત યુઝર આઈડી અને પાસવર્ડ દાખલ કરો.',error:'યુઝર આઈડી અથવા પાસવર્ડ ખોટો છે.'}
   }[_mlLang];
-  var intro=document.getElementById('mlLoginIntro'),notice=document.getElementById('mlLoginNotice'),btn=document.getElementById('mlLoginBtn'),hint=document.getElementById('mlReviewHint');
-  if(intro)intro.textContent=t.intro;if(notice)notice.textContent=t.notice;if(btn)btn.textContent=t.login;if(hint)hint.textContent=t.review;
-  ['hi','en','od','mr','gu'].forEach(function(x){var id='mlLang'+x.charAt(0).toUpperCase()+x.slice(1),b=document.getElementById(id);if(!b)return;var active=x===_mlLang;b.style.background=active?'var(--c-primary)':'var(--c-card)';b.style.color=active?'#fff':'var(--c-text)';});
+  var intro=document.getElementById('mlLoginIntro'),notice=document.getElementById('mlLoginNotice'),
+      btn=document.getElementById('mlLoginBtn'),hint=document.getElementById('mlLoginHint'),
+      access=document.getElementById('mlAccessTitle'),ul=document.getElementById('mlUserLabel'),
+      pl=document.getElementById('mlPassLabel'),ui=document.getElementById('mlLoginUser'),
+      pi=document.getElementById('mlLoginPass'),err=document.getElementById('mlLoginError');
+  if(intro)intro.textContent=t.intro;if(notice)notice.textContent=t.notice;
+  if(btn)btn.textContent=t.login;if(hint)hint.textContent=t.hint;if(access)access.textContent=t.access;
+  if(ul)ul.textContent=t.userLabel;if(pl)pl.textContent=t.passLabel;
+  if(ui)ui.placeholder=t.userPH;if(pi)pi.placeholder=t.passPH;if(err)err.textContent=t.error;
+  ['hi','en','od','mr','gu'].forEach(function(x){
+    var id='mlLang'+x.charAt(0).toUpperCase()+x.slice(1),b=document.getElementById(id);
+    if(!b)return;var active=x===_mlLang;
+    b.style.background=active?'var(--c-primary)':'var(--c-card)';
+    b.style.color=active?'#fff':'var(--c-text)';
+  });
 }
-function enterReviewMode(){
+function toggleMlPassword(){
+  var p=document.getElementById('mlLoginPass');if(!p)return;
+  p.type=p.type==='password'?'text':'password';
+}
+function doMultilingualLogin(){
+  var uid=(document.getElementById('mlLoginUser').value||'').trim().toLowerCase();
+  var pwd=(document.getElementById('mlLoginPass').value||'').trim();
+  var err=document.getElementById('mlLoginError');
+  var ok=(typeof _AUTH!=='undefined')&&_AUTH.some(function(t){
+    var d=_dec(t).split(':');return d[0]===uid&&d[1]===pwd;
+  });
+  if(!ok){
+    if(err)err.style.display='block';
+    var p=document.getElementById('mlLoginPass');if(p){p.value='';p.focus();}
+    return;
+  }
+  if(err)err.style.display='none';
+  try{
+    var exp=Date.now()+(7*24*60*60*1000);
+    localStorage.setItem('papl_auth',JSON.stringify({v:1,exp:exp}));
+  }catch(e){}
   var c=document.getElementById('multilingualLoginCover');if(c)c.style.display='none';
-  try{if(typeof setLang==='function'){setLang(_mlLang);}}catch(e){}
+  try{if(typeof setLang==='function')setLang(_mlLang);}catch(e){}
   try{showPage('home');}catch(e){}
+  if(uid===_ADMIN_ID){
+    var ab=document.getElementById('adminPanelBtn');if(ab)ab.style.display='flex';
+  }else{
+    try{if(checkFirstTime())showRegScreen();}catch(e){}
+  }
 }
-document.addEventListener('keydown',function(e){var c=document.getElementById('multilingualLoginCover');if(e.key==='Enter'&&c&&c.style.display!=='none')enterReviewMode();});
-document.addEventListener('DOMContentLoaded',function(){setLoginLang('hi');var c=document.getElementById('multilingualLoginCover');if(c)c.style.display='flex';});
+document.addEventListener('keydown',function(e){
+  var c=document.getElementById('multilingualLoginCover');
+  if(e.key==='Enter'&&c&&c.style.display!=='none')doMultilingualLogin();
+});
+document.addEventListener('DOMContentLoaded',function(){
+  setLoginLang('hi');
+  var c=document.getElementById('multilingualLoginCover');
+  if(c)c.style.display='flex';
+});
 </script>
 </body>
 </html>
