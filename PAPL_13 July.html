@@ -5435,7 +5435,7 @@ var VIDEOS={
   1:'https://youtu.be/zx0aTbMjtN0',
   2:'https://youtu.be/ovvwBgJ7qu8',
   3:'https://youtu.be/L3oKFCq5h9Q',
-  4:'https://youtu.be/yuxIK_2vT-I',
+  4:'https://youtu.be/LybvO7CR4Y4',
   5:'https://youtu.be/4JGKX0sogZ4',
   6:'https://youtu.be/unqBMoKpHMY',
   7:'https://youtu.be/WU_XksfvVFE',
@@ -6405,9 +6405,17 @@ function renderHome(){
     var sc4url=VIDEOS[cur]||'';
     var sc4m=sc4url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/i);
     if(sc4m&&sc4m[1]){
-      var sc4src='https://img.youtube.com/vi/'+sc4m[1]+'/hqdefault.jpg';
-      if(sc4thumb)sc4thumb.src=sc4src;
-      if(sc4thumbBg)sc4thumbBg.src=sc4src;
+      var sc4isSep=(sc4m[1]==='LybvO7CR4Y4');
+      var sc4src='https://img.youtube.com/vi/'+sc4m[1]+'/'+(sc4isSep?'maxresdefault.jpg?paplthumb=20260901':'hqdefault.jpg');
+      var sc4fallback='https://img.youtube.com/vi/'+sc4m[1]+'/hqdefault.jpg?paplthumb=20260901';
+      if(sc4thumb){
+        sc4thumb.onerror=sc4isSep?function(){this.onerror=null;this.src=sc4fallback;}:null;
+        sc4thumb.src=sc4src;
+      }
+      if(sc4thumbBg){
+        sc4thumbBg.onerror=sc4isSep?function(){this.onerror=null;this.src=sc4fallback;}:null;
+        sc4thumbBg.src=sc4src;
+      }
     }
   }
 
@@ -7283,12 +7291,15 @@ function buildVideo(mo,cfg,isHiLang){
   var m1=url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
   var m2=url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
   if(m1) ytId=m1[1]; else if(m2) ytId=m2[1];
-  var thumbUrl=ytId?'https://img.youtube.com/vi/'+ytId+'/hqdefault.jpg':'';
+  var thumbUrl=ytId?'https://img.youtube.com/vi/'+ytId+'/'+(ytId==='LybvO7CR4Y4'?'maxresdefault.jpg?paplthumb=20260901':'hqdefault.jpg'):'';
   var vc=document.createElement('div');vc.className='videoCard';
   var thumb=document.createElement('div');thumb.className='videoThumb';
   thumb.onclick=function(){openDrive(url);};
   if(thumbUrl){
     var timg=document.createElement('img');
+    if(ytId==='LybvO7CR4Y4'){
+      timg.onerror=function(){this.onerror=null;this.src='https://img.youtube.com/vi/'+ytId+'/hqdefault.jpg?paplthumb=20260901';};
+    }
     timg.src=thumbUrl;
     timg.className='videoThumbImg';
     timg.alt='';
