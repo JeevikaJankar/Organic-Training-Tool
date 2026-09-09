@@ -5979,6 +5979,476 @@ var PAPL_SESSION_POINTS_GU={"Principles of organic farming":"જૈવિક ખ
 DATA.mr.months.forEach(function(mo,mi){mo.t.forEach(function(s,si){var es=DATA.en.months[mi]&&DATA.en.months[mi].t[si];if(es&&es.content)s.content=es.content.map(function(x){return PAPL_SESSION_POINTS_MR[x]||x;});});});
 DATA.gu.months.forEach(function(mo,mi){mo.t.forEach(function(s,si){var es=DATA.en.months[mi]&&DATA.en.months[mi].t[si];if(es&&es.content)s.content=es.content.map(function(x){return PAPL_SESSION_POINTS_GU[x]||x;});});});
 
+/* September Session 3 — mixed ICS + Decent Work resources only */
+(function(){
+  var sepMixed={
+    en:{
+      title:'ICS Compliance, Documentation & Decent Work',
+      obj:'Ensure ICS compliance and strengthen decent work practices.',
+      content:[
+        'ICS Compliance & Documentation — Cover the ICS group and responsibilities, certification process, required farmer and farm records, internal inspection, organic compliance requirements, non-compliance follow-up, audit preparedness and support during external certification audits.',
+        'Child Labour, Women Empowerment & Safety — Cover prohibition of child labour, age verification, safe working conditions, women’s safety, respectful treatment, women’s participation and empowerment, and reporting of workplace or safety concerns.',
+        'Fair Wages, Non-Discrimination & Grievance System — Cover fair and timely wages, equal treatment, non-discrimination, respectful behaviour, worker rights, and a clear grievance or complaint mechanism.'
+      ]
+    },
+    hi:{
+      title:'ICS अनुपालन, दस्तावेजीकरण एवं सम्मानजनक कार्यस्थल और व्यवस्था',
+      obj:'ICS अनुपालन सुनिश्चित करें और सम्मानजनक कार्यस्थल की व्यवस्था को मजबूत करें।',
+      content:[
+        'ICS अनुपालन एवं दस्तावेजीकरण — ICS समूह और जिम्मेदारियाँ, प्रमाणन प्रक्रिया, आवश्यक किसान एवं खेत रिकॉर्ड, आंतरिक निरीक्षण, जैविक अनुपालन आवश्यकताएँ, गैर-अनुपालन पर सुधारात्मक कार्रवाई, ऑडिट तैयारी और बाहरी प्रमाणन ऑडिट के दौरान सहयोग को कवर करें।',
+        'बाल श्रम निषेध, महिला सशक्तिकरण एवं सुरक्षा — बाल श्रम निषेध, आयु सत्यापन, सुरक्षित कार्य स्थिति, महिलाओं की सुरक्षा, सम्मानजनक व्यवहार, महिलाओं की भागीदारी एवं सशक्तिकरण और कार्यस्थल/सुरक्षा संबंधी शिकायत रिपोर्टिंग को कवर करें।',
+        'उचित मजदूरी, गैर-भेदभाव एवं शिकायत निवारण व्यवस्था — उचित और समय पर मजदूरी, समान व्यवहार, गैर-भेदभाव, सम्मानजनक व्यवहार, श्रमिक अधिकार और स्पष्ट शिकायत/समस्या निवारण व्यवस्था को कवर करें।'
+      ]
+    },
+    od:{
+      title:'ICS ଅନୁପାଳନ, ଦଲିଲୀକରଣ ଏବଂ ସମ୍ମାନଜନକ କାର୍ଯ୍ୟସ୍ଥଳ ଓ ବ୍ୟବସ୍ଥା',
+      obj:'ICS ଅନୁପାଳନ ନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ ସମ୍ମାନଜନକ କାର୍ଯ୍ୟସ୍ଥଳ ବ୍ୟବସ୍ଥାକୁ ସୁଦୃଢ କରନ୍ତୁ।',
+      content:[
+        'ICS ଅନୁପାଳନ ଏବଂ ଦଲିଲୀକରଣ — ICS ଗୋଷ୍ଠୀ ଓ ଦାୟିତ୍ୱ, ପ୍ରମାଣୀକରଣ ପ୍ରକ୍ରିୟା, ଆବଶ୍ୟକ କୃଷକ ଓ ଖେତ ରେକର୍ଡ, ଆଭ୍ୟନ୍ତରୀଣ ନିରୀକ୍ଷଣ, ଜୈବିକ ଅନୁପାଳନ ଆବଶ୍ୟକତା, ଅନୁପାଳନ ନ ହେଲେ ସୁଧାରମୂଳକ କାର୍ଯ୍ୟ, ଅଡିଟ୍ ପ୍ରସ୍ତୁତି ଏବଂ ବାହ୍ୟ ପ୍ରମାଣୀକରଣ ଅଡିଟ୍ ସମୟରେ ସହଯୋଗ ବିଷୟରେ କଭର କରନ୍ତୁ।',
+        'ଶିଶୁ ଶ୍ରମ ନିଷେଧ, ମହିଳା ସଶକ୍ତିକରଣ ଏବଂ ସୁରକ୍ଷା — ଶିଶୁ ଶ୍ରମ ନିଷେଧ, ବୟସ ଯାଞ୍ଚ, ସୁରକ୍ଷିତ କାର୍ଯ୍ୟ ପରିସ୍ଥିତି, ମହିଳାଙ୍କ ସୁରକ୍ଷା, ସମ୍ମାନଜନକ ବ୍ୟବହାର, ମହିଳାଙ୍କ ଅଂଶଗ୍ରହଣ ଓ ସଶକ୍ତିକରଣ ଏବଂ କାର୍ଯ୍ୟସ୍ଥଳ/ସୁରକ୍ଷା ସମସ୍ୟା ରିପୋର୍ଟ କରିବା ବିଷୟରେ କଭର କରନ୍ତୁ।',
+        'ନ୍ୟାୟସଙ୍ଗତ ମଜୁରି, ଭେଦଭାବ ନ କରିବା ଏବଂ ଅଭିଯୋଗ ସମାଧାନ ବ୍ୟବସ୍ଥା — ନ୍ୟାୟସଙ୍ଗତ ଓ ସମୟମତେ ମଜୁରି, ସମାନ ବ୍ୟବହାର, ଭେଦଭାବ ନ କରିବା, ସମ୍ମାନଜନକ ବ୍ୟବହାର, ଶ୍ରମିକ ଅଧିକାର ଏବଂ ସ୍ପଷ୍ଟ ଅଭିଯୋଗ/ସମସ୍ୟା ସମାଧାନ ବ୍ୟବସ୍ଥାକୁ କଭର କରନ୍ତୁ।'
+      ]
+    },
+    mr:{
+      title:'ICS अनुपालन, दस्तऐवजीकरण आणि सन्मानजनक कार्यस्थळ व व्यवस्था',
+      obj:'ICS अनुपालन सुनिश्चित करा आणि सन्मानजनक कार्यस्थळाची व्यवस्था मजबूत करा.',
+      content:[
+        'ICS अनुपालन व दस्तऐवजीकरण — ICS गट व जबाबदाऱ्या, प्रमाणीकरण प्रक्रिया, आवश्यक शेतकरी व शेत नोंदी, अंतर्गत तपासणी, सेंद्रिय अनुपालन आवश्यकता, गैर-अनुपालनावर सुधारात्मक कृती, ऑडिटची तयारी आणि बाह्य प्रमाणीकरण ऑडिटदरम्यान आवश्यक सहकार्य यांचा समावेश करा.',
+        'बालमजुरी प्रतिबंध, महिला सक्षमीकरण आणि सुरक्षा — बालमजुरी प्रतिबंध, वय पडताळणी, सुरक्षित कामाची परिस्थिती, महिलांची सुरक्षा, आदरयुक्त वागणूक, महिलांचा सहभाग व सक्षमीकरण आणि कार्यस्थळ/सुरक्षा विषयक तक्रार नोंदविण्याची व्यवस्था यांचा समावेश करा.',
+        'योग्य मजुरी, भेदभावमुक्त वागणूक आणि तक्रार निवारण व्यवस्था — योग्य व वेळेवर मजुरी, समान वागणूक, भेदभाव न करणे, आदरयुक्त वर्तन, कामगार हक्क आणि स्पष्ट तक्रार/समस्या निवारण व्यवस्था यांचा समावेश करा.'
+      ]
+    },
+    gu:{
+      title:'ICS અનુપાલન, દસ્તાવેજીકરણ અને સન્માનજનક કાર્યસ્થળ અને વ્યવસ્થા',
+      obj:'ICS અનુપાલન સુનિશ્ચિત કરો અને સન્માનજનક કાર્યસ્થળની વ્યવસ્થા મજબૂત કરો.',
+      content:[
+        'ICS અનુપાલન અને દસ્તાવેજીકરણ — ICS જૂથ અને જવાબદારીઓ, પ્રમાણીકરણ પ્રક્રિયા, જરૂરી ખેડૂત અને ખેતર રેકોર્ડ, આંતરિક નિરીક્ષણ, જૈવિક અનુપાલન જરૂરીયાતો, ગેર-અનુપાલન પર સુધારાત્મક કાર્યવાહી, ઓડિટ તૈયારી અને બાહ્ય પ્રમાણીકરણ ઓડિટ દરમિયાન જરૂરી સહકારને આવરી લો.',
+        'બાળમજૂરી પ્રતિબંધ, મહિલા સશક્તિકરણ અને સુરક્ષા — બાળમજૂરી પ્રતિબંધ, ઉંમર ચકાસણી, સુરક્ષિત કામની પરિસ્થિતિ, મહિલાઓની સુરક્ષા, સન્માનજનક વર્તન, મહિલાઓની ભાગીદારી અને સશક્તિકરણ તથા કાર્યસ્થળ/સુરક્ષા સંબંધિત ફરિયાદ નોંધાવવાની વ્યવસ્થાને આવરી લો.',
+        'યોગ્ય મજૂરી, ભેદભાવ રહિત વ્યવહાર અને ફરિયાદ નિવારણ વ્યવસ્થા — યોગ્ય અને સમયસર મજૂરી, સમાન વર્તન, ભેદભાવ ન કરવો, સન્માનજનક વ્યવહાર, કામદાર અધિકારો અને સ્પષ્ટ ફરિયાદ/સમસ્યા નિવારણ વ્યવસ્થાને આવરી લો.'
+      ]
+    }
+  };
+  ['en','hi','od','mr','gu'].forEach(function(l){
+    var s=DATA[l]&&DATA[l].months&&DATA[l].months[4]&&DATA[l].months[4].t&&DATA[l].months[4].t[2];
+    if(!s||!sepMixed[l])return;
+    s.title=sepMixed[l].title;
+    s.obj=sepMixed[l].obj;
+    s.content=sepMixed[l].content.slice();
+    s.resources=['10A','10B','10G'];
+    s.moduleLabel='M10A · M10B · M10G';
+  });
+})();
+
+/* September Session 1 & 2 titles only */
+(function(){
+  var sepTitles={
+    en:[
+      'M4 – Nutrition Management during Flowering',
+      'M6 – Insect-Pest & Disease Management during Flowering'
+    ],
+    hi:[
+      'M4 – फूल अवस्था में पोषण प्रबंधन',
+      'M6 – फूल अवस्था में कीट एवं रोग प्रबंधन'
+    ],
+    od:[
+      'M4 – ଫୁଲ ଅବସ୍ଥାରେ ପୋଷଣ ପରିଚାଳନା',
+      'M6 – ଫୁଲ ଅବସ୍ଥାରେ କୀଟ ଓ ରୋଗ ପରିଚାଳନା'
+    ],
+    mr:[
+      'M4 – फुलोरा अवस्थेत पोषण व्यवस्थापन',
+      'M6 – फुलोरा अवस्थेत कीड व रोग व्यवस्थापन'
+    ],
+    gu:[
+      'M4 – ફૂલ અવસ્થામાં પોષણ વ્યવસ્થાપન',
+      'M6 – ફૂલ અવસ્થામાં જીવાત અને રોગ વ્યવસ્થાપન'
+    ]
+  };
+  ['en','hi','od','mr','gu'].forEach(function(l){
+    var t=DATA[l]&&DATA[l].months&&DATA[l].months[4]&&DATA[l].months[4].t;
+    if(!t||!sepTitles[l])return;
+    if(t[0])t[0].title=sepTitles[l][0];
+    if(t[1])t[1].title=sepTitles[l][1];
+  });
+})();
+
+/* October Sessions 1–3 — improved titles and mixed Decent Work resources */
+(function(){
+  var octData={
+    en:{
+      s1:'M6 – Insect-Pest & Disease Management during Boll Development',
+      s2:'M7 – Irrigation & Moisture Management during Boll Development',
+      s3:{
+        title:'Farm Diary Mid-Season Review & Decent Work',
+        obj:'Review farm records and reinforce decent work practices.',
+        content:[
+          'Farm Diary Mid-Season Review — Cover farm diary updates, input and activity records, yield forecast, ICS data compilation, documentation gaps, corrective action, and readiness of records for certification or audit review.',
+          'Child Labour, Women Empowerment & Safety — Cover child labour prohibition, age verification, women’s safety, respectful treatment, women’s participation and empowerment, and reporting of workplace or safety concerns.',
+          'Fair Wages, Non-Discrimination & Grievance System — Cover fair and timely wages, equal treatment, non-discrimination, worker rights, respectful behaviour, and a clear grievance or complaint mechanism.'
+        ]
+      }
+    },
+    hi:{
+      s1:'M6 – बॉल विकास अवस्था में कीट एवं रोग प्रबंधन',
+      s2:'M7 – बॉल विकास अवस्था में सिंचाई एवं नमी प्रबंधन',
+      s3:{
+        title:'फार्म डायरी मध्य-सीजन समीक्षा एवं सम्मानजनक कार्यस्थल और व्यवस्था',
+        obj:'फार्म रिकॉर्ड की समीक्षा करें और सम्मानजनक कार्यस्थल की व्यवस्था को मजबूत करें।',
+        content:[
+          'फार्म डायरी मध्य-सीजन समीक्षा — फार्म डायरी अपडेट, इनपुट एवं गतिविधि रिकॉर्ड, उपज पूर्वानुमान, ICS डेटा संकलन, दस्तावेजी कमियाँ, सुधारात्मक कार्रवाई और प्रमाणन/ऑडिट समीक्षा के लिए रिकॉर्ड की तैयारी को कवर करें।',
+          'बाल श्रम निषेध, महिला सशक्तिकरण एवं सुरक्षा — बाल श्रम निषेध, आयु सत्यापन, महिलाओं की सुरक्षा, सम्मानजनक व्यवहार, महिलाओं की भागीदारी एवं सशक्तिकरण और कार्यस्थल/सुरक्षा संबंधी शिकायत रिपोर्टिंग को कवर करें।',
+          'उचित मजदूरी, गैर-भेदभाव एवं शिकायत निवारण व्यवस्था — उचित और समय पर मजदूरी, समान व्यवहार, गैर-भेदभाव, श्रमिक अधिकार, सम्मानजनक व्यवहार और स्पष्ट शिकायत/समस्या निवारण व्यवस्था को कवर करें।'
+        ]
+      }
+    },
+    od:{
+      s1:'M6 – ବୋଲ୍ ବିକାଶ ଅବସ୍ଥାରେ କୀଟ ଓ ରୋଗ ପରିଚାଳନା',
+      s2:'M7 – ବୋଲ୍ ବିକାଶ ଅବସ୍ଥାରେ ସିଚାଇ ଓ ଆର୍ଦ୍ରତା ପରିଚାଳନା',
+      s3:{
+        title:'ଫାର୍ମ ଡାଏରୀ ମଧ୍ୟ-ଋତୁ ସମୀକ୍ଷା ଏବଂ ସମ୍ମାନଜନକ କାର୍ଯ୍ୟସ୍ଥଳ ଓ ବ୍ୟବସ୍ଥା',
+        obj:'ଫାର୍ମ ରେକର୍ଡ ସମୀକ୍ଷା କରନ୍ତୁ ଏବଂ ସମ୍ମାନଜନକ କାର୍ଯ୍ୟସ୍ଥଳ ବ୍ୟବସ୍ଥାକୁ ସୁଦୃଢ କରନ୍ତୁ।',
+        content:[
+          'ଫାର୍ମ ଡାଏରୀ ମଧ୍ୟ-ଋତୁ ସମୀକ୍ଷା — ଫାର୍ମ ଡାଏରୀ ଅପଡେଟ୍, ଇନପୁଟ ଓ କାର୍ଯ୍ୟକଳାପ ରେକର୍ଡ, ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ, ICS ଡାଟା ସଂକଳନ, ଦଲିଲ ଅଭାବ, ସୁଧାରମୂଳକ କାର୍ଯ୍ୟ ଏବଂ ପ୍ରମାଣୀକରଣ/ଅଡିଟ୍ ସମୀକ୍ଷା ପାଇଁ ରେକର୍ଡ ପ୍ରସ୍ତୁତିକୁ କଭର କରନ୍ତୁ।',
+          'ଶିଶୁ ଶ୍ରମ ନିଷେଧ, ମହିଳା ସଶକ୍ତିକରଣ ଏବଂ ସୁରକ୍ଷା — ଶିଶୁ ଶ୍ରମ ନିଷେଧ, ବୟସ ଯାଞ୍ଚ, ମହିଳାଙ୍କ ସୁରକ୍ଷା, ସମ୍ମାନଜନକ ବ୍ୟବହାର, ମହିଳାଙ୍କ ଅଂଶଗ୍ରହଣ ଓ ସଶକ୍ତିକରଣ ଏବଂ କାର୍ଯ୍ୟସ୍ଥଳ/ସୁରକ୍ଷା ସମସ୍ୟା ରିପୋର୍ଟ କରିବା ବିଷୟରେ କଭର କରନ୍ତୁ।',
+          'ନ୍ୟାୟସଙ୍ଗତ ମଜୁରି, ଭେଦଭାବ ନ କରିବା ଏବଂ ଅଭିଯୋଗ ସମାଧାନ ବ୍ୟବସ୍ଥା — ନ୍ୟାୟସଙ୍ଗତ ଓ ସମୟମତେ ମଜୁରି, ସମାନ ବ୍ୟବହାର, ଭେଦଭାବ ନ କରିବା, ଶ୍ରମିକ ଅଧିକାର, ସମ୍ମାନଜନକ ବ୍ୟବହାର ଏବଂ ସ୍ପଷ୍ଟ ଅଭିଯୋଗ/ସମସ୍ୟା ସମାଧାନ ବ୍ୟବସ୍ଥାକୁ କଭର କରନ୍ତୁ।'
+        ]
+      }
+    },
+    mr:{
+      s1:'M6 – बोंड विकास अवस्थेत कीड व रोग व्यवस्थापन',
+      s2:'M7 – बोंड विकास अवस्थेत सिंचन व ओलावा व्यवस्थापन',
+      s3:{
+        title:'फार्म डायरी मध्य-हंगाम आढावा आणि सन्मानजनक कार्यस्थळ व व्यवस्था',
+        obj:'फार्म नोंदींचा आढावा घ्या आणि सन्मानजनक कार्यस्थळाची व्यवस्था मजबूत करा.',
+        content:[
+          'फार्म डायरी मध्य-हंगाम आढावा — फार्म डायरी अद्ययावत करणे, इनपुट व उपक्रम नोंदी, उत्पादन अंदाज, ICS डेटा संकलन, दस्तऐवजातील त्रुटी, सुधारात्मक कृती आणि प्रमाणीकरण/ऑडिट आढाव्यासाठी नोंदींची तयारी यांचा समावेश करा.',
+          'बालमजुरी प्रतिबंध, महिला सक्षमीकरण आणि सुरक्षा — बालमजुरी प्रतिबंध, वय पडताळणी, महिलांची सुरक्षा, आदरयुक्त वागणूक, महिलांचा सहभाग व सक्षमीकरण आणि कार्यस्थळ/सुरक्षा विषयक तक्रार नोंदविण्याची व्यवस्था यांचा समावेश करा.',
+          'योग्य मजुरी, भेदभावमुक्त वागणूक आणि तक्रार निवारण व्यवस्था — योग्य व वेळेवर मजुरी, समान वागणूक, भेदभाव न करणे, कामगार हक्क, आदरयुक्त वर्तन आणि स्पष्ट तक्रार/समस्या निवारण व्यवस्था यांचा समावेश करा.'
+        ]
+      }
+    },
+    gu:{
+      s1:'M6 – બોળ વિકાસ અવસ્થામાં જીવાત અને રોગ વ્યવસ્થાપન',
+      s2:'M7 – બોળ વિકાસ અવસ્થામાં સિંચાઈ અને ભેજ વ્યવસ્થાપન',
+      s3:{
+        title:'ફાર્મ ડાયરી મધ્ય-સીઝન સમીક્ષા અને સન્માનજનક કાર્યસ્થળ અને વ્યવસ્થા',
+        obj:'ફાર્મ રેકોર્ડની સમીક્ષા કરો અને સન્માનજનક કાર્યસ્થળની વ્યવસ્થા મજબૂત કરો.',
+        content:[
+          'ફાર્મ ડાયરી મધ્ય-સીઝન સમીક્ષા — ફાર્મ ડાયરી અપડેટ, ઇનપુટ અને પ્રવૃત્તિ રેકોર્ડ, ઉપજ પૂર્વાનુમાન, ICS ડેટા સંકલન, દસ્તાવેજી ખામીઓ, સુધારાત્મક કાર્યવાહી અને પ્રમાણીકરણ/ઓડિટ સમીક્ષા માટે રેકોર્ડની તૈયારીને આવરી લો.',
+          'બાળમજૂરી પ્રતિબંધ, મહિલા સશક્તિકરણ અને સુરક્ષા — બાળમજૂરી પ્રતિબંધ, ઉંમર ચકાસણી, મહિલાઓની સુરક્ષા, સન્માનજનક વર્તન, મહિલાઓની ભાગીદારી અને સશક્તિકરણ તથા કાર્યસ્થળ/સુરક્ષા સંબંધિત ફરિયાદ નોંધાવવાની વ્યવસ્થાને આવરી લો.',
+          'યોગ્ય મજૂરી, ભેદભાવ રહિત વ્યવહાર અને ફરિયાદ નિવારણ વ્યવસ્થા — યોગ્ય અને સમયસર મજૂરી, સમાન વર્તન, ભેદભાવ ન કરવો, કામદાર અધિકારો, સન્માનજનક વર્તન અને સ્પષ્ટ ફરિયાદ/સમસ્યા નિવારણ વ્યવસ્થાને આવરી લો.'
+        ]
+      }
+    }
+  };
+
+  ['en','hi','od','mr','gu'].forEach(function(l){
+    var t=DATA[l]&&DATA[l].months&&DATA[l].months[5]&&DATA[l].months[5].t;
+    if(!t||!octData[l])return;
+    if(t[0])t[0].title=octData[l].s1;
+    if(t[1])t[1].title=octData[l].s2;
+    if(t[2]){
+      t[2].title=octData[l].s3.title;
+      t[2].obj=octData[l].s3.obj;
+      t[2].content=octData[l].s3.content.slice();
+      t[2].resources=['10A','10B','10G'];
+      t[2].moduleLabel='M10A · M10B · M10G';
+    }
+  });
+})();
+
+/* November — exactly 4 revised sessions with existing module resource linkages */
+(function(){
+  var novData={
+    en:[
+      {
+        tg:'08',
+        title:'M8 – Pre-Harvest Preparation & CFC (Contamination-Free Cotton)',
+        color:'#bf360c',
+        obj:'Prepare for clean, compliant and contamination-free cotton harvesting.',
+        content:[
+          'Harvest readiness & correct picking stage — Identify the right maturity and picking time to protect cotton quality.',
+          'Clean picking practices — Use clean hands, clean picking bags and a clean collection/storage area.',
+          'CFC contamination prevention — Avoid plastic, jute fibres, hair, tobacco, oil/grease and other foreign materials.',
+          'Segregation & handling — Keep organic cotton separate during picking, collection, storage and transport.',
+          'Pre-harvest compliance & records — Review production/yield forecast, required records and readiness for certification or audit.'
+        ],
+      },
+      {
+        tg:'07',
+        title:'M7 – Irrigation & Climate-Resilient Agriculture',
+        color:'#01579b',
+        obj:'Manage water and climate risks during late boll development and crop maturity.',
+        content:[
+          'Irrigation need during late boll development and maturity',
+          'Avoid excess irrigation and waterlogging before harvest',
+          'Soil-moisture conservation and field drainage',
+          'Observe weather and climate risks and take timely field action',
+          'Plan irrigation according to crop stage and local field conditions'
+        ]
+      },
+      {
+        tg:'04',
+        title:'M4 – Nutrient Management',
+        color:'#e65100',
+        obj:'Manage crop nutrition during boll filling and maturity while maintaining soil health.',
+        content:[
+          'Nutrient requirement during boll filling and maturity',
+          'Use permitted organic nutrient inputs according to field need',
+          'Identify nutrient-deficiency symptoms and take suitable action',
+          'Avoid unnecessary or late input application before harvest',
+          'Maintain soil health and plan post-harvest soil improvement'
+        ]
+      },
+      {
+        tg:'02',
+        title:'M2 – Rabi Plan – Seed Treatment & Sowing',
+        color:'#0d47a1',
+        obj:'Plan timely Rabi establishment with suitable seed treatment and sowing practices.',
+        content:[
+          'Select suitable Rabi crop and seed/variety',
+          'Check seed quality and germination',
+          'Seed treatment with approved organic method/Beejamrut',
+          'Land preparation, sowing time, depth and spacing',
+          'Moisture requirement and initial Rabi crop management'
+        ]
+      }
+    ],
+
+    hi:[
+      {
+        tg:'08',
+        title:'M8 – कटाई-पूर्व तैयारी एवं CFC (संदूषण-मुक्त कपास)',
+        color:'#bf360c',
+        obj:'स्वच्छ, अनुपालनयुक्त और संदूषण-मुक्त कपास तुड़ाई की तैयारी करें।',
+        content:[
+          'फसल तैयार होने की स्थिति एवं सही तुड़ाई अवस्था — कपास की गुणवत्ता बनाए रखने के लिए सही परिपक्वता और तुड़ाई समय पहचानें।',
+          'स्वच्छ तुड़ाई अभ्यास — साफ हाथ, साफ तुड़ाई बैग और साफ संग्रह/भंडारण स्थान का उपयोग करें।',
+          'CFC संदूषण रोकथाम — प्लास्टिक, जूट के रेशे, बाल, तंबाकू, तेल/ग्रीस और अन्य बाहरी पदार्थ से कपास को बचाएँ।',
+          'अलग रखना एवं संभालना — तुड़ाई, संग्रह, भंडारण और परिवहन के दौरान जैविक कपास को अलग रखें।',
+          'कटाई-पूर्व अनुपालन एवं रिकॉर्ड — उत्पादन/उपज पूर्वानुमान, आवश्यक रिकॉर्ड और प्रमाणन/ऑडिट की तैयारी की समीक्षा करें।'
+        ],
+      },
+      {
+        tg:'07',
+        title:'M7 – सिंचाई एवं जलवायु-सहनीय कृषि',
+        color:'#01579b',
+        obj:'बॉल विकास की अंतिम अवस्था और फसल पकने के समय पानी एवं जलवायु जोखिम का प्रबंधन करें।',
+        content:[
+          'बॉल विकास की अंतिम अवस्था और पकने के समय सिंचाई की आवश्यकता',
+          'कटाई से पहले अधिक सिंचाई और जलभराव से बचाव',
+          'मिट्टी की नमी संरक्षण और खेत की जल निकासी',
+          'मौसम एवं जलवायु जोखिम का अवलोकन और समय पर खेत में कार्रवाई',
+          'फसल अवस्था और स्थानीय खेत की स्थिति के अनुसार सिंचाई योजना'
+        ]
+      },
+      {
+        tg:'04',
+        title:'M4 – पोषण प्रबंधन',
+        color:'#e65100',
+        obj:'बॉल भरने और पकने की अवस्था में फसल पोषण तथा मिट्टी स्वास्थ्य का प्रबंधन करें।',
+        content:[
+          'बॉल भरने और पकने की अवस्था में पोषक तत्वों की आवश्यकता',
+          'खेत की आवश्यकता अनुसार अनुमत जैविक पोषक इनपुट का उपयोग',
+          'पोषक तत्व की कमी के लक्षण पहचानें और उचित कार्रवाई करें',
+          'कटाई से पहले अनावश्यक या देर से इनपुट प्रयोग से बचें',
+          'मिट्टी स्वास्थ्य बनाए रखें और कटाई के बाद मिट्टी सुधार की योजना बनाएं'
+        ]
+      },
+      {
+        tg:'02',
+        title:'M2 – रबी योजना – बीज उपचार एवं बुआई',
+        color:'#0d47a1',
+        obj:'उपयुक्त बीज उपचार और बुआई विधियों के साथ समय पर रबी फसल की योजना बनाएं।',
+        content:[
+          'उपयुक्त रबी फसल और बीज/किस्म का चयन',
+          'बीज गुणवत्ता और अंकुरण की जाँच',
+          'अनुमत जैविक विधि/बीजामृत से बीज उपचार',
+          'भूमि तैयारी, बुआई समय, गहराई और दूरी',
+          'नमी की आवश्यकता और रबी फसल का प्रारंभिक प्रबंधन'
+        ]
+      }
+    ],
+
+    od:[
+      {
+        tg:'08',
+        title:'M8 – ଅମଳ ପୂର୍ବ ପ୍ରସ୍ତୁତି ଏବଂ CFC (ଦୂଷଣମୁକ୍ତ କପା)',
+        color:'#bf360c',
+        obj:'ସ୍ୱଚ୍ଛ, ଅନୁପାଳନଯୋଗ୍ୟ ଏବଂ ଦୂଷଣମୁକ୍ତ କପା ତୋଳା ପାଇଁ ପ୍ରସ୍ତୁତି କରନ୍ତୁ।',
+        content:[
+          'ଅମଳ ପ୍ରସ୍ତୁତି ଓ ସଠିକ୍ କପା ତୋଳା ଅବସ୍ଥା — କପାର ଗୁଣବତ୍ତା ରକ୍ଷା ପାଇଁ ସଠିକ୍ ପକ୍ୱତା ଓ ତୋଳା ସମୟ ଚିହ୍ନଟ କରନ୍ତୁ।',
+          'ସ୍ୱଚ୍ଛ କପା ତୋଳା ପ୍ରକ୍ରିୟା — ସଫା ହାତ, ସଫା ତୋଳା ବ୍ୟାଗ ଏବଂ ସଫା ସଂଗ୍ରହ/ସଂରକ୍ଷଣ ସ୍ଥାନ ବ୍ୟବହାର କରନ୍ତୁ।',
+          'CFC ଦୂଷଣ ରୋକଥାମ — ପ୍ଲାଷ୍ଟିକ, ଝୋଟ ତନ୍ତୁ, କେଶ, ତମାକୁ, ତେଲ/ଗ୍ରିସ ଏବଂ ଅନ୍ୟ ବାହ୍ୟ ପଦାର୍ଥରୁ କପାକୁ ରକ୍ଷା କରନ୍ତୁ।',
+          'ପୃଥକୀକରଣ ଓ ପରିଚାଳନା — କପା ତୋଳା, ସଂଗ୍ରହ, ସଂରକ୍ଷଣ ଓ ପରିବହନ ସମୟରେ ଜୈବିକ କପାକୁ ପୃଥକ ରଖନ୍ତୁ।',
+          'ଅମଳ ପୂର୍ବ ଅନୁପାଳନ ଓ ରେକର୍ଡ — ଉତ୍ପାଦନ/ଉପଜ ପୂର୍ବାନୁମାନ, ଆବଶ୍ୟକ ରେକର୍ଡ ଏବଂ ପ୍ରମାଣୀକରଣ/ଅଡିଟ୍ ପ୍ରସ୍ତୁତିର ସମୀକ୍ଷା କରନ୍ତୁ।'
+        ],
+      },
+      {
+        tg:'07',
+        title:'M7 – ସିଚାଇ ଏବଂ ଜଳବାୟୁ-ସହନଶୀଳ କୃଷି',
+        color:'#01579b',
+        obj:'ବୋଲ୍ ବିକାଶର ଶେଷ ଅବସ୍ଥା ଓ ଫସଲ ପକ୍ୱତା ସମୟରେ ଜଳ ଏବଂ ଜଳବାୟୁ ଝୁମ୍ପ ପରିଚାଳନା କରନ୍ତୁ।',
+        content:[
+          'ବୋଲ୍ ବିକାଶର ଶେଷ ଅବସ୍ଥା ଓ ପକ୍ୱତା ସମୟରେ ସିଚାଇ ଆବଶ୍ୟକତା',
+          'ଅମଳ ପୂର୍ବରୁ ଅଧିକ ସିଚାଇ ଏବଂ ଜଳଜମାରୁ ବଚନ୍ତୁ',
+          'ମାଟିର ଆର୍ଦ୍ରତା ସଂରକ୍ଷଣ ଏବଂ ଖେତ ଜଳ ନିଷ୍କାସନ',
+          'ପାଣିପାଗ ଓ ଜଳବାୟୁ ଝୁମ୍ପ ଦେଖନ୍ତୁ ଏବଂ ସମୟୋଚିତ ଖେତ କାର୍ଯ୍ୟ କରନ୍ତୁ',
+          'ଫସଲ ଅବସ୍ଥା ଓ ସ୍ଥାନୀୟ ଖେତ ପରିସ୍ଥିତି ଅନୁଯାୟୀ ସିଚାଇ ଯୋଜନା କରନ୍ତୁ'
+        ]
+      },
+      {
+        tg:'04',
+        title:'M4 – ପୋଷଣ ପରିଚାଳନା',
+        color:'#e65100',
+        obj:'ବୋଲ୍ ଭରିବା ଓ ପକ୍ୱତା ଅବସ୍ଥାରେ ଫସଲ ପୋଷଣ ଏବଂ ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ପରିଚାଳନା କରନ୍ତୁ।',
+        content:[
+          'ବୋଲ୍ ଭରିବା ଓ ପକ୍ୱତା ଅବସ୍ଥାରେ ପୋଷକ ଆବଶ୍ୟକତା',
+          'ଖେତ ଆବଶ୍ୟକତା ଅନୁଯାୟୀ ଅନୁମୋଦିତ ଜୈବିକ ପୋଷକ ଇନପୁଟ ବ୍ୟବହାର',
+          'ପୋଷକ ଅଭାବର ଲକ୍ଷଣ ଚିହ୍ନଟ କରି ଉପଯୁକ୍ତ କାର୍ଯ୍ୟ କରନ୍ତୁ',
+          'ଅମଳ ପୂର୍ବରୁ ଅନାବଶ୍ୟକ କିମ୍ବା ବିଳମ୍ବିତ ଇନପୁଟ ବ୍ୟବହାରରୁ ବଚନ୍ତୁ',
+          'ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ରକ୍ଷା କରନ୍ତୁ ଏବଂ ଅମଳ ପରବର୍ତ୍ତୀ ମାଟି ସୁଧାର ଯୋଜନା କରନ୍ତୁ'
+        ]
+      },
+      {
+        tg:'02',
+        title:'M2 – ରବି ଯୋଜନା – ବିହନ ବିଶୋଧନ ଏବଂ ବିହନ ବୁଣା',
+        color:'#0d47a1',
+        obj:'ଉପଯୁକ୍ତ ବିହନ ବିଶୋଧନ ଓ ବୁଣା ପ୍ରକ୍ରିୟା ସହ ସମୟରେ ରବି ଫସଲ ଯୋଜନା କରନ୍ତୁ।',
+        content:[
+          'ଉପଯୁକ୍ତ ରବି ଫସଲ ଏବଂ ବିହନ/ପ୍ରଜାତି ଚୟନ',
+          'ବିହନ ଗୁଣବତ୍ତା ଏବଂ ଅଙ୍କୁରଣ ପରୀକ୍ଷା',
+          'ଅନୁମୋଦିତ ଜୈବିକ ପ୍ରଣାଳୀ/ବୀଜାମୃତ ଦ୍ୱାରା ବିହନ ବିଶୋଧନ',
+          'ଜମି ପ୍ରସ୍ତୁତି, ବୁଣା ସମୟ, ଗଭୀରତା ଏବଂ ଦୂରତା',
+          'ଆର୍ଦ୍ରତା ଆବଶ୍ୟକତା ଏବଂ ରବି ଫସଲର ପ୍ରାରମ୍ଭିକ ପରିଚାଳନା'
+        ]
+      }
+    ],
+
+    mr:[
+      {
+        tg:'08',
+        title:'M8 – काढणीपूर्व तयारी व CFC (दूषणमुक्त कापूस)',
+        color:'#bf360c',
+        obj:'स्वच्छ, अनुपालनयुक्त आणि दूषणमुक्त कापूस वेचणीसाठी तयारी करा.',
+        content:[
+          'काढणीची तयारी व योग्य वेचणी अवस्था — कापसाची गुणवत्ता राखण्यासाठी योग्य पक्वता आणि वेचणीची वेळ ओळखा.',
+          'स्वच्छ वेचणी पद्धती — स्वच्छ हात, स्वच्छ वेचणी पिशव्या आणि स्वच्छ संकलन/साठवण जागेचा वापर करा.',
+          'CFC दूषण प्रतिबंध — प्लास्टिक, ज्यूट तंतू, केस, तंबाखू, तेल/ग्रीस आणि इतर बाह्य पदार्थांपासून कापूस सुरक्षित ठेवा.',
+          'वेगळे ठेवणे व हाताळणी — वेचणी, संकलन, साठवण आणि वाहतुकीदरम्यान सेंद्रिय कापूस वेगळा ठेवा.',
+          'काढणीपूर्व अनुपालन व नोंदी — उत्पादन/उत्पन्न अंदाज, आवश्यक नोंदी आणि प्रमाणीकरण/ऑडिट तयारीचा आढावा घ्या.'
+        ],
+      },
+      {
+        tg:'07',
+        title:'M7 – सिंचन व हवामान-सहनशील शेती',
+        color:'#01579b',
+        obj:'बोंड विकासाच्या शेवटच्या अवस्थेत आणि पीक पक्वतेच्या वेळी पाणी व हवामान जोखीम व्यवस्थापित करा.',
+        content:[
+          'बोंड विकासाच्या शेवटच्या अवस्थेत आणि पक्वतेच्या वेळी सिंचनाची गरज',
+          'काढणीपूर्वी जास्त सिंचन आणि पाणी साचणे टाळा',
+          'मातीतील ओलावा संवर्धन आणि शेतातील पाण्याचा निचरा',
+          'हवामान जोखीम निरीक्षण करून वेळेवर शेतातील कृती करा',
+          'पीक अवस्था आणि स्थानिक शेत परिस्थितीनुसार सिंचन नियोजन करा'
+        ]
+      },
+      {
+        tg:'04',
+        title:'M4 – पोषण व्यवस्थापन',
+        color:'#e65100',
+        obj:'बोंड भरणे आणि पक्वता अवस्थेत पीक पोषण व मातीचे आरोग्य व्यवस्थापित करा.',
+        content:[
+          'बोंड भरणे आणि पक्वता अवस्थेतील अन्नद्रव्यांची गरज',
+          'शेताच्या गरजेनुसार अनुमत सेंद्रिय पोषक इनपुटचा वापर',
+          'अन्नद्रव्य कमतरतेची लक्षणे ओळखा आणि योग्य कृती करा',
+          'काढणीपूर्वी अनावश्यक किंवा उशिरा इनपुट वापर टाळा',
+          'मातीचे आरोग्य राखा आणि काढणीनंतर माती सुधारणा योजना करा'
+        ]
+      },
+      {
+        tg:'02',
+        title:'M2 – रब्बी नियोजन – बीज प्रक्रिया व पेरणी',
+        color:'#0d47a1',
+        obj:'योग्य बीज प्रक्रिया आणि पेरणी पद्धतींसह वेळेवर रब्बी पीक नियोजन करा.',
+        content:[
+          'योग्य रब्बी पीक आणि बियाणे/वाण निवड',
+          'बियाण्याची गुणवत्ता आणि उगवण तपासणी',
+          'अनुमत सेंद्रिय पद्धत/बीजामृताने बीज प्रक्रिया',
+          'जमीन तयारी, पेरणीची वेळ, खोली आणि अंतर',
+          'ओलाव्याची गरज आणि रब्बी पिकाचे सुरुवातीचे व्यवस्थापन'
+        ]
+      }
+    ],
+
+    gu:[
+      {
+        tg:'08',
+        title:'M8 – કાપણી પૂર્વ તૈયારી અને CFC (દૂષણમુક્ત કપાસ)',
+        color:'#bf360c',
+        obj:'સ્વચ્છ, અનુપાલનયુક્ત અને દૂષણમુક્ત કપાસ તોડણી માટે તૈયારી કરો.',
+        content:[
+          'કાપણીની તૈયારી અને યોગ્ય તોડણી અવસ્થા — કપાસની ગુણવત્તા જાળવવા માટે યોગ્ય પાકવાની અવસ્થા અને તોડણી સમય ઓળખો.',
+          'સ્વચ્છ તોડણી પદ્ધતિ — સ્વચ્છ હાથ, સ્વચ્છ તોડણી બેગ અને સ્વચ્છ સંગ્રહ/ભંડાર સ્થળનો ઉપયોગ કરો.',
+          'CFC દૂષણ નિવારણ — પ્લાસ્ટિક, જૂટના રેસા, વાળ, તમાકુ, તેલ/ગ્રીસ અને અન્ય બહારના પદાર્થોથી કપાસને બચાવો.',
+          'અલગ રાખવું અને સંભાળ — તોડણી, સંગ્રહ, ભંડાર અને પરિવહન દરમિયાન જૈવિક કપાસને અલગ રાખો.',
+          'કાપણી પૂર્વ અનુપાલન અને રેકોર્ડ — ઉત્પાદન/ઉપજ પૂર્વાનુમાન, જરૂરી રેકોર્ડ અને પ્રમાણીકરણ/ઓડિટ તૈયારીની સમીક્ષા કરો.'
+        ],
+      },
+      {
+        tg:'07',
+        title:'M7 – સિંચાઈ અને હવામાન-સહનશીલ કૃષિ',
+        color:'#01579b',
+        obj:'બોળ વિકાસની છેલ્લી અવસ્થા અને પાકની પરિપક્વતા દરમિયાન પાણી અને હવામાન જોખમનું વ્યવસ્થાપન કરો.',
+        content:[
+          'બોળ વિકાસની છેલ્લી અવસ્થા અને પરિપક્વતા દરમિયાન સિંચાઈની જરૂરિયાત',
+          'કાપણી પહેલાં વધુ સિંચાઈ અને પાણી ભરાવાથી બચો',
+          'માટી ભેજ સંરક્ષણ અને ખેતરમાં પાણી નિકાલ',
+          'હવામાન જોખમનું અવલોકન કરી સમયસર ખેતર કાર્યવાહી કરો',
+          'પાક અવસ્થા અને સ્થાનિક ખેતર સ્થિતિ મુજબ સિંચાઈ આયોજન કરો'
+        ]
+      },
+      {
+        tg:'04',
+        title:'M4 – પોષણ વ્યવસ્થાપન',
+        color:'#e65100',
+        obj:'બોળ ભરાવા અને પરિપક્વતા અવસ્થામાં પાક પોષણ અને માટી આરોગ્યનું વ્યવસ્થાપન કરો.',
+        content:[
+          'બોળ ભરાવા અને પરિપક્વતા અવસ્થામાં પોષક તત્ત્વોની જરૂરિયાત',
+          'ખેતરની જરૂરિયાત મુજબ મંજૂર જૈવિક પોષક ઇનપુટનો ઉપયોગ',
+          'પોષક તત્ત્વોની ઉણપના લક્ષણો ઓળખો અને યોગ્ય કાર્યવાહી કરો',
+          'કાપણી પહેલાં અનાવશ્યક અથવા મોડા ઇનપુટ ઉપયોગથી બચો',
+          'માટી આરોગ્ય જાળવો અને કાપણી પછી માટી સુધારાની યોજના બનાવો'
+        ]
+      },
+      {
+        tg:'02',
+        title:'M2 – રવિ આયોજન – બીજ ઉપચાર અને વાવણી',
+        color:'#0d47a1',
+        obj:'યોગ્ય બીજ ઉપચાર અને વાવણી પદ્ધતિ સાથે સમયસર રવિ પાકનું આયોજન કરો.',
+        content:[
+          'યોગ્ય રવિ પાક અને બીજ/જાતની પસંદગી',
+          'બીજ ગુણવત્તા અને અંકુરણ તપાસ',
+          'મંજૂર જૈવિક પદ્ધતિ/બીજામૃતથી બીજ ઉપચાર',
+          'જમીન તૈયારી, વાવણી સમય, ઊંડાઈ અને અંતર',
+          'ભેજની જરૂરિયાત અને રવિ પાકનું પ્રારંભિક વ્યવસ્થાપન'
+        ]
+      }
+    ]
+  };
+
+  ['en','hi','od','mr','gu'].forEach(function(l){
+    if(!DATA[l]||!DATA[l].months||!DATA[l].months[6])return;
+    DATA[l].months[6].t=novData[l].map(function(s){
+      var x={
+        tg:s.tg,title:s.title,color:s.color,obj:s.obj,
+        content:s.content.slice()
+      };
+      if(s.resources)x.resources=s.resources.slice();
+      if(s.moduleLabel)x.moduleLabel=s.moduleLabel;
+      return x;
+    });
+  });
+})();
+
 var MCFG_MR=paplTranslateAny(MCFG,'mr');
 var MCFG_GU=paplTranslateAny(MCFG,'gu');
 
@@ -7345,7 +7815,7 @@ function buildSessions(mo,isHiLang){
     var copy=document.createElement('div');copy.className='sessCopy';
     var nt=document.createElement('div');nt.className='sessTitle sessTitleV49';nt.textContent=t2.title;
     var meta=document.createElement('div');meta.className='sessMetaLine';
-    meta.innerHTML='<span class="sessModulePill" style="--sess-color:'+(t2.color||'#1b5e20')+'">M'+t2.tg+'</span>'
+    meta.innerHTML='<span class="sessModulePill" style="--sess-color:'+(t2.color||'#1b5e20')+'">'+(t2.moduleLabel||('M'+t2.tg))+'</span>'
       +'<span>'+_tfTxt('Tap to view session plan','Session plan देखने के लिए tap करें','Session plan ଦେଖିବାକୁ tap କରନ୍ତୁ')+'</span>';
     copy.appendChild(nt);copy.appendChild(meta);
 
@@ -7368,13 +7838,26 @@ function buildSessions(mo,isHiLang){
       var ul=document.createElement('div');ul.className='sessPointList';
       t2.content.forEach(function(pt,n){
         var item=document.createElement('div');item.className='sessPoint';
-        item.innerHTML='<span>'+(n+1)+'</span><p>'+pt+'</p>';
+        var mod=(t2.resources&&t2.resources[n])?t2.resources[n]:'';
+        if(mod&&DL[mod]){
+          item.style.gridTemplateColumns='24px auto 1fr';
+          var num=document.createElement('span');num.textContent=(n+1);
+          var src=document.createElement('button');src.type='button';src.className='sessModulePill';
+          src.style.cssText='--sess-color:'+(t2.color||'#1b5e20')+';border:0;cursor:pointer;min-height:24px;white-space:nowrap;font-family:var(--font);';
+          src.textContent='M'+mod+' ↗';
+          src.title='Open Module M'+mod+' resources';
+          src.onclick=function(ev){ev.stopPropagation();openDrive(DL[mod]);};
+          var p=document.createElement('p');p.textContent=pt;
+          item.appendChild(num);item.appendChild(src);item.appendChild(p);
+        }else{
+          item.innerHTML='<span>'+(n+1)+'</span><p>'+pt+'</p>';
+        }
         ul.appendChild(item);
       });
       body.appendChild(ul);
     }
 
-    if(DL[t2.tg]){
+    if(DL[t2.tg]&&!(t2.resources&&t2.resources.length)){
       var rb=document.createElement('button');rb.type='button';rb.className='sessModuleCTA';
       rb.innerHTML='<span class="sessModuleCTAIcon">📚</span><span class="sessModuleCTACopy"><b>'
         +_tfTxt('Prepare from Module M'+t2.tg,'Module M'+t2.tg+' से तैयारी करें','Module M'+t2.tg+' ରୁ ପ୍ରସ୍ତୁତି କରନ୍ତୁ')
