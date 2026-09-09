@@ -504,6 +504,66 @@ p{font-size:14px;line-height:1.6;color:var(--c-text-s);}
 .methCard-icon{font-size:24px;}
 .methCard-label{font-size:10px;font-weight:700;color:var(--c-primary);line-height:1.25;}
 
+/* Dissemination Methods v10 — scoped to monthly methodology section */
+.dmWrap{display:grid;gap:12px}
+.dmGroup{
+  position:relative;overflow:hidden;border:1px solid var(--c-border);border-radius:16px;
+  background:var(--c-card);box-shadow:0 4px 16px var(--c-shadow);
+  animation:dmRise .42s ease both
+}
+.dmGroup:nth-child(2){animation-delay:.08s}
+@keyframes dmRise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.dmGroupHead{
+  position:relative;padding:12px 13px 10px;display:grid;grid-template-columns:38px 1fr auto;
+  gap:9px;align-items:center;background:linear-gradient(135deg,rgba(27,94,32,.11),rgba(249,168,37,.07));
+  border-bottom:1px solid var(--c-border)
+}
+.dmGroup.field .dmGroupHead{background:linear-gradient(135deg,rgba(13,71,161,.10),rgba(0,96,100,.07))}
+.dmGroupIcon{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:20px;
+  background:rgba(255,255,255,.72);box-shadow:0 2px 8px rgba(0,0,0,.08)
+}
+body.dark .dmGroupIcon{background:rgba(255,255,255,.09)}
+.dmGroupTitle{font-size:12px;font-weight:950;color:var(--c-text);line-height:1.3}
+.dmGroupSub{font-size:9px;font-weight:650;color:var(--c-text-s);margin-top:2px;line-height:1.35}
+.dmGroupCount{
+  min-width:30px;height:26px;padding:0 8px;border-radius:999px;display:grid;place-items:center;
+  background:var(--c-primary);color:#fff;font-size:9px;font-weight:950
+}
+.dmGroup.field .dmGroupCount{background:#0d5f69}
+.dmList{display:grid;gap:7px;padding:10px}
+.dmItem{
+  position:relative;display:grid;grid-template-columns:34px 1fr;gap:9px;align-items:start;
+  padding:9px 10px;border-radius:12px;background:var(--c-bg);border:1px solid transparent;
+  animation:dmItemIn .38s ease both;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease
+}
+.dmItem:hover{transform:translateY(-1px);border-color:var(--c-border);box-shadow:0 4px 12px var(--c-shadow)}
+@keyframes dmItemIn{from{opacity:0;transform:translateX(-7px)}to{opacity:1;transform:translateX(0)}}
+.dmItemIcon{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;
+  background:rgba(27,94,32,.09)
+}
+.dmGroup.field .dmItemIcon{background:rgba(13,95,105,.09)}
+.dmItemTitle{font-size:10.8px;font-weight:900;color:var(--c-text);line-height:1.35}
+.dmItemDesc{font-size:9.4px;font-weight:600;color:var(--c-text-s);line-height:1.5;margin-top:3px}
+.dmFocus{
+  margin:0 10px 10px;padding:9px 10px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(249,168,37,.10),rgba(27,94,32,.06));
+  border-left:3px solid var(--c-accent);font-size:9.5px;line-height:1.5;color:var(--c-text)
+}
+.dmFocus b{font-weight:950;color:var(--c-primary)}
+.dmGroup.field .dmFocus{background:linear-gradient(135deg,rgba(13,95,105,.08),rgba(249,168,37,.07));border-left-color:#0d5f69}
+@media(min-width:720px){
+  .dmList{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dmItem{min-height:86px}
+}
+@media(max-width:420px){
+  .dmGroupHead{grid-template-columns:35px 1fr auto;padding:10px}
+  .dmGroupIcon{width:35px;height:35px}
+  .dmList{padding:8px;gap:6px}
+  .dmItem{padding:8px}
+}
+
 /* Session accordion */
 .sessCard{
   border-radius:12px;margin-bottom:8px;overflow:hidden;
@@ -7740,16 +7800,178 @@ function buildActs(cl,cfg,isHiLang){
 }
 
 function buildMeths(cl,cfg,isHiLang){
-  var meths=(cl.meths||cfg.meths).split(',').map(function(m){return m.trim();}).filter(Boolean);
-  var icons=['\ud83c\udfd8\ufe0f','\ud83d\udcda','\ud83d\udcac','\ud83d\udd2c','\ud83e\udea4','\ud83d\udce3','\ud83c\udf3e','\u2705','\ud83d\ude8c','\ud83d\udccb','\ud83c\udfe0','\ud83d\udce2'];
-  var sec=makeSec('\ud83d\udce1',t('methLabel'),meths.length+(isHiLang?' \u0935\u093f\u0927\u093f':' Methods'));
-  var grid=document.createElement('div');grid.className='methGrid';
-  meths.forEach(function(m,i){
-    var card=document.createElement('div');card.className='methCard';
-    card.innerHTML='<div class="methCard-icon">'+icons[i%icons.length]+'</div><div class="methCard-label">'+m+'</div>';
-    grid.appendChild(card);
-  });
-  sec.body.appendChild(grid);
+  var TXT={
+    en:{
+      section:'Dissemination Methods',opg:'OPG Training Methodologies',opgSub:'Participatory farmer training methods — use in every month',
+      field:'Field Demonstration Methodologies',fieldSub:'Learning by seeing practices in real field conditions',focus:'This month focus',
+      opgItems:[
+        ['🗣️','General Meeting / Training','Use IEC materials, group discussion, expert talk, question-answer, farmer experience sharing and other participatory methods.'],
+        ['🐛','Training with Demo – Pest Management Organic Practices','Practical preparation and use of organic practices for insect-pest and disease management, including botanical formulations, traps, monitoring and safe application.'],
+        ['🌿','Training with Demo – Nutrition Management Organic Practices','Practical preparation and use of organic nutrition practices, including compost/FYM-based practices, Jeevamrut/Panchagavya-type preparations, foliar nutrition and soil-health practices.'],
+        ['🌾','FFS / Exposure Learning','Farmers learn by observing and practising at a model farm, demonstration site, KBK, model centre or another suitable learning location.']
+      ],
+      fieldItems:[
+        ['🧪','Demo Plots','Demonstration plots for new varieties, spacing, sowing methods, intercrops, nutrition, pest management, soil health and other useful farm practices.'],
+        ['🏡','KBK / Integrated Organic Farm Demonstration','Kheti Badi Kendra as an integrated learning farm/site for innovative organic farming practices, including Jaivik Ghar, input preparation and integrated demonstrations.']
+      ]
+    },
+    hi:{
+      section:'प्रसार विधियाँ',opg:'OPG प्रशिक्षण पद्धतियाँ',opgSub:'भागीदारी आधारित किसान प्रशिक्षण — हर महीने उपयोग करें',
+      field:'फील्ड प्रदर्शन पद्धतियाँ',fieldSub:'खेत की वास्तविक स्थिति में देखकर और करके सीखना',focus:'इस माह का फोकस',
+      opgItems:[
+        ['🗣️','सामान्य बैठक / प्रशिक्षण','IEC सामग्री, समूह चर्चा, विशेषज्ञ वार्ता, प्रश्न-उत्तर, किसान अनुभव साझा करना और अन्य भागीदारी विधियों का उपयोग करें।'],
+        ['🐛','प्रशिक्षण + डेमो – कीट एवं रोग प्रबंधन की जैविक पद्धतियाँ','कीट एवं रोग नियंत्रण की जैविक पद्धतियों को बनाने और खेत में उपयोग करने का व्यावहारिक प्रशिक्षण; बॉटनिकल घोल, ट्रैप, निगरानी और सुरक्षित प्रयोग शामिल करें।'],
+        ['🌿','प्रशिक्षण + डेमो – पोषण प्रबंधन की जैविक पद्धतियाँ','जैविक पोषण पद्धतियों की तैयारी और उपयोग का व्यावहारिक प्रशिक्षण; कम्पोस्ट/FYM, जीवामृत/पंचगव्य प्रकार की तैयारी, फोलियर पोषण और मिट्टी स्वास्थ्य पद्धतियाँ शामिल करें।'],
+        ['🌾','FFS / एक्सपोजर लर्निंग','किसान मॉडल फार्म, डेमो साइट, KBK, मॉडल सेंटर या अन्य उपयुक्त सीखने के स्थान पर देखकर और करके सीखें।']
+      ],
+      fieldItems:[
+        ['🧪','डेमो प्लॉट','नई किस्मों, दूरी, बुआई विधि, अंतरफसल, पोषण, कीट प्रबंधन, मिट्टी स्वास्थ्य और अन्य उपयोगी खेती पद्धतियों के प्रदर्शन प्लॉट।'],
+        ['🏡','KBK / एकीकृत जैविक फार्म प्रदर्शन','Kheti Badi Kendra को एकीकृत सीखने के फार्म/स्थल के रूप में उपयोग करें, जिसमें Jaivik Ghar, जैविक इनपुट तैयारी और नवाचारी एकीकृत प्रदर्शन शामिल हों।']
+      ]
+    },
+    od:{
+      section:'ପ୍ରସାର ପ୍ରଣାଳୀ',opg:'OPG ପ୍ରଶିକ୍ଷଣ ପ୍ରଣାଳୀ',opgSub:'ଅଂଶଗ୍ରହଣମୂଳକ କୃଷକ ପ୍ରଶିକ୍ଷଣ — ପ୍ରତ୍ୟେକ ମାସରେ ବ୍ୟବହାର କରନ୍ତୁ',
+      field:'ଖେତ ପ୍ରଦର୍ଶନ ପ୍ରଣାଳୀ',fieldSub:'ବାସ୍ତବ ଖେତ ପରିସ୍ଥିତିରେ ଦେଖି ଓ କରି ଶିଖିବା',focus:'ଏହି ମାସର ଫୋକସ୍',
+      opgItems:[
+        ['🗣️','ସାଧାରଣ ବୈଠକ / ପ୍ରଶିକ୍ଷଣ','IEC ସାମଗ୍ରୀ, ଗୋଷ୍ଠୀ ଆଲୋଚନା, ବିଶେଷଜ୍ଞ ଆଲୋଚନା, ପ୍ରଶ୍ନ-ଉତ୍ତର, କୃଷକ ଅନୁଭବ ବାଣ୍ଟିବା ଏବଂ ଅନ୍ୟ ଅଂଶଗ୍ରହଣମୂଳକ ପ୍ରଣାଳୀ ବ୍ୟବହାର କରନ୍ତୁ।'],
+        ['🐛','ପ୍ରଶିକ୍ଷଣ + ଡେମୋ – କୀଟ ଓ ରୋଗ ପରିଚାଳନାର ଜୈବିକ ପ୍ରଣାଳୀ','କୀଟ ଓ ରୋଗ ନିୟନ୍ତ୍ରଣ ପାଇଁ ଜୈବିକ ପ୍ରଣାଳୀ ପ୍ରସ୍ତୁତି ଓ ଖେତରେ ବ୍ୟବହାରର ପ୍ରାୟୋଗିକ ପ୍ରଶିକ୍ଷଣ; ବଟାନିକାଲ୍ ପ୍ରସ୍ତୁତି, ଟ୍ରାପ, ନିରୀକ୍ଷଣ ଓ ସୁରକ୍ଷିତ ପ୍ରୟୋଗ ସମ୍ମିଳିତ କରନ୍ତୁ।'],
+        ['🌿','ପ୍ରଶିକ୍ଷଣ + ଡେମୋ – ପୋଷଣ ପରିଚାଳନାର ଜୈବିକ ପ୍ରଣାଳୀ','ଜୈବିକ ପୋଷଣ ପ୍ରଣାଳୀ ପ୍ରସ୍ତୁତି ଓ ବ୍ୟବହାରର ପ୍ରାୟୋଗିକ ପ୍ରଶିକ୍ଷଣ; କମ୍ପୋଷ୍ଟ/FYM, ଜୀବାମୃତ/ପଞ୍ଚଗବ୍ୟ ପ୍ରକାର ପ୍ରସ୍ତୁତି, ପତ୍ରୀୟ ପୋଷଣ ଓ ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ପ୍ରଣାଳୀ ସମ୍ମିଳିତ କରନ୍ତୁ।'],
+        ['🌾','FFS / Exposure Learning','କୃଷକମାନେ model farm, demo site, KBK, model centre କିମ୍ବା ଅନ୍ୟ ଉପଯୁକ୍ତ ଶିକ୍ଷା ସ୍ଥଳରେ ଦେଖି ଓ କରି ଶିଖିବେ।']
+      ],
+      fieldItems:[
+        ['🧪','ଡେମୋ ପ୍ଲଟ୍','ନୂଆ ପ୍ରଜାତି, ଦୂରତା, ବିହନ ବୁଣା ପଦ୍ଧତି, ଅନ୍ତରଫସଲ, ପୋଷଣ, କୀଟ ପରିଚାଳନା, ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ଏବଂ ଅନ୍ୟ ଉପଯୋଗୀ ଚାଷ ପ୍ରଣାଳୀର ପ୍ରଦର୍ଶନ ପ୍ଲଟ୍।'],
+        ['🏡','KBK / ସମନ୍ୱିତ ଜୈବିକ ଫାର୍ମ ପ୍ରଦର୍ଶନ','Kheti Badi Kendra କୁ ଏକ ସମନ୍ୱିତ ଶିକ୍ଷା ଫାର୍ମ/ସ୍ଥଳ ଭାବେ ବ୍ୟବହାର କରନ୍ତୁ; Jaivik Ghar, ଜୈବିକ input ପ୍ରସ୍ତୁତି ଓ ନବୀନ ସମନ୍ୱିତ ପ୍ରଦର୍ଶନ ସମ୍ମିଳିତ କରନ୍ତୁ।']
+      ]
+    },
+    mr:{
+      section:'प्रसार पद्धती',opg:'OPG प्रशिक्षण पद्धती',opgSub:'सहभागी शेतकरी प्रशिक्षण — प्रत्येक महिन्यात वापरा',
+      field:'शेत प्रात्यक्षिक पद्धती',fieldSub:'प्रत्यक्ष शेत परिस्थितीत पाहून व करून शिकणे',focus:'या महिन्याचा फोकस',
+      opgItems:[
+        ['🗣️','सामान्य बैठक / प्रशिक्षण','IEC साहित्य, गटचर्चा, तज्ज्ञ मार्गदर्शन, प्रश्नोत्तर, शेतकरी अनुभव शेअरिंग आणि इतर सहभागी पद्धती वापरा.'],
+        ['🐛','प्रशिक्षण + प्रात्यक्षिक – कीड व रोग व्यवस्थापनाच्या सेंद्रिय पद्धती','कीड व रोग नियंत्रणासाठी सेंद्रिय पद्धती तयार करणे व शेतात वापरण्याचे प्रत्यक्ष प्रशिक्षण; वनस्पतीजन्य द्रावणे, सापळे, निरीक्षण आणि सुरक्षित वापर समाविष्ट करा.'],
+        ['🌿','प्रशिक्षण + प्रात्यक्षिक – पोषण व्यवस्थापनाच्या सेंद्रिय पद्धती','सेंद्रिय पोषण पद्धती तयार करणे व वापरण्याचे प्रत्यक्ष प्रशिक्षण; कंपोस्ट/FYM, जीवामृत/पंचगव्य प्रकारची तयारी, पर्णीय पोषण आणि माती आरोग्य पद्धती समाविष्ट करा.'],
+        ['🌾','FFS / Exposure Learning','शेतकरी model farm, demo site, KBK, model centre किंवा इतर योग्य शिकण्याच्या ठिकाणी पाहून आणि करून शिकतील.']
+      ],
+      fieldItems:[
+        ['🧪','डेमो प्लॉट','नवीन वाण, अंतर, पेरणी पद्धती, आंतरपीक, पोषण, कीड व्यवस्थापन, माती आरोग्य आणि इतर उपयुक्त शेती पद्धतींचे प्रात्यक्षिक प्लॉट.'],
+        ['🏡','KBK / एकात्मिक सेंद्रिय फार्म प्रात्यक्षिक','Kheti Badi Kendra हे एकात्मिक शिकण्याचे फार्म/स्थळ म्हणून वापरा; Jaivik Ghar, सेंद्रिय input तयारी आणि नाविन्यपूर्ण एकात्मिक प्रात्यक्षिकांचा समावेश करा.']
+      ]
+    },
+    gu:{
+      section:'પ્રસાર પદ્ધતિઓ',opg:'OPG તાલીમ પદ્ધતિઓ',opgSub:'સહભાગી ખેડૂત તાલીમ — દરેક મહિને ઉપયોગ કરો',
+      field:'ખેતર પ્રદર્શન પદ્ધતિઓ',fieldSub:'વાસ્તવિક ખેતર પરિસ્થિતિમાં જોઈને અને કરીને શીખવું',focus:'આ મહિનાનો ફોકસ',
+      opgItems:[
+        ['🗣️','સામાન્ય બેઠક / તાલીમ','IEC સામગ્રી, જૂથ ચર્ચા, નિષ્ણાત વાર્તાલાપ, પ્રશ્નોત્તરી, ખેડૂત અનુભવ વહેંચણી અને અન્ય સહભાગી પદ્ધતિઓનો ઉપયોગ કરો.'],
+        ['🐛','તાલીમ + ડેમો – જીવાત અને રોગ વ્યવસ્થાપનની જૈવિક પદ્ધતિઓ','જીવાત અને રોગ નિયંત્રણ માટે જૈવિક પદ્ધતિઓ તૈયાર કરવી અને ખેતરમાં ઉપયોગ કરવાની પ્રાયોગિક તાલીમ; વનસ્પતિ આધારિત દ્રાવણ, ટ્રેપ, નિરીક્ષણ અને સુરક્ષિત ઉપયોગ સામેલ કરો.'],
+        ['🌿','તાલીમ + ડેમો – પોષણ વ્યવસ્થાપનની જૈવિક પદ્ધતિઓ','જૈવિક પોષણ પદ્ધતિઓ તૈયાર કરવી અને ઉપયોગ કરવાની પ્રાયોગિક તાલીમ; કમ્પોસ્ટ/FYM, જીવામૃત/પંચગવ્ય પ્રકારની તૈયારી, પર્ણીય પોષણ અને માટી આરોગ્ય પદ્ધતિઓ સામેલ કરો.'],
+        ['🌾','FFS / Exposure Learning','ખેડૂતો model farm, demo site, KBK, model centre અથવા અન્ય યોગ્ય શીખવાના સ્થળે જોઈને અને કરીને શીખે.']
+      ],
+      fieldItems:[
+        ['🧪','ડેમો પ્લોટ','નવી જાતો, અંતર, વાવણી પદ્ધતિ, આંતરપાક, પોષણ, જીવાત વ્યવસ્થાપન, માટી આરોગ્ય અને અન્ય ઉપયોગી ખેતી પદ્ધતિઓના પ્રદર્શન પ્લોટ.'],
+        ['🏡','KBK / સંકલિત જૈવિક ફાર્મ પ્રદર્શન','Kheti Badi Kendra ને સંકલિત શીખવાના ફાર્મ/સ્થળ તરીકે ઉપયોગ કરો; Jaivik Ghar, જૈવિક input તૈયારી અને નવીન સંકલિત પ્રદર્શન સામેલ કરો.']
+      ]
+    }
+  };
+
+  var FOCUS={
+    en:[
+      ['Seed/variety selection, land preparation and organic input preparation.','Variety/seed and land-preparation demo plots; KBK/Jaivik Ghar orientation.'],
+      ['Seed treatment, sowing, spacing, intercrop and germination.','Sowing, spacing, seed-treatment, intercrop and germination demonstrations.'],
+      ['Nutrition, weed management, intercrop/biodiversity and early pest management.','Nutrition, weed, intercrop/biodiversity and early pest-management demo plots.'],
+      ['Pest scouting, traps, biocontrol and nutrition management.','Active pest-management and nutrition demonstrations; FFS at model plots/KBK.'],
+      ['Flowering nutrition and insect-pest & disease management.','Flowering-stage nutrition and pest/disease demonstrations; model-farm FFS.'],
+      ['Boll-stage pest/disease management, irrigation/moisture and climate-resilient practices.','Boll-stage protection, irrigation/moisture and climate-resilient demonstrations.'],
+      ['Pre-harvest/CFC, irrigation, nutrition and Rabi preparation.','CFC/clean picking preparation and Rabi seed-treatment/sowing demonstrations.'],
+      ['Picking, grading, contamination prevention, handling/storage and Rabi learning.','Clean picking, grading/storage and Rabi field demonstrations.'],
+      ['Harvest quality, Rabi crop observation and model-farm learning.','Rabi crop observation and successful organic practice demonstrations.'],
+      ['Rabi nutrition, soil health and field learning.','Rabi nutrition, soil-health and model-field demonstrations.'],
+      ['Rabi harvest/records and review of successful practices.','Harvest/record demonstrations and farmer learning from successful plots/KBKs.'],
+      ['Season review, farmer feedback and next-season planning.','Exposure to best-performing plots/KBKs and planning demonstrations for next season.']
+    ],
+    hi:[
+      ['बीज/किस्म चयन, भूमि तैयारी और जैविक इनपुट तैयारी।','किस्म/बीज और भूमि तैयारी डेमो प्लॉट; KBK/Jaivik Ghar परिचय।'],
+      ['बीज उपचार, बुआई, दूरी, अंतरफसल और अंकुरण।','बुआई, दूरी, बीज उपचार, अंतरफसल और अंकुरण प्रदर्शन।'],
+      ['पोषण, खरपतवार, अंतरफसल/जैव विविधता और शुरुआती कीट प्रबंधन।','पोषण, खरपतवार, अंतरफसल/जैव विविधता और शुरुआती कीट प्रबंधन डेमो प्लॉट।'],
+      ['कीट निगरानी, ट्रैप, जैव नियंत्रण और पोषण प्रबंधन।','सक्रिय कीट एवं पोषण प्रदर्शन; मॉडल प्लॉट/KBK पर FFS।'],
+      ['फूल अवस्था का पोषण तथा कीट एवं रोग प्रबंधन।','फूल अवस्था में पोषण और कीट/रोग प्रदर्शन; मॉडल फार्म FFS।'],
+      ['बॉल अवस्था में कीट/रोग, सिंचाई/नमी और जलवायु-सहनीय पद्धतियाँ।','बॉल सुरक्षा, सिंचाई/नमी और जलवायु-सहनीय प्रदर्शन।'],
+      ['कटाई-पूर्व/CFC, सिंचाई, पोषण और रबी तैयारी।','CFC/स्वच्छ तुड़ाई तैयारी और रबी बीज उपचार/बुआई प्रदर्शन।'],
+      ['तुड़ाई, ग्रेडिंग, संदूषण रोकथाम, भंडारण और रबी सीख।','स्वच्छ तुड़ाई, ग्रेडिंग/भंडारण और रबी फील्ड प्रदर्शन।'],
+      ['फसल गुणवत्ता, रबी फसल अवलोकन और मॉडल फार्म सीख।','रबी फसल अवलोकन और सफल जैविक पद्धतियों का प्रदर्शन।'],
+      ['रबी पोषण, मिट्टी स्वास्थ्य और फील्ड सीख।','रबी पोषण, मिट्टी स्वास्थ्य और मॉडल फील्ड प्रदर्शन।'],
+      ['रबी कटाई/रिकॉर्ड और सफल पद्धतियों की समीक्षा।','कटाई/रिकॉर्ड प्रदर्शन और सफल प्लॉट/KBK से किसान सीख।'],
+      ['सीजन समीक्षा, किसान फीडबैक और अगले सीजन की योजना।','सर्वश्रेष्ठ प्लॉट/KBK एक्सपोजर और अगले सीजन की योजना प्रदर्शन।']
+    ],
+    od:[
+      ['ବିହନ/ପ୍ରଜାତି ଚୟନ, ଜମି ପ୍ରସ୍ତୁତି ଏବଂ ଜୈବିକ input ପ୍ରସ୍ତୁତି।','ପ୍ରଜାତି/ବିହନ ଓ ଜମି ପ୍ରସ୍ତୁତି demo plot; KBK/Jaivik Ghar ପରିଚୟ।'],
+      ['ବିହନ ବିଶୋଧନ, ବିହନ ବୁଣା, ଦୂରତା, ଅନ୍ତରଫସଲ ଏବଂ ଅଙ୍କୁରଣ।','ବୁଣା, ଦୂରତା, ବିହନ ବିଶୋଧନ, ଅନ୍ତରଫସଲ ଓ ଅଙ୍କୁରଣ ପ୍ରଦର୍ଶନ।'],
+      ['ପୋଷଣ, ଘାସ ବଛା, ଅନ୍ତରଫସଲ/ଜୈବ ବିବିଧତା ଏବଂ ପ୍ରାରମ୍ଭିକ କୀଟ ପରିଚାଳନା।','ପୋଷଣ, ଘାସ, ଅନ୍ତରଫସଲ/ଜୈବ ବିବିଧତା ଓ ପ୍ରାରମ୍ଭିକ କୀଟ demo plot।'],
+      ['କୀଟ ନିରୀକ୍ଷଣ, trap, ଜୈବ ନିୟନ୍ତ୍ରଣ ଏବଂ ପୋଷଣ ପରିଚାଳନା।','ସକ୍ରିୟ କୀଟ ଓ ପୋଷଣ ପ୍ରଦର୍ଶନ; model plot/KBK ରେ FFS।'],
+      ['ଫୁଲ ଅବସ୍ଥା ପୋଷଣ ଏବଂ କୀଟ ଓ ରୋଗ ପରିଚାଳନା।','ଫୁଲ ଅବସ୍ଥା ପୋଷଣ ଓ କୀଟ/ରୋଗ ପ୍ରଦର୍ଶନ; model farm FFS।'],
+      ['ବୋଲ୍ ଅବସ୍ଥା କୀଟ/ରୋଗ, ସିଚାଇ/ଆର୍ଦ୍ରତା ଏବଂ ଜଳବାୟୁ-ସହନଶୀଳ ପ୍ରଣାଳୀ।','ବୋଲ୍ ସୁରକ୍ଷା, ସିଚାଇ/ଆର୍ଦ୍ରତା ଏବଂ ଜଳବାୟୁ-ସହନଶୀଳ ପ୍ରଦର୍ଶନ।'],
+      ['ଅମଳ ପୂର୍ବ/CFC, ସିଚାଇ, ପୋଷଣ ଏବଂ ରବି ପ୍ରସ୍ତୁତି।','CFC/ସ୍ୱଚ୍ଛ କପା ତୋଳା ପ୍ରସ୍ତୁତି ଏବଂ ରବି ବିହନ ବିଶୋଧନ/ବୁଣା ପ୍ରଦର୍ଶନ।'],
+      ['କପା ତୋଳା, grading, ଦୂଷଣ ରୋକଥାମ, storage ଏବଂ ରବି ଶିକ୍ଷା।','ସ୍ୱଚ୍ଛ କପା ତୋଳା, grading/storage ଏବଂ ରବି ଖେତ ପ୍ରଦର୍ଶନ।'],
+      ['ଅମଳ ଗୁଣବତ୍ତା, ରବି ଫସଲ ନିରୀକ୍ଷଣ ଏବଂ model farm ଶିକ୍ଷା।','ରବି ଫସଲ ନିରୀକ୍ଷଣ ଏବଂ ସଫଳ ଜୈବିକ ପ୍ରଣାଳୀ ପ୍ରଦର୍ଶନ।'],
+      ['ରବି ପୋଷଣ, ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ଏବଂ field learning।','ରବି ପୋଷଣ, ମାଟି ସ୍ୱାସ୍ଥ୍ୟ ଏବଂ model field ପ୍ରଦର୍ଶନ।'],
+      ['ରବି ଅମଳ/ରେକର୍ଡ ଏବଂ ସଫଳ ପ୍ରଣାଳୀର ସମୀକ୍ଷା।','ଅମଳ/ରେକର୍ଡ ପ୍ରଦର୍ଶନ ଏବଂ ସଫଳ plot/KBK ରୁ କୃଷକ ଶିକ୍ଷା।'],
+      ['ଋତୁ ସମୀକ୍ଷା, କୃଷକ feedback ଏବଂ ପରବର୍ତ୍ତୀ ଋତୁ ଯୋଜନା।','ସର୍ବଶ୍ରେଷ୍ଠ plot/KBK exposure ଏବଂ ପରବର୍ତ୍ତୀ ଋତୁ ଯୋଜନା ପ୍ରଦର୍ଶନ।']
+    ],
+    mr:[
+      ['बियाणे/वाण निवड, जमीन तयारी आणि सेंद्रिय input तयारी.','वाण/बियाणे व जमीन तयारी demo plot; KBK/Jaivik Ghar परिचय.'],
+      ['बीज प्रक्रिया, पेरणी, अंतर, आंतरपीक आणि उगवण.','पेरणी, अंतर, बीज प्रक्रिया, आंतरपीक आणि उगवण प्रात्यक्षिके.'],
+      ['पोषण, तण व्यवस्थापन, आंतरपीक/जैवविविधता आणि सुरुवातीचे कीड व्यवस्थापन.','पोषण, तण, आंतरपीक/जैवविविधता आणि सुरुवातीचे कीड demo plot.'],
+      ['कीड निरीक्षण, सापळे, जैव नियंत्रण आणि पोषण व्यवस्थापन.','सक्रिय कीड व पोषण प्रात्यक्षिके; model plot/KBK येथे FFS.'],
+      ['फुलोरा पोषण आणि कीड व रोग व्यवस्थापन.','फुलोरा अवस्थेतील पोषण आणि कीड/रोग प्रात्यक्षिके; model farm FFS.'],
+      ['बोंड अवस्थेतील कीड/रोग, सिंचन/ओलावा आणि हवामान-सहनशील पद्धती.','बोंड संरक्षण, सिंचन/ओलावा आणि हवामान-सहनशील प्रात्यक्षिके.'],
+      ['काढणीपूर्व/CFC, सिंचन, पोषण आणि रब्बी तयारी.','CFC/स्वच्छ वेचणी तयारी आणि रब्बी बीज प्रक्रिया/पेरणी प्रात्यक्षिके.'],
+      ['वेचणी, वर्गीकरण, दूषण प्रतिबंध, साठवण आणि रब्बी शिकणे.','स्वच्छ वेचणी, वर्गीकरण/साठवण आणि रब्बी शेत प्रात्यक्षिके.'],
+      ['कापूस गुणवत्ता, रब्बी पीक निरीक्षण आणि model farm learning.','रब्बी पीक निरीक्षण आणि यशस्वी सेंद्रिय पद्धतींची प्रात्यक्षिके.'],
+      ['रब्बी पोषण, माती आरोग्य आणि field learning.','रब्बी पोषण, माती आरोग्य आणि model field प्रात्यक्षिके.'],
+      ['रब्बी काढणी/नोंदी आणि यशस्वी पद्धतींचा आढावा.','काढणी/नोंद प्रात्यक्षिके आणि यशस्वी plot/KBK मधून शेतकरी शिक्षण.'],
+      ['हंगाम आढावा, शेतकरी अभिप्राय आणि पुढील हंगामाचे नियोजन.','सर्वोत्तम plot/KBK exposure आणि पुढील हंगाम नियोजन प्रात्यक्षिके.']
+    ],
+    gu:[
+      ['બીજ/જાત પસંદગી, જમીન તૈયારી અને જૈવિક input તૈયારી.','જાત/બીજ અને જમીન તૈયારી demo plot; KBK/Jaivik Ghar પરિચય.'],
+      ['બીજ ઉપચાર, વાવણી, અંતર, આંતરપાક અને અંકુરણ.','વાવણી, અંતર, બીજ ઉપચાર, આંતરપાક અને અંકુરણ પ્રદર્શન.'],
+      ['પોષણ, નીંદણ, આંતરપાક/જૈવવિવિધતા અને શરૂઆતનું જીવાત વ્યવસ્થાપન.','પોષણ, નીંદણ, આંતરપાક/જૈવવિવિધતા અને શરૂઆતનું જીવાત demo plot.'],
+      ['જીવાત નિરીક્ષણ, trap, જૈવ નિયંત્રણ અને પોષણ વ્યવસ્થાપન.','સક્રિય જીવાત અને પોષણ પ્રદર્શન; model plot/KBK પર FFS.'],
+      ['ફૂલ અવસ્થાનું પોષણ અને જીવાત તથા રોગ વ્યવસ્થાપન.','ફૂલ અવસ્થામાં પોષણ અને જીવાત/રોગ પ્રદર્શન; model farm FFS.'],
+      ['બોળ અવસ્થામાં જીવાત/રોગ, સિંચાઈ/ભેજ અને હવામાન-સહનશીલ પદ્ધતિઓ.','બોળ સુરક્ષા, સિંચાઈ/ભેજ અને હવામાન-સહનશીલ પ્રદર્શન.'],
+      ['કાપણી પૂર્વ/CFC, સિંચાઈ, પોષણ અને રવિ તૈયારી.','CFC/સ્વચ્છ તોડણી તૈયારી અને રવિ બીજ ઉપચાર/વાવણી પ્રદર્શન.'],
+      ['તોડણી, ગ્રેડિંગ, દૂષણ નિવારણ, સંગ્રહ અને રવિ શીખ.','સ્વચ્છ તોડણી, ગ્રેડિંગ/સંગ્રહ અને રવિ ખેતર પ્રદર્શન.'],
+      ['કપાસ ગુણવત્તા, રવિ પાક નિરીક્ષણ અને model farm learning.','રવિ પાક નિરીક્ષણ અને સફળ જૈવિક પદ્ધતિઓનું પ્રદર્શન.'],
+      ['રવિ પોષણ, માટી આરોગ્ય અને field learning.','રવિ પોષણ, માટી આરોગ્ય અને model field પ્રદર્શન.'],
+      ['રવિ કાપણી/રેકોર્ડ અને સફળ પદ્ધતિઓની સમીક્ષા.','કાપણી/રેકોર્ડ પ્રદર્શન અને સફળ plot/KBK માંથી ખેડૂત શીખ.'],
+      ['સીઝન સમીક્ષા, ખેડૂત પ્રતિસાદ અને આગામી સીઝન આયોજન.','શ્રેષ્ઠ plot/KBK exposure અને આગામી સીઝન આયોજન પ્રદર્શન.']
+    ]
+  };
+
+  var x=TXT[lang]||TXT.en, f=(FOCUS[lang]||FOCUS.en)[cur]||(FOCUS.en[cur]||['','']);
+  var sec=makeSec('📡',x.section,'6');
+  sec.el.id='methSection';
+  var wrap=document.createElement('div');wrap.className='dmWrap';
+
+  function group(kind,icon,title,sub,items,focus){
+    var box=document.createElement('div');box.className='dmGroup '+kind;
+    var head=document.createElement('div');head.className='dmGroupHead';
+    head.innerHTML='<div class="dmGroupIcon">'+icon+'</div><div><div class="dmGroupTitle">'+title+'</div><div class="dmGroupSub">'+sub+'</div></div><div class="dmGroupCount">'+items.length+'</div>';
+    box.appendChild(head);
+    var list=document.createElement('div');list.className='dmList';
+    items.forEach(function(it,i){
+      var card=document.createElement('div');card.className='dmItem';card.style.animationDelay=(i*.055)+'s';
+      card.innerHTML='<div class="dmItemIcon">'+it[0]+'</div><div><div class="dmItemTitle">'+it[1]+'</div><div class="dmItemDesc">'+it[2]+'</div></div>';
+      list.appendChild(card);
+    });
+    box.appendChild(list);
+    var ft=document.createElement('div');ft.className='dmFocus';
+    ft.innerHTML='<b>◎ '+x.focus+':</b> '+focus;
+    box.appendChild(ft);
+    return box;
+  }
+
+  wrap.appendChild(group('opg','👥',x.opg,x.opgSub,x.opgItems,f[0]));
+  wrap.appendChild(group('field','🌱',x.field,x.fieldSub,x.fieldItems,f[1]));
+  sec.body.appendChild(wrap);
   return sec.el;
 }
 
