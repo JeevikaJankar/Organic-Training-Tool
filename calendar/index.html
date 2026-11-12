@@ -9962,6 +9962,18 @@ body.op-home #opFab{bottom:calc(18px + env(safe-area-inset-bottom))}
 .skOther summary{cursor:pointer;font-size:13px;font-weight:800;color:var(--c-text-s);padding:6px 2px 10px;list-style:none}
 .skOther summary::-webkit-details-marker{display:none}
 .skLgTag{background:#e0f2f7;color:#0e7490;border-radius:6px;padding:1px 6px;font-weight:800}
+.skEye{flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--c-border);background:var(--c-card);font-size:18px;display:grid;place-items:center;cursor:pointer}
+.skEye:active{transform:scale(.94)}
+.skViewer{position:fixed;inset:0;z-index:2147483000;background:#0b1510!important;isolation:isolate;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s}
+.skViewer.on{opacity:1;pointer-events:auto}
+.skVBar{display:flex;align-items:center;gap:10px;padding:12px 12px 8px;color:#fff}.skVBar .op-btn{background:rgba(255,255,255,.12)!important;color:#fff!important;border:0!important;min-width:44px}
+.skVT{flex:1;font-weight:800;font-size:15px;line-height:1.25}
+.skVBody{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:8px 10px 120px;text-align:center}
+.skVBody img{max-width:100%;border-radius:10px;transition:max-width .2s;touch-action:pinch-zoom}.skVBody img.z{max-width:none;width:240%}
+.skVHint{color:rgba(255,255,255,.7);font-size:12px;margin-top:8px}
+.skVPdf{color:#fff;font-size:56px;padding:40px 20px}.skVPdf>div{font-size:16px;font-weight:800;margin-top:8px}
+.skVAct{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:12px 12px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(8,16,12,.98) 30%)}
+.skVAct .op-btn{flex:1}.skVAct .ghost{background:rgba(255,255,255,.12)!important;color:#fff!important;border:0!important}
 .skSearch{margin:0 0 10px}
 .skMod{font-size:12px;font-weight:800;letter-spacing:.4px;color:var(--c-text-s);margin:14px 2px 6px;display:flex;align-items:center;gap:6px}
 .skMod .now{background:#0e7490;color:#fff;border-radius:999px;padding:2px 7px;font-size:10px}
@@ -12355,7 +12367,7 @@ function renderShare(){var p=$('opP-share');if(!p)return;
 }
 var SK_LGN={hi:'हिंदी',od:'ଓଡ଼ିଆ',mr:'मराठी',gu:'ગુજરાતી',en:'English'};
 function skRow(all,ix,showLg){var it=all[ix],on=!!SK.sel[ix];
-  return '<div class="skItem'+(on?' on':'')+'" onclick="opSkTog('+ix+')"><span class="ck">'+(on?'✓':'')+'</span><span class="ic">'+(SK_IC[it.ty]||'📄')+'</span><div class="tt">'+esc(it.t)+'<div class="mt">'+(showLg&&SK_LGN[it.lg]?'<b class="skLgTag">'+SK_LGN[it.lg]+'</b> ':'')+(showLg&&it.m?esc(it.m)+' · ':'')+esc(it.ty)+(it.lg==='all'?' · '+esc(L('all languages','सभी भाषा','ସବୁ ଭାଷା')):'')+(it.kb?' · '+(it.kb>1024?(it.kb/1024).toFixed(1)+' MB':it.kb+' KB'):'')+'<span id="skOff'+ix+'"></span></div></div></div>';}
+  return '<div class="skItem'+(on?' on':'')+'" onclick="opSkTog('+ix+')"><span class="ck">'+(on?'✓':'')+'</span><span class="ic">'+(SK_IC[it.ty]||'📄')+'</span><div class="tt">'+esc(it.t)+'<div class="mt">'+(showLg&&SK_LGN[it.lg]?'<b class="skLgTag">'+SK_LGN[it.lg]+'</b> ':'')+(showLg&&it.m?esc(it.m)+' · ':'')+esc(it.ty)+(it.lg==='all'?' · '+esc(L('all languages','सभी भाषा','ସବୁ ଭାଷା')):'')+(it.kb?' · '+(it.kb>1024?(it.kb/1024).toFixed(1)+' MB':it.kb+' KB'):'')+'<span id="skOff'+ix+'"></span></div></div><button class="skEye" onclick="event.stopPropagation();opSkView('+ix+')" aria-label="View">👁️</button></div>';}
 function skList(){var box=$('skList');if(!box)return;var all=skItems();
   if(!all.length){box.innerHTML='<div class="opNote">📶 '+esc(navigator.onLine?L('No material yet. Head office adds it in the Share_Kit tab of the Sheet.','अभी कोई सामग्री नहीं। मुख्यालय शीट के Share_Kit टैब में जोड़ेगा।','ଏପର୍ଯ୍ୟନ୍ତ ସାମଗ୍ରୀ ନାହିଁ।'):L('Connect to internet once to load the material list.','सामग्री सूची लाने के लिए एक बार इंटरनेट चालू करें।','ଥରେ ଇଣ୍ଟରନେଟ ଚାଲୁ କରନ୍ତୁ।'))+'</div>';skBar();return;}
   var q=SK.q.trim().toLowerCase(),now=skNowMods(),groups={},order=[];
@@ -12391,6 +12403,23 @@ window.opSkSend=function(){var items=skSelected();if(!items.length)return;
     if(navigator.canShare&&navigator.canShare({files:fl})){return navigator.share({files:fl,text:text}).then(function(){skLog(items,vids.length?'File + link':'File');SK.sel={};skList();toast('✓ '+L('Sent','भेजा गया','ପଠାଗଲା'));}).catch(function(e){if(e&&e.name!=='AbortError')waLinks(items);});}
     waLinks(items);skLog(items,'Link');
   }).catch(function(){toast(navigator.onLine?L('Could not get the file — sending links instead','फाइल नहीं मिली — लिंक भेज रहे हैं','ଲିଙ୍କ ପଠାଉଛି'):L('No internet — tap ⬇️ first on Wi-Fi to save files','इंटरनेट नहीं — पहले इंटरनेट पर ⬇️ से फाइल सेव करें','ଇଣ୍ଟରନେଟ ନାହିଁ'));if(navigator.onLine)setTimeout(function(){waLinks(items);skLog(items,'Link');},900);});
+};
+
+/* ── view material inside the app (before sending) ── */
+function skViewer(){var v=$('skViewer');if(v)return v;v=document.createElement('div');v.id='skViewer';v.className='skViewer';document.body.appendChild(v);return v;}
+window.opSkClose=function(){var v=$('skViewer');if(!v)return;v.classList.remove('on');setTimeout(function(){v.innerHTML='';},200);if(SK.url){try{URL.revokeObjectURL(SK.url);}catch(e){}SK.url=null;}};
+window.opSkZoom=function(img){img.classList.toggle('z');};
+window.opSkSaveFile=function(){if(!SK.url)return;var a=document.createElement('a');a.href=SK.url;a.download=SK.vn||'PAPL_file';document.body.appendChild(a);a.click();a.remove();toast('✓ '+L('Saved in phone Downloads','फ़ोन के Downloads में सेव','Downloads ରେ ସେଭ'));};
+window.opSkSendOne=function(ix){SK.sel={};SK.sel[ix]=1;opSkClose();opSkSend();};
+window.opSkView=function(ix){var it=skItems()[ix];if(!it)return;
+  if(it.ty==='Video'){window.open(skLink(it),'_blank');return;}
+  var v=skViewer();v.innerHTML='<div class="skVBar"><button class="op-btn ghost" onclick="opSkClose()">✕</button><div class="skVT">'+esc(it.t)+'</div></div><div class="skVBody"><div class="opNote">⏳ '+esc(L('Opening…','खुल रहा है…','ଖୋଲୁଛି…'))+'</div></div>';v.classList.add('on');
+  skGet(it).then(function(x){SK.url=URL.createObjectURL(x.b);SK.vn=x.n||it.t;var body=v.querySelector('.skVBody'),isImg=/^image\//.test(x.b.type)||it.ty==='Image';
+    body.innerHTML=(isImg?'<img src="'+SK.url+'" onclick="opSkZoom(this)" alt=""><div class="skVHint">'+esc(L('Tap picture to zoom','ज़ूम के लिए फोटो दबाएँ','ଜୁମ ପାଇଁ ଛୁଅଁନ୍ତୁ'))+'</div>':
+      '<div class="skVPdf">📄<div>'+esc(it.t)+'</div><button class="op-btn pri block" style="margin-top:14px" onclick="opSkSaveFile()">📖 '+esc(L('Open PDF','PDF खोलें','PDF ଖୋଲନ୍ତୁ'))+'</button><div class="skVHint">'+esc(L('Opens in the phone PDF reader (also saved in Downloads)','फ़ोन के PDF रीडर में खुलेगा (Downloads में भी सेव)','ଫୋନ PDF ରିଡରରେ ଖୋଲିବ'))+'</div></div>')+
+      '<div class="skVAct"><button class="op-btn ghost" onclick="opSkSaveFile()">💾 '+esc(L('Save to phone','फ़ोन में सेव','ଫୋନରେ ସେଭ'))+'</button><button class="op-btn skWa" onclick="opSkSendOne('+ix+')">'+esc(L('Send on WhatsApp','WhatsApp पर भेजें','WhatsApp ରେ ପଠାନ୍ତୁ'))+'</button></div>';
+    skList();
+  }).catch(function(){v.querySelector('.skVBody').innerHTML='<div class="opNote">'+esc(navigator.onLine?L('Could not open the file. Try again.','फाइल नहीं खुली, फिर कोशिश करें।','ଫାଇଲ ଖୋଲିଲା ନାହିଁ।'):L('No internet. Open once with internet — then it works offline.','इंटरनेट नहीं। एक बार इंटरनेट पर खोलें — फिर बिना इंटरनेट चलेगा।','ଇଣ୍ଟରନେଟ ନାହିଁ।'))+'</div>';});
 };
 window.opSkPhone=function(inp){var fl=[].slice.call(inp.files||[]);if(!fl.length)return;
   if(navigator.canShare&&navigator.canShare({files:fl}))navigator.share({files:fl,text:skMsg([])}).then(function(){skLog(fl.map(function(f){return {t:f.name};}),'Phone file');toast('✓ '+L('Sent','भेजा गया','ପଠାଗଲା'));}).catch(function(){});
