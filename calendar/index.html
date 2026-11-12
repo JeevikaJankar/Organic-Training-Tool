@@ -9950,6 +9950,31 @@ body.op-home #opFab{bottom:calc(18px + env(safe-area-inset-bottom))}
 .opPicWrap .opPhotoBtn{flex:0 0 96px;width:96px}
 .opGalBtn{display:flex;align-items:center;justify-content:center;gap:4px;height:32px;border-radius:12px;border:1px solid var(--c-border);background:var(--c-card);font-size:11.5px;font-weight:700;color:var(--c-text);cursor:pointer}
 .opGalBtn:active{transform:scale(.96)}
+.opTile.wide{grid-column:1/-1;display:grid!important;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:12px!important;row-gap:2px!important;align-items:center!important;align-content:center;min-height:84px!important;padding-right:96px!important}
+.opTile.wide .ti{grid-row:1/3}.opTile.wide .tl{margin-top:0;align-self:end}.opTile.wide .ts{align-self:start}.opTile.wide .tg{top:50%;bottom:auto;transform:translateY(-50%)}.opTile.wide .tb{top:50%;right:46px;transform:translateY(-50%)}
+@media(max-width:419px){.opTile.wide .ts{display:block!important}.opTile.wide .tg{display:grid}}
+@media(hover:hover){.opTile.wide:hover .tg{transform:translateY(-50%) translateX(2px)}}
+.skLgT{font-size:11.5px;font-weight:800;color:var(--c-text-s);margin:2px 2px 6px;letter-spacing:.3px}
+.skLg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px}.skLg::-webkit-scrollbar{display:none}
+.skLg button{flex:0 0 auto;border:1px solid var(--c-border);background:var(--c-card);color:var(--c-text);border-radius:999px;padding:8px 14px;font-weight:800;font-size:13px;font-family:inherit}
+.skLg button.on{background:#0e7490;border-color:#0e7490;color:#fff}
+.skOther{margin-top:16px;border-top:1px dashed var(--c-border);padding-top:10px}
+.skOther summary{cursor:pointer;font-size:13px;font-weight:800;color:var(--c-text-s);padding:6px 2px 10px;list-style:none}
+.skOther summary::-webkit-details-marker{display:none}
+.skLgTag{background:#e0f2f7;color:#0e7490;border-radius:6px;padding:1px 6px;font-weight:800}
+.skSearch{margin:0 0 10px}
+.skMod{font-size:12px;font-weight:800;letter-spacing:.4px;color:var(--c-text-s);margin:14px 2px 6px;display:flex;align-items:center;gap:6px}
+.skMod .now{background:#0e7490;color:#fff;border-radius:999px;padding:2px 7px;font-size:10px}
+.skItem{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--c-border);border-radius:14px;background:var(--c-card);margin-bottom:7px;cursor:pointer;transition:border-color .15s,background .15s}
+.skItem.on{border-color:#0e7490;background:color-mix(in srgb,#06b6d4 10%,var(--c-card))}
+.skItem .ck{width:24px;height:24px;border-radius:8px;border:2px solid var(--c-border);display:grid;place-items:center;font-size:14px;color:#fff;flex:0 0 auto}
+.skItem.on .ck{background:#0e7490;border-color:#0e7490}
+.skItem .ic{font-size:22px;flex:0 0 auto}.skItem .tt{flex:1;min-width:0;font-size:13.5px;font-weight:700;line-height:1.25}
+.skItem .mt{font-size:11px;color:var(--c-text-s);font-weight:600;margin-top:2px}
+.skBar{position:sticky;bottom:84px;z-index:30;margin-top:12px;background:var(--c-card);border:1px solid var(--c-border);border-radius:18px;padding:10px;box-shadow:0 10px 30px -10px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center}
+.skBar .n{font-size:12.5px;font-weight:800;flex:1}
+.skWa{background:#25D366!important;color:#fff!important;border:0!important}
+
 
 .opPhotoBtn{flex:0 0 96px;height:96px;align-self:flex-start;border:2px dashed var(--c-border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:var(--c-text-s);cursor:pointer;overflow:hidden;background:var(--op-cream);text-align:center}
 .opPhotoBtn span{font-size:28px}
@@ -10261,6 +10286,7 @@ html[data-theme="dark"] .opTile .tg,html[data-theme="dark"] .opTile .tb.new{back
     <button class="opTab" data-tab="cost" onclick="opTab('cost')"><i>💰</i><span id="opTbCost">खर्च-कमाई</span></button>
     <button class="opTab" data-tab="ladder" onclick="opTab('ladder')"><i>🪜</i><span id="opTbLad">जैविक सीढ़ी</span></button>
     <button class="opTab" data-tab="voice" onclick="opTab('voice')"><i>🎥</i><span id="opTbVoice">किसान की आवाज़</span></button>
+    <button class="opTab" data-tab="share" onclick="opTab('share')"><i>📤</i><span id="opTbShare">शेयर किट</span></button>
   </div>
   <div class="opPanel" id="opP-log"></div>
   <div class="opPanel" id="opP-calc"></div>
@@ -10271,6 +10297,7 @@ html[data-theme="dark"] .opTile .tg,html[data-theme="dark"] .opTile .tb.new{back
   <div class="opPanel" id="opP-cost"></div>
   <div class="opPanel" id="opP-ladder"></div>
   <div class="opPanel" id="opP-voice"></div>
+  <div class="opPanel" id="opP-share"></div>
 </div>
 
 <div id="opSearch" role="dialog" aria-modal="true">
@@ -11331,7 +11358,7 @@ function renderChromeText(){
   if(g){
     var tiles=OP_TOOLS();
     g.innerHTML=tiles.map(function(t,i){var b=toolBadge(t.k);
-      return '<div class="opTile" role="button" tabindex="0" style="--a:'+t.a+';--a2:'+t.a2+';--t:'+t.t+';animation-delay:'+(i*40)+'ms" onclick="opTilePress(this,\''+t.k+'\')" onkeydown="if(event.key===\'Enter\')opTilePress(this,\''+t.k+'\')">'+
+      return '<div class="opTile'+(t.w?' wide':'')+'" role="button" tabindex="0" style="--a:'+t.a+';--a2:'+t.a2+';--t:'+t.t+';animation-delay:'+(i*40)+'ms" onclick="opTilePress(this,\''+t.k+'\')" onkeydown="if(event.key===\'Enter\')opTilePress(this,\''+t.k+'\')">'+
       (b?'<span class="tb'+(b.n?' new':'')+'">'+esc(b.v)+'</span>':'')+
       '<div class="ti">'+t.i+'</div><div class="tl">'+esc(t.n)+'</div><div class="ts">'+esc(t.s)+'</div><span class="tg">›</span></div>';}).join('');
   }
@@ -11341,6 +11368,7 @@ function renderChromeText(){
 }
 
 function OP_TOOLS(){return [
+ {k:'share',w:1,i:'📤',a:'#0e7490',a2:'#06b6d4',t:'#e8f8fb',n:L('Share Kit – send to farmers','शेयर किट – किसानों को भेजें','ସେୟାର କିଟ – କୃଷକଙ୍କୁ ପଠାନ୍ତୁ'),s:L('Module photos, PDFs & videos on WhatsApp','मॉड्यूल फोटो, PDF व वीडियो WhatsApp पर','ମଡ୍ୟୁଲ ଫଟୋ, PDF ଓ ଭିଡିଓ WhatsApp ରେ')},
  {k:'log',i:'📔',a:'#c2410c',a2:'#f97316',t:'#fff3e8',n:L('Season Issue Diary','सीजन समस्या डायरी','ଋତୁ ସମସ୍ୟା ଡାଏରୀ'),s:L('Pest, disease, seed','कीट, रोग, बीज','କୀଟ, ରୋଗ, ମଞ୍ଜି')},
  {k:'variety',i:'🌾',a:'#a16207',a2:'#eab308',t:'#fefae6',n:L('Variety Evaluation','किस्म मूल्यांकन','କିସମ ମୂଲ୍ୟାୟନ'),s:L('Height, bolls, yield','ऊँचाई, टिंडे, उपज','ଉଚ୍ଚତା, ବୋଲ, ଅମଳ')},
  {k:'calc',i:'🧪',a:'#0f766e',a2:'#14b8a6',t:'#e9faf7',n:L('Bio-input Calc','घोल कैलकुलेटर','ଜୈବ ଘୋଳ ହିସାବ'),s:L('Quantity by acre','एकड़ अनुसार मात्रा','ଏକର ଅନୁସାରେ')},
@@ -11354,7 +11382,7 @@ function OP_TOOLS(){return [
 function _cnt(k){try{var v=LS.get(k,null);if(!v)return 0;if(Array.isArray(v))return v.length;if(typeof v==='object'){if(Array.isArray(v.list))return v.list.length;if(Array.isArray(v.items))return v.items.length;if(Array.isArray(v.plots))return v.plots.length;return Object.keys(v).length;}}catch(e){}return 0;}
 function toolBadge(k){
   var n=0;
-  if(k==='log')n=_cnt('op_issues');else if(k==='variety')n=_cnt('op_vr');else if(k==='ladder')n=_cnt('op_ladder');else if(k==='voice')n=_cnt('op_media');
+  if(k==='log')n=_cnt('op_issues');else if(k==='variety')n=_cnt('op_vr');else if(k==='ladder')n=_cnt('op_ladder');else if(k==='voice')n=_cnt('op_media');else if(k==='share')n=_cnt('op_shares');
   else if(k==='quiz'){var b=LS.get('op_qz_best',null),m=null;if(b&&typeof b==='object'){Object.keys(b).forEach(function(q){if(m==null||b[q]>m)m=b[q];});}else if(b!=null)m=b;return m!=null?{v:'★ '+m}:{v:L('Play','खेलें','ଖେଳନ୍ତୁ'),n:1};}
   else if(k==='stage'){var sw=LS.get('op_sow',null);if(sw){try{return {v:L('Day ','दिन ','ଦିନ ')+dasOf(sw)};}catch(e){}}return null;}
   else return null;
@@ -11392,7 +11420,7 @@ window.opTab=function(k){
   LS.set('op_tab',k);try{useMark(k);}catch(e){}try{setToolHero(k);}catch(e){}
   document.querySelectorAll('.opTab').forEach(function(b){b.classList.toggle('on',b.dataset.tab===k);});
   document.querySelectorAll('.opPanel').forEach(function(p){p.classList.toggle('on',p.id==='opP-'+k);});
-  ({log:renderLog,calc:renderCalc,stage:renderStage,wx:renderWx,variety:renderVariety,quiz:renderQuiz,cost:renderCost,ladder:renderLadder,voice:renderVoices})[k]();var tb=document.querySelector('.opTab.on');if(tb&&tb.parentNode.scrollTo)tb.parentNode.scrollTo({left:tb.offsetLeft-tb.parentNode.clientWidth/2+tb.clientWidth/2,behavior:'smooth'});
+  ({log:renderLog,calc:renderCalc,stage:renderStage,wx:renderWx,variety:renderVariety,quiz:renderQuiz,cost:renderCost,ladder:renderLadder,voice:renderVoices,share:renderShare})[k]();var tb=document.querySelector('.opTab.on');if(tb&&tb.parentNode.scrollTo)tb.parentNode.scrollTo({left:tb.offsetLeft-tb.parentNode.clientWidth/2+tb.clientWidth/2,behavior:'smooth'});
 };
 function renderTools(){
   $('opToolsEyebrow').textContent=L('TRAINER TOOLKIT','ट्रेनर टूलकिट','ପ୍ରଶିକ୍ଷକ ଟୁଲକିଟ');
@@ -11402,7 +11430,7 @@ function renderTools(){
   $('opTbCalc').textContent=L('Bio-input','घोल','ଘୋଳ');
   $('opTbStage').textContent=L('Crop day','फसल दिन','ଫସଲ ଦିନ');
   $('opTbWx').textContent=L('Weather','मौसम','ପାଣିପାଗ');
-  $('opTbVar').textContent=L('Variety eval','किस्म मूल्यांकन','କିସମ ମୂଲ୍ୟାୟନ');$('opTbQuiz').textContent=L('Challenge','मुकाबला','ପ୍ରତିଯୋଗିତା');$('opTbCost').textContent=L('Cost vs income','खर्च-कमाई','ଖର୍ଚ୍ଚ-ଆୟ');$('opTbLad').textContent=L('Organic ladder','जैविक सीढ़ी','ଜୈବ ସିଢ଼ି');$('opTbVoice').textContent=L('Farmer voices','किसान की आवाज़','କୃଷକ କଣ୍ଠ');
+  $('opTbVar').textContent=L('Variety eval','किस्म मूल्यांकन','କିସମ ମୂଲ୍ୟାୟନ');$('opTbQuiz').textContent=L('Challenge','मुकाबला','ପ୍ରତିଯୋଗିତା');$('opTbCost').textContent=L('Cost vs income','खर्च-कमाई','ଖର୍ଚ୍ଚ-ଆୟ');$('opTbLad').textContent=L('Organic ladder','जैविक सीढ़ी','ଜୈବ ସିଢ଼ି');$('opTbVoice').textContent=L('Farmer voices','किसान की आवाज़','କୃଷକ କଣ୍ଠ');if($('opTbShare'))$('opTbShare').textContent=L('Share kit','शेयर किट','ସେୟାର କିଟ');
   opTab(LS.get('op_tab','log'));
 }
 
@@ -12222,6 +12250,7 @@ function buildPost(it){
     if(v.photo&&!v.photoSent)return photoGet('vr_'+v.id).then(function(d){if(d)base.file={name:v.date+'_'+safe(v.variety)+'_'+safe(v.farmer)+'.jpg',mime:'image/jpeg',b64:b64OfDataURL(d)};return base;});
     return Promise.resolve(base);}
   if(it.k==='use'){var u=LS.get('op_use',{})[it.id];if(!u)return Promise.resolve(null);var mm=me()||{};base.rec={id:it.id+'_'+safe(mm.team)+'_'+safe(mm.jj),date:it.id,opens:u.opens,mins:u.mins,sections:u.sec.join(', ')};return Promise.resolve(base);}
+  if(it.k==='share'){var sx=LS.get('op_shares',[]).filter(function(y){return y.id===it.id;})[0];if(!sx)return Promise.resolve(null);var mm2=me()||{};base.rec={id:sx.id+'_'+safe(mm2.jj),date:sx.date,items:sx.items,count:sx.count,to:'',how:sx.how,lang:({hi:'Hindi',en:'English',od:'Odia',mr:'Marathi',gu:'Gujarati'})[sx.lang]||''};return Promise.resolve(base);}
   if(it.k==='media'){var m=LS.get('op_media',[]).filter(function(y){return y.id===it.id;})[0];if(!m)return Promise.resolve(null);
     base.rec={id:m.id,date:m.date,type:m.type,label:m.label};
     return photoGet('vid_'+m.id).then(function(b){if(!b)return null;return blobToB64(b).then(function(s){base.file={name:m.date+'_'+safe(m.label)+'_'+m.id+'.'+(m.ext||'mp4'),mime:m.mime||'video/mp4',b64:s};return base;});});}
@@ -12301,8 +12330,74 @@ window.opFvUpload=function(){
   photoPut('vid_'+id,FV_FILE).then(function(){var a=LS.get('op_media',[]);a.push(m);LS.set('op_media',a);qAdd('media',id);toast('⏫ '+L('Queued — will upload when online','कतार में — इंटरनेट मिलते ही जाएगा','ଇଣ୍ଟରନେଟ ମିଳିଲେ ଯିବ'));
     var bt=$('fvUp');if(bt){bt.disabled=true;bt.textContent='✅ '+L('Queued for head office','मुख्यालय के लिए कतार में','କ୍ୟୁରେ ଅଛି');}});
 };
+
+/* ═════ 11. SHARE KIT — module material to farmers on WhatsApp ═════ */
+var SK={sel:{},q:'',lg:null};
+var SK_LG=[['hi','हिंदी'],['od','ଓଡ଼ିଆ'],['mr','मराठी'],['gu','ગુજરાતી'],['en','English']];
+var SK_MSG={hi:'नमस्ते 🙏 PAPL जैविक प्रशिक्षण सामग्री:',en:'Namaste 🙏 PAPL organic training material:',od:'ନମସ୍କାର 🙏 PAPL ଜୈବିକ ଚାଷ ପ୍ରଶିକ୍ଷଣ ସାମଗ୍ରୀ:',mr:'नमस्कार 🙏 PAPL सेंद्रिय शेती प्रशिक्षण साहित्य:',gu:'નમસ્તે 🙏 PAPL સજીવ ખેતી તાલીમ સામગ્રી:'};
+function skLang(){if(!SK.lg)SK.lg=LS.get('op_sk_lg',null)||(SK_MSG[cl()]?cl():'hi');return SK.lg;}
+window.opSkLg=function(l){SK.lg=l;LS.set('op_sk_lg',l);SK.sel={};renderShare();};
+function skItems(){return LS.get('op_share_items',[]);}
+function skFetch(){if(!syncOn()||!navigator.onLine)return Promise.resolve(skItems());
+  return fetch(OLC_SYNC_URL+'?action=share').then(function(r){return r.json();}).then(function(d){if(d&&d.ok&&d.items)LS.set('op_share_items',d.items);return skItems();}).catch(function(){return skItems();});}
+function skNorm(m){return String(m||'').toUpperCase().replace(/^M0*/,'').trim();}
+function skNowMods(){var out=[];try{var D=(window.DATA&&(DATA[cl()]||DATA.en))||null,mi=(new Date().getMonth()+8)%12;(D.months[mi].t||[]).forEach(function(t){(t.resources||[]).forEach(function(r){var n=skNorm(r);if(out.indexOf(n)<0)out.push(n);});});}catch(e){}return out;}
+var SK_IC={Image:'🖼️',PDF:'📄',Video:'🎬'};
+function skKey(i){return 'sk_'+i.id;}
+function renderShare(){var p=$('opP-share');if(!p)return;
+  p.innerHTML='<div class="opNote" style="margin-bottom:10px">'+esc(L('Tick the material, tap Send. Photos & PDFs go as real files (open without internet); videos go as links.','सामग्री चुनें, भेजें दबाएँ। फोटो व PDF असली फाइल बनकर जाएँगे (बिना इंटरनेट खुलेंगे); वीडियो लिंक से।','ସାମଗ୍ରୀ ବାଛି ପଠାନ୍ତୁ।'))+'</div>'+
+   '<div class="skLgT">'+esc(L('Farmer language','किसान की भाषा','କୃଷକଙ୍କ ଭାଷା'))+'</div><div class="skLg">'+SK_LG.map(function(x){return '<button class="'+(skLang()===x[0]?'on':'')+'" onclick="opSkLg(\''+x[0]+'\')">'+x[1]+'</button>';}).join('')+'</div>'+
+   '<input class="op-input skSearch" id="skQ" placeholder="🔍 '+esc(L('Search material','सामग्री खोजें','ଖୋଜନ୍ତୁ'))+'" oninput="SK.q=this.value;skList()" value="'+esc(SK.q)+'">'+
+   '<div id="skList"></div>'+
+   '<label class="op-btn ghost block" style="margin-top:12px">📲 '+esc(L('Send a file already on this phone','फ़ोन में रखी फाइल भेजें','ଫୋନରେ ଥିବା ଫାଇଲ ପଠାନ୍ତୁ'))+'<input type="file" accept="image/*,application/pdf,video/*" multiple hidden onchange="opSkPhone(this)"></label>'+
+   '<div class="skBar" id="skBar" style="display:none"><div class="n" id="skN"></div><button class="op-btn ghost" onclick="opSkSave()">⬇️</button><button class="op-btn skWa" onclick="opSkSend()">'+esc(L('Send on WhatsApp','WhatsApp पर भेजें','WhatsApp ରେ ପଠାନ୍ତୁ'))+'</button></div>';
+  skList();skFetch().then(function(){if($('opP-share').classList.contains('on'))skList();});
+}
+var SK_LGN={hi:'हिंदी',od:'ଓଡ଼ିଆ',mr:'मराठी',gu:'ગુજરાતી',en:'English'};
+function skRow(all,ix,showLg){var it=all[ix],on=!!SK.sel[ix];
+  return '<div class="skItem'+(on?' on':'')+'" onclick="opSkTog('+ix+')"><span class="ck">'+(on?'✓':'')+'</span><span class="ic">'+(SK_IC[it.ty]||'📄')+'</span><div class="tt">'+esc(it.t)+'<div class="mt">'+(showLg&&SK_LGN[it.lg]?'<b class="skLgTag">'+SK_LGN[it.lg]+'</b> ':'')+(showLg&&it.m?esc(it.m)+' · ':'')+esc(it.ty)+(it.lg==='all'?' · '+esc(L('all languages','सभी भाषा','ସବୁ ଭାଷା')):'')+(it.kb?' · '+(it.kb>1024?(it.kb/1024).toFixed(1)+' MB':it.kb+' KB'):'')+'<span id="skOff'+ix+'"></span></div></div></div>';}
+function skList(){var box=$('skList');if(!box)return;var all=skItems();
+  if(!all.length){box.innerHTML='<div class="opNote">📶 '+esc(navigator.onLine?L('No material yet. Head office adds it in the Share_Kit tab of the Sheet.','अभी कोई सामग्री नहीं। मुख्यालय शीट के Share_Kit टैब में जोड़ेगा।','ଏପର୍ଯ୍ୟନ୍ତ ସାମଗ୍ରୀ ନାହିଁ।'):L('Connect to internet once to load the material list.','सामग्री सूची लाने के लिए एक बार इंटरनेट चालू करें।','ଥରେ ଇଣ୍ଟରନେଟ ଚାଲୁ କରନ୍ତୁ।'))+'</div>';skBar();return;}
+  var q=SK.q.trim().toLowerCase(),now=skNowMods(),groups={},order=[];
+  var lg=skLang(),other=[];all.forEach(function(it,ix){if(q&&(it.t+' '+it.m).toLowerCase().indexOf(q)<0)return;if(it.lg&&it.lg!=='all'&&it.lg!==lg){other.push(ix);return;}var g=it.m||'—';if(!groups[g]){groups[g]=[];order.push(g);}groups[g].push(ix);});
+  order.sort(function(a,b){var na=now.indexOf(skNorm(a))>=0?0:1,nb=now.indexOf(skNorm(b))>=0?0:1;return na-nb||a.localeCompare(b,undefined,{numeric:true});});
+  box.innerHTML=order.map(function(g){return '<div class="skMod">'+esc(g)+(now.indexOf(skNorm(g))>=0?'<span class="now">'+esc(L('THIS MONTH','इस माह','ଏହି ମାସ'))+'</span>':'')+'</div>'+groups[g].map(function(ix){return skRow(all,ix,false);}).join('');}).join('');
+  if(!order.length)box.innerHTML='<div class="opNote">'+esc(other.length?L('Nothing in this language yet — see other languages below.','इस भाषा में अभी सामग्री नहीं — नीचे दूसरी भाषाएँ देखें।','ଏହି ଭାଷାରେ ନାହିଁ — ତଳେ ଅନ୍ୟ ଭାଷା ଦେଖନ୍ତୁ।'):L('Nothing found','कुछ नहीं मिला','କିଛି ମିଳିଲା ନାହିଁ'))+'</div>';
+  if(other.length){other.sort(function(a,b){return String(all[a].m).localeCompare(String(all[b].m),undefined,{numeric:true});});
+    box.innerHTML+='<details class="skOther"'+(order.length&&!SK.oo?'':' open')+' ontoggle="opSkOO(this.open)"><summary>🌐 '+esc(L('Other languages','दूसरी भाषाओं में','ଅନ୍ୟ ଭାଷାରେ'))+' ('+other.length+')</summary>'+other.map(function(ix){return skRow(all,ix,true);}).join('')+'</details>';}
+  all.forEach(function(it,ix){if(it.ty==='Video')return;photoGet(skKey(it)).then(function(b){var e=$('skOff'+ix);if(b&&e)e.textContent=' · ✓ '+L('saved','सेव','ସେଭ');});});
+  skBar();}
+function skBar(){var n=Object.keys(SK.sel).length,b=$('skBar');if(!b)return;b.style.display=n?'flex':'none';$('skN').textContent=n+' '+L('selected','चुने','ବଛାଗଲା');}
+window.opSkOO=function(v){SK.oo=v;};window.opSkTog=function(ix){if(SK.sel[ix])delete SK.sel[ix];else SK.sel[ix]=1;skList();};
+function skGet(it){return photoGet(skKey(it)).then(function(b){if(b)return b;
+  if(!navigator.onLine)throw new Error('offline');
+  return fetch(OLC_SYNC_URL+'?action=file&key='+encodeURIComponent(OLC_SYNC_KEY)+'&id='+encodeURIComponent(it.id)).then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.ok)throw new Error(d&&d.err||'fail');var bin=atob(d.b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+    var blob=new Blob([u],{type:d.mime||'application/octet-stream'});blob._n=d.name;return photoPut(skKey(it),{b:blob,n:d.name}).then(function(){return {b:blob,n:d.name};});});
+}).then(function(x){return x.b?x:{b:x,n:it.t};});}
+function skSelected(){var all=skItems();return Object.keys(SK.sel).map(function(i){return all[i];}).filter(Boolean);}
+function skLink(it){return 'https://drive.google.com/file/d/'+it.id+'/view';}
+function skMsg(links){return (SK_MSG[skLang()]||SK_MSG.hi)+(links.length?'\n'+links.join('\n'):'');}
+function skLog(items,how){var id=Date.now().toString(36),a=LS.get('op_shares',[]);a.push({id:id,date:todayISO(),items:items.map(function(i){return (i.m?i.m+': ':'')+i.t;}).join('; '),count:items.length,how:how,lang:skLang()});LS.set('op_shares',a.slice(-300));try{qAdd('share',id);}catch(e){}}
+function skDl(items){var i=0;return items.reduce(function(pr,it){return pr.then(function(arr){toast('⏬ '+(++i)+'/'+items.length+' '+it.t);return skGet(it).then(function(x){var ext=(x.n||'').split('.').pop();var nm=x.n||(it.t+'.'+(it.ty==='PDF'?'pdf':'jpg'));arr.push(new File([x.b],nm,{type:x.b.type}));return arr;});});},Promise.resolve([]));}
+window.opSkSave=function(){var it=skSelected().filter(function(x){return x.ty!=='Video';});if(!it.length)return toast(L('Videos are sent as links — nothing to save','वीडियो लिंक से जाते हैं','ଭିଡିଓ ଲିଙ୍କରେ ଯାଏ'));
+  skDl(it).then(function(){toast('✓ '+L('Saved on phone — can send without internet','फ़ोन में सेव — बिना इंटरनेट भेज सकते हैं','ଫୋନରେ ସେଭ'));skList();}).catch(function(e){toast(L('Could not download — check internet','डाउनलोड नहीं हुआ — इंटरनेट देखें','ଡାଉନଲୋଡ ହେଲା ନାହିଁ'));});};
+window.opSkSend=function(){var items=skSelected();if(!items.length)return;
+  var vids=items.filter(function(x){return x.ty==='Video';}),files=items.filter(function(x){return x.ty!=='Video';});
+  var waLinks=function(list){location.href='https://wa.me/?text='+encodeURIComponent(skMsg(list.map(function(x){return '• '+x.t+': '+skLink(x);})));};
+  if(!files.length){waLinks(vids);skLog(items,'Link');SK.sel={};skList();return;}
+  skDl(files).then(function(fl){
+    var text=skMsg(vids.map(function(x){return '• '+x.t+': '+skLink(x);}));
+    if(navigator.canShare&&navigator.canShare({files:fl})){return navigator.share({files:fl,text:text}).then(function(){skLog(items,vids.length?'File + link':'File');SK.sel={};skList();toast('✓ '+L('Sent','भेजा गया','ପଠାଗଲା'));}).catch(function(e){if(e&&e.name!=='AbortError')waLinks(items);});}
+    waLinks(items);skLog(items,'Link');
+  }).catch(function(){toast(navigator.onLine?L('Could not get the file — sending links instead','फाइल नहीं मिली — लिंक भेज रहे हैं','ଲିଙ୍କ ପଠାଉଛି'):L('No internet — tap ⬇️ first on Wi-Fi to save files','इंटरनेट नहीं — पहले इंटरनेट पर ⬇️ से फाइल सेव करें','ଇଣ୍ଟରନେଟ ନାହିଁ'));if(navigator.onLine)setTimeout(function(){waLinks(items);skLog(items,'Link');},900);});
+};
+window.opSkPhone=function(inp){var fl=[].slice.call(inp.files||[]);if(!fl.length)return;
+  if(navigator.canShare&&navigator.canShare({files:fl}))navigator.share({files:fl,text:skMsg([])}).then(function(){skLog(fl.map(function(f){return {t:f.name};}),'Phone file');toast('✓ '+L('Sent','भेजा गया','ପଠାଗଲା'));}).catch(function(){});
+  else toast(L('This browser cannot share files — open in Chrome on the phone','यह ब्राउज़र फाइल शेयर नहीं करता — फ़ोन के Chrome में खोलें','Chrome ରେ ଖୋଲନ୍ତୁ'));inp.value='';};
+
 /* ═════ 10. DAILY USAGE (app opens, minutes, sections) — sent automatically ═════ */
-var SEC_NAME={variety:'Variety eval',tools:'Tools',home:'Home',months:'Field plan',month:'Monthly plan',crop:'Crop',modules:'Modules',soc:'SOC',pest:'Pest guide',dis:'Disease guide',threepcare:'3P care',ffbguide:'FFB guide',inspectionguide:'Inspection guide',
+var SEC_NAME={share:'Share kit',variety:'Variety eval',tools:'Tools',home:'Home',months:'Field plan',month:'Monthly plan',crop:'Crop',modules:'Modules',soc:'SOC',pest:'Pest guide',dis:'Disease guide',threepcare:'3P care',ffbguide:'FFB guide',inspectionguide:'Inspection guide',
  log:'Issue diary',calc:'Bio-input calc',stage:'Crop day',wx:'Spray weather',quiz:'Quiz',cost:'Cost vs income',ladder:'Organic ladder',voice:'Farmer voices',search:'Search',read:'Read aloud'};
 function useToday(){var d=todayISO(),u=LS.get('op_use',{});if(!u[d]){u[d]={opens:0,mins:0,sec:[]};Object.keys(u).sort().slice(0,-8).forEach(function(k){delete u[k];});}return {all:u,d:d,t:u[d]};}
 function useMark(sec){var x=useToday();var n=SEC_NAME[sec]||sec;if(n&&x.t.sec.indexOf(n)<0){x.t.sec.push(n);LS.set('op_use',x.all);useQueue();}}
