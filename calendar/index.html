@@ -12409,7 +12409,7 @@ function skList(){var box=$('skList');if(!box)return;var all=skItems();
 function skBar(){var n=Object.keys(SK.sel).length,b=$('skBar');if(!b)return;b.style.display=n?'flex':'none';
   $('skN').textContent=SK.busy>0?'⏳ '+L('Preparing…','तैयार हो रहा…','ପ୍ରସ୍ତୁତ…'):n+' '+L('selected','चुने','ବଛାଗଲା');
   var w=b.querySelector('.skWa');if(w)w.textContent=SK.ready?'✅ '+L('Ready – tap to send','तैयार – भेजने के लिए दबाएँ','ପ୍ରସ୍ତୁତ – ପଠାନ୍ତୁ'):L('Send on WhatsApp','WhatsApp पर भेजें','WhatsApp ରେ ପଠାନ୍ତୁ');}
-window.opSkOO=function(v){SK.oo=v;};window.opSkTog=function(ix){if(SK.sel[ix])delete SK.sel[ix];else{SK.sel[ix]=1;var it=skItems()[ix];if(it&&it.ty!=='Video'&&navigator.onLine){SK.busy=(SK.busy||0)+1;skBar();skGet(it).then(function(){},function(){}).then(function(){SK.busy--;skList();});}}SK.ready=false;skList();};
+window.opSkOO=function(v){SK.oo=v;};window.opSkTog=function(ix){if(SK.sel[ix])delete SK.sel[ix];else{SK.sel[ix]=1;var it=skItems()[ix];if(it&&navigator.onLine){SK.busy=(SK.busy||0)+1;skBar();(it.ty==='Video'?skThumb(it):skGet(it)).then(function(){},function(){}).then(function(){SK.busy--;skList();});}}SK.ready=false;skList();};
 function skGet(it){return photoGet(skKey(it)).then(function(b){if(b)return b;
   if(!navigator.onLine)throw new Error('offline');
   return fetch(OLC_SYNC_URL+'?action=file&key='+encodeURIComponent(OLC_SYNC_KEY)+'&id='+encodeURIComponent(it.id)).then(function(r){return r.json();}).then(function(d){
@@ -12417,31 +12417,52 @@ function skGet(it){return photoGet(skKey(it)).then(function(b){if(b)return b;
     var blob=new Blob([u],{type:d.mime||'application/octet-stream'});blob._n=d.name;return photoPut(skKey(it),{b:blob,n:d.name}).then(function(){return {b:blob,n:d.name};});});
 }).then(function(x){return x.b?x:{b:x,n:it.t};});}
 function skSelected(){var all=skItems();return Object.keys(SK.sel).map(function(i){return all[i];}).filter(Boolean);}
-function skLink(it){return 'https://drive.google.com/file/d/'+it.id+'/view';}
+function skLink(it){var id=String(it.id);return id.indexOf('yt:')===0?'https://youtu.be/'+id.slice(3):'https://drive.google.com/file/d/'+id+'/view';}
 function skMsg(links){return (SK_MSG[skLang()]||SK_MSG.hi)+(links.length?'\n'+links.join('\n'):'');}
 function skLog(items,how){var id=Date.now().toString(36),a=LS.get('op_shares',[]);a.push({id:id,date:todayISO(),items:items.map(function(i){return (i.m?i.m+': ':'')+i.t;}).join('; '),count:items.length,how:how,lang:skLang()});LS.set('op_shares',a.slice(-300));try{qAdd('share',id);}catch(e){}}
 function skDl(items){var i=0;return items.reduce(function(pr,it){return pr.then(function(arr){++i;return skGet(it).then(function(x){var ext=(x.n||'').split('.').pop();var nm=x.n||(it.t+'.'+(it.ty==='PDF'?'pdf':'jpg'));arr.push(new File([x.b],nm,{type:x.b.type}));return arr;});});},Promise.resolve([]));}
 window.opSkSave=function(){var it=skSelected().filter(function(x){return x.ty!=='Video';});if(!it.length)return toast(L('Videos are sent as links — nothing to save','वीडियो लिंक से जाते हैं','ଭିଡିଓ ଲିଙ୍କରେ ଯାଏ'));
   skDl(it).then(function(){toast('✓ '+L('Saved on phone — can send without internet','फ़ोन में सेव — बिना इंटरनेट भेज सकते हैं','ଫୋନରେ ସେଭ'));skList();}).catch(function(e){toast(L('Could not download — check internet','डाउनलोड नहीं हुआ — इंटरनेट देखें','ଡାଉନଲୋଡ ହେଲା ନାହିଁ'));});};
+
+/* video preview picture with a ▶ play sign, sent together with the link */
+function skTKey(it){return 'skt_'+it.id;}
+function skThumb(it){return photoGet(skTKey(it)).then(function(h){if(h)return h;
+  if(!navigator.onLine)throw new Error('offline');
+  return fetch(OLC_SYNC_URL+'?action=file&thumb=1&key='+encodeURIComponent(OLC_SYNC_KEY)+'&id='+encodeURIComponent(it.id)).then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.ok)throw new Error(d&&d.err||'fail');
+    return new Promise(function(res,rej){var im=new Image();im.onload=function(){
+      var w=im.naturalWidth,h=im.naturalHeight,c=document.createElement('canvas');c.width=w;c.height=h;var g=c.getContext('2d');g.drawImage(im,0,0);
+      var r=Math.round(Math.min(w,h)*0.16),cx=w/2,cy=h/2;g.fillStyle='rgba(0,0,0,.25)';g.fillRect(0,0,w,h);
+      g.beginPath();g.arc(cx,cy,r,0,Math.PI*2);g.fillStyle='rgba(220,38,38,.92)';g.fill();
+      g.beginPath();g.moveTo(cx-r*0.32,cy-r*0.45);g.lineTo(cx-r*0.32,cy+r*0.45);g.lineTo(cx+r*0.5,cy);g.closePath();g.fillStyle='#fff';g.fill();
+      var bh=Math.round(h*0.13);g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,h-bh,w,bh);g.fillStyle='#fff';g.font='bold '+Math.round(bh*0.42)+'px sans-serif';g.textBaseline='middle';
+      var t='▶ '+(it.t||'Video');while(g.measureText(t).width>w*0.92&&t.length>6)t=t.slice(0,-2);g.fillText(t,w*0.04,h-bh/2);
+      c.toBlob(function(b){if(!b)return rej(new Error('canvas'));var x={b:b,n:(it.t||'video').replace(/[\\/:*?"<>|]/g,'')+'.jpg'};photoPut(skTKey(it),x).then(function(){res(x);});},'image/jpeg',0.85);
+    };im.onerror=function(){rej(new Error('img'));};im.src='data:image/jpeg;base64,'+d.b64;});
+  });
+});}
+function skThumbs(vids){return Promise.all(vids.map(function(it){return skThumb(it).then(function(x){return new File([x.b],x.n,{type:'image/jpeg'});},function(){return null;});})).then(function(a){return a.filter(Boolean);});}
 window.opSkSend=function(){var items=skSelected();if(!items.length)return;
   var vids=items.filter(function(x){return x.ty==='Video';}),files=items.filter(function(x){return x.ty!=='Video';});
-  var linkTxt=function(list){return skMsg(list.map(function(x){return '• '+x.t+': '+skLink(x);}));};
+  var linkTxt=function(list){return skMsg(list.map(function(x){return '▶️ '+x.t+': '+skLink(x);}));};
   var waLinks=function(list){window.open('https://wa.me/?text='+encodeURIComponent(linkTxt(list)),'_blank');};   // new tab: OLC stays open
   var done=function(how){skLog(items,how);SK.sel={};SK.ready=false;skList();toast('✓ '+L('Sent','भेजा गया','ପଠାଗଲା'));};
-  if(!files.length){waLinks(vids);done('Link');return;}
-  // all files already on phone? → share instantly (Android needs the share to start right after the tap)
-  Promise.all(files.map(function(it){return photoGet(skKey(it));})).then(function(hits){
-    var allSaved=hits.every(function(h){return !!h;});
-    if(!allSaved){
-      if(!navigator.onLine){toast(L('No internet — tap ⬇️ first on Wi-Fi to save files','इंटरनेट नहीं — पहले इंटरनेट पर ⬇️ से फाइल सेव करें','ଇଣ୍ଟରନେଟ ନାହିଁ'));return;}
+  var canFiles=!!(navigator.canShare);
+  // everything already on the phone? → share at once (Android needs the share to start right after the tap)
+  Promise.all(files.map(function(it){return photoGet(skKey(it));}).concat(vids.map(function(it){return photoGet(skTKey(it));}))).then(function(hits){
+    var fileHits=hits.slice(0,files.length),allFiles=fileHits.every(function(h){return !!h;}),allThumbs=hits.slice(files.length).every(function(h){return !!h;});
+    if(!canFiles){waLinks(items);done('Link');return;}
+    if(!allFiles||(!allThumbs&&navigator.onLine&&!SK.thumbTried)){
+      if(!navigator.onLine&&!allFiles){toast(L('No internet — tap ⬇️ first on Wi-Fi to save files','इंटरनेट नहीं — पहले इंटरनेट पर ⬇️ से फाइल सेव करें','ଇଣ୍ଟରନେଟ ନାହିଁ'));return;}
       SK.busy=(SK.busy||0)+1;skBar();
-      return skDl(files).then(function(){SK.busy--;SK.ready=true;skList();toast('✅ '+L('Ready — tap Send again','तैयार — फिर से भेजें दबाएँ','ପ୍ରସ୍ତୁତ — ପୁଣି ଦବାନ୍ତୁ'));},
+      return Promise.all([skDl(files),skThumbs(vids)]).then(function(){SK.busy--;SK.thumbTried=true;SK.ready=true;skList();toast('✅ '+L('Ready — tap Send again','तैयार — फिर से भेजें दबाएँ','ପ୍ରସ୍ତୁତ — ପୁଣି ଦବାନ୍ତୁ'));},
         function(){SK.busy--;skBar();toast(L('Could not get the file — check internet','फाइल नहीं मिली — इंटरनेट देखें','ଫାଇଲ ମିଳିଲା ନାହିଁ'));});
     }
-    return skDl(files).then(function(fl){
-      var text=vids.length?linkTxt(vids):skMsg([]);
-      if(navigator.canShare&&navigator.canShare({files:fl})){
-        return navigator.share({files:fl,text:text}).then(function(){done(vids.length?'File + link':'File');}).catch(function(e){
+    return Promise.all([skDl(files),skThumbs(vids)]).then(function(r){
+      var fl=r[0].concat(r[1]),text=vids.length?linkTxt(vids):skMsg([]);
+      if(!fl.length){waLinks(items);done('Link');return;}
+      if(navigator.canShare({files:fl})){
+        return navigator.share({files:fl,text:text}).then(function(){SK.thumbTried=false;done(vids.length?(files.length?'File + video':'Video + preview'):'File');}).catch(function(e){
           if(e&&e.name==='AbortError')return;                      // JJ closed the share screen
           SK.ready=true;skBar();toast(L('Tap Send again','फिर से भेजें दबाएँ','ପୁଣି ଦବାନ୍ତୁ'));});
       }
