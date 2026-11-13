@@ -1,7 +1,7 @@
 /* PAPL OLC service worker — opens instantly from the phone's saved copy.
    On every new release, change VERSION below (e.g. v33 -> v34) and upload together with index.html.
    Phones get the new version automatically next time they open the app with internet. */
-const VERSION = 'olc-v34';
+const VERSION = 'olc-v35';
 const CORE = ['./', './index.html'];
 
 self.addEventListener('install', e => {
